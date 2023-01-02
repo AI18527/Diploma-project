@@ -1,43 +1,38 @@
 package com.example.letsorder
 
-import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
-import android.window.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.example.letsorder.adminpanel.AdminMain
-import com.example.letsorder.clients.ClientMain
-import com.example.letsorder.waiters.WaiterMain
-import kotlinx.coroutines.NonCancellable.start
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.letsorder.databinding.ActivityMainBinding
+import com.example.letsorder.views.AdminMain
+import com.example.letsorder.views.ClientMain
+import com.example.letsorder.views.WaiterMain
 
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val clientButton: Button = findViewById(R.id.buttonClient)
-        clientButton.setOnClickListener {
-            Intent(this, ClientMain::class.java).also {
-                startActivity(it)
-            }
-        }
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val waiterButton: Button = findViewById(R.id.buttonWaiter)
-        waiterButton.setOnClickListener{
-            Intent(this, WaiterMain::class.java).also{
-                startActivity(it)
-            }
-        }
-
-        val adminButton: Button = findViewById(R.id.buttonAdmin)
-        adminButton.setOnClickListener{
-            Intent(this, AdminMain::class.java).also{
-                startActivity(it)
-            }
-        }
+        // Get the navigation host fragment from this Activity
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        // Instantiate the navController using the NavHostFragment
+        navController = navHostFragment.navController
+        // Make sure actions in the ActionBar get propagated to the NavController
+        setupActionBarWithNavController(navController)
     }
 }

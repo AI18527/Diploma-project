@@ -30,19 +30,15 @@
         </activity>
 
         <activity
-            android:name=".clients.ClientMain">
+            android:name=".views.ClientMain">
         </activity>
 
         <activity
-            android:name=".clients.ClientMenu">
+            android:name=".views.WaiterMain">
         </activity>
 
         <activity
-            android:name=".waiters.WaiterMain">
-        </activity>
-
-        <activity
-            android:name=".adminpanel.AdminMain">
+            android:name=".views.AdminMain">
         </activity>
     </application>
 
