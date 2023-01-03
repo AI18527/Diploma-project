@@ -1,17 +1,20 @@
 package com.example.letsorder.views
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.letsorder.R
 import com.example.letsorder.databinding.FragmentQRBinding
 
+
 class QRFragment : Fragment() {
 
-    private var _binding: FragmentQRBinding? = null
+    private var _binding: com.example.letsorder.databinding.FragmentQRBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -34,7 +37,8 @@ class QRFragment : Fragment() {
         findNavController().navigate(R.id.action_QRFragment_to_loginFragment)
     }
     private fun menu() {
-        findNavController().navigate(R.id.action_QRFragment_to_menuFragment)
+        startActivity(Intent(activity, ClientMain::class.java))
+        //findNavController().navigate(R.id.action_QRFragment_to_menuFragment)
     }
 
     override fun onDestroyView() {

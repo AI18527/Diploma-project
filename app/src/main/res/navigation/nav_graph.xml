@@ -5,23 +5,25 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/QRFragment">
 
+    <include app:graph="@navigation/client_nav_graph" />
+
     <fragment
         android:id="@+id/QRFragment"
         android:name="com.example.letsorder.views.QRFragment"
-        android:label="fragment_q_r"
-        tools:layout="@layout/fragment_q_r" >
+        android:label="QR"
+        tools:layout="@layout/fragment_q_r">
         <action
             android:id="@+id/action_QRFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
-        <action
+        <!--<action
             android:id="@+id/action_QRFragment_to_menuFragment"
-            app:destination="@id/client_navigation" />
+            app:destination="@id/client_navigation" /-->
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.letsorder.views.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_tablesFragment"
             app:destination="@id/waiter_navigation" />
@@ -29,12 +31,12 @@
             android:id="@+id/action_loginFragment_to_adminPanelFragment"
             app:destination="@id/admin_navigation" />
     </fragment>
-    <navigation android:id="@+id/client_navigation"
+    <!--<navigation android:id="@+id/client_navigation"
         app:startDestination="@id/menuFragment">
         <fragment
             android:id="@+id/menuFragment"
             android:name="com.example.letsorder.views.MenuFragment"
-            android:label="fragment_menu"
+            android:label="Menu"
             tools:layout="@layout/fragment_menu">
             <action
                 android:id="@+id/action_menuFragment_to_itemFragment"
@@ -53,7 +55,7 @@
             android:name="com.example.letsorder.views.SummaryOrderFragment"
             android:label="fragment_summary_order"
             tools:layout="@layout/fragment_summary_order" />
-    </navigation>
+    </navigation>-->
     <navigation android:id="@+id/waiter_navigation"
         app:startDestination="@id/tablesFragment">
         <fragment

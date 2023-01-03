@@ -14,7 +14,6 @@ class MenuAdapter (context: Context):
 
     private val dishes = context.resources.getStringArray(R.array.menu)
 
-    //private val dishes = listOf("water", "nuts", "snacks")
     class MenuViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val button = view.findViewById<Button>(R.id.button_dish)
     }

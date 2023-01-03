@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/client_nav_graph"
+    app:startDestination="@id/menuFragment">
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.letsorder.views.MenuFragment"
+        android:label="Menu"
+        tools:layout="@layout/fragment_menu">
+        <action
+            android:id="@+id/action_menuFragment_to_itemFragment"
+            app:destination="@id/itemFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_summaryOrderFragment"
+            app:destination="@id/summaryOrderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemFragment"
+        android:name="com.example.letsorder.views.ItemFragment"
+        android:label="fragment_item"
+        tools:layout="@layout/fragment_item" />
+    <fragment
+        android:id="@+id/summaryOrderFragment"
+        android:name="com.example.letsorder.views.SummaryOrderFragment"
+        android:label="fragment_summary_order"
+        tools:layout="@layout/fragment_summary_order" />
+
+</navigation>
