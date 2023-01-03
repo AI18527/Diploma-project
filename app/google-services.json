@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "497949426373",
+    "project_id": "diploma-project-lets-order",
+    "storage_bucket": "diploma-project-lets-order.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497949426373:android:cb65feb7babc24d6a7e6ac",
+        "android_client_info": {
+          "package_name": "com.example.letsorder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497949426373-k8ns95o3prpd2bn2njkvv5ea6s8snlni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASM6G-RClFrlXiW5NSezd8y6zCN4gH57M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497949426373-k8ns95o3prpd2bn2njkvv5ea6s8snlni.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
