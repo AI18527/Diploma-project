@@ -15,7 +15,6 @@ class ClientMain: AppCompatActivity() {
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("CREATE", "Client")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_client_main)
 
