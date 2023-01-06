@@ -1,46 +1,49 @@
 package com.example.letsorder.views
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.navigation.fragment.findNavController
+import com.example.letsorder.MainActivity
 import com.example.letsorder.R
+import com.example.letsorder.databinding.FragmentLoginBinding
+import com.example.letsorder.databinding.FragmentMenuBinding
+import com.example.letsorder.databinding.FragmentQRBinding
+import com.google.android.material.textfield.TextInputEditText
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [LoginFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class LoginFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    fun goToNextScreen() {
-        findNavController().navigate(R.id.action_loginFragment_to_adminPanelFragment)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        _binding?.apply {
+            buttonLogin.setOnClickListener { goToNextScreen() }
+        }
+    }
+
+    private fun goToNextScreen() {
+        if (binding.inputEmail.text.toString() == "Admin") {
+            startActivity(Intent(activity, AdminMain::class.java))
+           // findNavController().navigate(R.id.action_loginFragment_to_adminPanelFragment)
+        }
+       /* else {
+            //findNavController().navigate(R.id.action_loginFragment_to_tablesFragment)
+            startActivity(Intent(activity, WaiterMain::class.java))
+        }*/
     }
 
 }

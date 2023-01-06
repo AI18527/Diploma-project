@@ -15,10 +15,11 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/ETEmail"
+            android:id="@+id/input_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="Enter email"
             android:inputType="textEmailAddress"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,26 +29,28 @@
             app:layout_constraintVertical_bias="0.23" />
 
         <EditText
-            android:id="@+id/ETPassword"
+            android:id="@+id/input_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="Enter password"
             android:inputType="textPassword"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ETEmail"
+            app:layout_constraintTop_toBottomOf="@+id/input_email"
             app:layout_constraintVertical_bias="0.12" />
 
         <Button
+            android:id="@+id/button_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Log in"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ETPassword" />
+            app:layout_constraintTop_toBottomOf="@+id/input_password" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

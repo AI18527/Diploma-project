@@ -24,7 +24,7 @@
     <fragment
         android:id="@+id/summaryOrderFragment"
         android:name="com.example.letsorder.views.SummaryOrderFragment"
-        android:label="fragment_summary_order"
+        android:label="My order"
         tools:layout="@layout/fragment_summary_order" />
 
 </navigation>

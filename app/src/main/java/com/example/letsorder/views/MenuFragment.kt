@@ -17,10 +17,6 @@ class MenuFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,9 +31,6 @@ class MenuFragment : Fragment() {
         recyclerView.adapter = MenuAdapter(requireContext())
     }
 
-    /**
-     * Frees the binding object when the Fragment is destroyed.
-     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

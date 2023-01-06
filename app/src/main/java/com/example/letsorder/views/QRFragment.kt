@@ -11,10 +11,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.letsorder.R
 import com.example.letsorder.databinding.FragmentQRBinding
 
-
 class QRFragment : Fragment() {
 
-    private var _binding: com.example.letsorder.databinding.FragmentQRBinding? = null
+    private var _binding: FragmentQRBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -27,15 +26,16 @@ class QRFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding?.apply{
+        _binding?.apply {
             buttonMenu.setOnClickListener { menu() }
-            buttonLogin.setOnClickListener{ login() }
+            buttonLogin.setOnClickListener { login() }
         }
     }
 
     private fun login() {
         findNavController().navigate(R.id.action_QRFragment_to_loginFragment)
     }
+
     private fun menu() {
         startActivity(Intent(activity, ClientMain::class.java))
         //findNavController().navigate(R.id.action_QRFragment_to_menuFragment)
