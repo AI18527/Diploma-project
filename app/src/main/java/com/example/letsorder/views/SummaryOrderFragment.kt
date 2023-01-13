@@ -1,21 +1,20 @@
 package com.example.letsorder.views
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.letsorder.adapters.MenuAdapter
-import com.example.letsorder.R
+import com.example.letsorder.adapters.SummaryOrderAdapter
 import com.example.letsorder.data.Datasource
-import com.example.letsorder.databinding.FragmentMenuBinding
+import com.example.letsorder.databinding.FragmentSummaryOrderBinding
 
-class MenuFragment : Fragment() {
+class SummaryOrderFragment : Fragment() {
 
-    private var _binding: FragmentMenuBinding? = null
+    private var _binding: FragmentSummaryOrderBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var recyclerView: RecyclerView
@@ -24,22 +23,25 @@ class MenuFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMenuBinding.inflate(inflater, container, false)
+        _binding = FragmentSummaryOrderBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        //super.onViewCreated(view, savedInstanceState)
         recyclerView = binding.recyclerViewMenu
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = MenuAdapter(requireContext(),Datasource().loadDishes())
+        recyclerView.adapter = SummaryOrderAdapter(requireContext(), Datasource().loadOrder())
+        Log.d("ORDER", "order to print has: ${Datasource().loadOrder().size}")
 
-        _binding?.apply {
-            buttonMyOrder.setOnClickListener{ myOrder()}
+        binding?.apply {
+            buttonOrder.setOnClickListener {
+                buttonOrder.visibility = View.INVISIBLE
+                buttonAdd.visibility = View.VISIBLE
+                buttonCall.visibility = View.VISIBLE
+                buttonPay.visibility = View.VISIBLE
+            }
         }
-    }
-
-    private fun myOrder() {
-        findNavController().navigate(R.id.action_menuFragment_to_summaryOrderFragment)
     }
 
     override fun onDestroyView() {

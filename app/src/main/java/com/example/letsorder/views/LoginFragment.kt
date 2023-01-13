@@ -38,12 +38,11 @@ class LoginFragment : Fragment() {
     private fun goToNextScreen() {
         if (binding.inputEmail.text.toString() == "Admin") {
             startActivity(Intent(activity, AdminMain::class.java))
-           // findNavController().navigate(R.id.action_loginFragment_to_adminPanelFragment)
         }
-       /* else {
-            //findNavController().navigate(R.id.action_loginFragment_to_tablesFragment)
+        TODO(
+        /*else {
             startActivity(Intent(activity, WaiterMain::class.java))
-        }*/
+        }*/)
     }
 
 }

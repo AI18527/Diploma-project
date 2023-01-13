@@ -16,8 +16,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_margin="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +26,7 @@
             app:layoutManager="LinearLayoutManager" />
 
         <Button
+            android:id="@+id/buttonMyOrder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="My order"

@@ -1,4 +1,4 @@
-package com.example.letsorder
+package com.example.letsorder.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,18 +7,18 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.letsorder.R
+import com.example.letsorder.model.Dish
 import com.example.letsorder.views.MenuFragmentDirections
 
-class MenuAdapter(context: Context) :
+class MenuAdapter(context: Context, private val dataset: List<Dish>) :
     RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
-
-    private val dishes = context.resources.getStringArray(R.array.menu)
 
     class MenuViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val button = view.findViewById<Button>(R.id.button_dish)
     }
 
-    override fun getItemCount(): Int = dishes.size
+    override fun getItemCount(): Int = dataset.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
         val view =
@@ -27,15 +27,13 @@ class MenuAdapter(context: Context) :
     }
 
     override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {
-        val item = dishes[position]
-        holder.button.text = item
+        //val item = dishes.get(position)
+        val dish = dataset[position]
+        holder.button.text = dish.title
 
-        /*holder.button.setOnClickListener {
-            val action =
-                MenuFragmentDirections.actionMenuFragmentToItemFragment()
-
-            // Navigate using that action
+        holder.button.setOnClickListener {
+            val action = MenuFragmentDirections.actionMenuFragmentToItemFragment(dishId = dish.id)
             holder.view.findNavController().navigate(action)
-        }*/
+        }
     }
 }
