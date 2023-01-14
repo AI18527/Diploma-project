@@ -7,24 +7,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.example.letsorder.R
 import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentItemBinding
 import com.example.letsorder.model.Dish
 import java.text.NumberFormat
+import kotlin.properties.Delegates
 
 
 class ItemFragment : Fragment() {
     private var _binding: FragmentItemBinding? = null
     private val binding get() = _binding!!
-    private lateinit var dishId: Integer
+    private var dishId by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            dishId = it.get(DISHID) as Integer
+            dishId = it.get(DISH_ID) as Int
         }
     }
 
@@ -40,7 +40,6 @@ class ItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         var dish: Dish = getDish(dishId)
 
         binding.title.text = dish.title
@@ -49,24 +48,15 @@ class ItemFragment : Fragment() {
 
         binding?.apply {
             buttonAdd.setOnClickListener {
-                addToOrder(dish)
-                myOrder()
+                Datasource().addDishToOrder(dish)
+                findNavController().navigate(R.id.action_itemFragment_to_summaryOrderFragment)
             }
         }
     }
 
-    private fun addToOrder(dish:Dish){
-        Datasource().addDishToOrder(dish)
-        Log.d("ADD", "Order: ${Datasource().loadOrder().size}")
-    }
-
-    private fun myOrder() {
-        findNavController().navigate(R.id.action_itemFragment_to_summaryOrderFragment)
-    }
-
-    private fun getDish(dishId: Integer): Dish {
-        for (dish: Dish in Datasource().loadDishes()){
-            if (dish.id as Integer == dishId){
+    private fun getDish(dishId: Int): Dish {
+        for (dish: Dish in Datasource().loadDishes()) {
+            if (dish.id == dishId) {
                 return dish
             }
         }
@@ -79,6 +69,6 @@ class ItemFragment : Fragment() {
     }
 
     companion object {
-       const val DISHID = "dishId"
+        const val DISH_ID = "dishId"
     }
 }

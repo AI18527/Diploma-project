@@ -27,7 +27,6 @@ class MenuAdapter(context: Context, private val dataset: List<Dish>) :
     }
 
     override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {
-        //val item = dishes.get(position)
         val dish = dataset[position]
         holder.button.text = dish.title
 

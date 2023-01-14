@@ -5,6 +5,7 @@
     tools:context=".SummaryOrderFragment">
 
     <data>
+
         <variable
             name="summaryOrderFragment"
             type="com.example.letsorder.views.SummaryOrderFragment" />

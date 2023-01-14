@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.letsorder.R
 import com.example.letsorder.adapters.SummaryOrderAdapter
 import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentSummaryOrderBinding
@@ -28,11 +30,9 @@ class SummaryOrderFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //super.onViewCreated(view, savedInstanceState)
         recyclerView = binding.recyclerViewMenu
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = SummaryOrderAdapter(requireContext(), Datasource().loadOrder())
-        Log.d("ORDER", "order to print has: ${Datasource().loadOrder().size}")
 
         binding?.apply {
             buttonOrder.setOnClickListener {

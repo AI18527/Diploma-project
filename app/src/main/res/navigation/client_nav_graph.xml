@@ -26,7 +26,9 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_itemFragment_to_summaryOrderFragment"
-            app:destination="@id/summaryOrderFragment" />
+            app:destination="@id/summaryOrderFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/summaryOrderFragment"

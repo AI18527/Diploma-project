@@ -5,6 +5,7 @@
     tools:context=".views.MenuFragment">
 
     <data>
+
         <variable
             name="menuFragment"
             type="com.example.letsorder.views.MenuFragment" />
@@ -19,11 +20,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="20dp"
+            android:scrollbars="vertical"
+            app:layoutManager="LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:scrollbars="vertical"
-            app:layoutManager="LinearLayoutManager" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/buttonMyOrder"
