@@ -5,6 +5,7 @@
     tools:context=".views.AdminPanelFragment">
 
     <data>
+
         <variable
             name="adminPanelFragment"
             type="com.example.letsorder.views.AdminPanelFragment" />

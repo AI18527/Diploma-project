@@ -10,7 +10,7 @@ import com.example.letsorder.R
 import com.example.letsorder.model.Dish
 import java.text.NumberFormat
 
-class SummaryOrderAdapter (context: Context, private val dataset: List<Dish>):
+class SummaryOrderAdapter (private val dataset: List<Dish>):
     RecyclerView.Adapter<SummaryOrderAdapter.SummaryOrderViewHolder>(){
 
     class SummaryOrderViewHolder(val view: View) : RecyclerView.ViewHolder(view) {

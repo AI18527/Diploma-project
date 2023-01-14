@@ -11,7 +11,7 @@ import com.example.letsorder.R
 import com.example.letsorder.model.Dish
 import com.example.letsorder.views.MenuFragmentDirections
 
-class MenuAdapter(context: Context, private val dataset: List<Dish>) :
+class MenuAdapter(private val dataset: List<Dish>) :
     RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 
     class MenuViewHolder(val view: View) : RecyclerView.ViewHolder(view) {

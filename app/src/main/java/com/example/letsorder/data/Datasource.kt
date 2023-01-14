@@ -5,7 +5,7 @@ import com.example.letsorder.model.Dish
 class Datasource {
 
     fun loadDishes(): List<Dish> {
-        //return dishesList
+        //TODO: return dishesList instead
         return listOf<Dish>(
             Dish(1, "Green Salad", "It is green", 12.00),
             Dish(2, "Pizza", "Hot pizza", 15.00)
@@ -14,7 +14,6 @@ class Datasource {
 
     fun addDishToOrder(dish: Dish) {
         order.add(dish)
-
     }
 
     fun loadOrder(): List<Dish> {

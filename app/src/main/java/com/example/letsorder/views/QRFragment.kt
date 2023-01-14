@@ -27,18 +27,9 @@ class QRFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding?.apply {
-            buttonMenu.setOnClickListener { menu() }
-            buttonLogin.setOnClickListener { login() }
+            buttonMenu.setOnClickListener { startActivity(Intent(activity, ClientMain::class.java)) }
+            buttonLogin.setOnClickListener {  findNavController().navigate(R.id.action_QRFragment_to_loginFragment) }
         }
-    }
-
-    private fun login() {
-        findNavController().navigate(R.id.action_QRFragment_to_loginFragment)
-    }
-
-    private fun menu() {
-        startActivity(Intent(activity, ClientMain::class.java))
-        //findNavController().navigate(R.id.action_QRFragment_to_menuFragment)
     }
 
     override fun onDestroyView() {

@@ -5,6 +5,7 @@
     tools:context=".views.LoginFragment">
 
     <data>
+
         <variable
             name="loginFragment"
             type="com.example.letsorder.views.LoginFragment" />

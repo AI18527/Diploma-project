@@ -32,7 +32,7 @@ class SummaryOrderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView = binding.recyclerViewMenu
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = SummaryOrderAdapter(requireContext(), Datasource().loadOrder())
+        recyclerView.adapter = SummaryOrderAdapter(Datasource().loadOrder())
 
         binding?.apply {
             buttonOrder.setOnClickListener {

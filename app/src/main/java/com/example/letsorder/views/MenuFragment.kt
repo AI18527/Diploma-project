@@ -31,15 +31,11 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView = binding.recyclerViewMenu
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = MenuAdapter(requireContext(),Datasource().loadDishes())
+        recyclerView.adapter = MenuAdapter(Datasource().loadDishes())
 
         _binding?.apply {
-            buttonMyOrder.setOnClickListener{ myOrder()}
+            buttonMyOrder.setOnClickListener { findNavController().navigate(R.id.action_menuFragment_to_summaryOrderFragment) }
         }
-    }
-
-    private fun myOrder() {
-        findNavController().navigate(R.id.action_menuFragment_to_summaryOrderFragment)
     }
 
     override fun onDestroyView() {

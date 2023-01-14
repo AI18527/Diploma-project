@@ -39,10 +39,9 @@ class LoginFragment : Fragment() {
         if (binding.inputEmail.text.toString() == "Admin") {
             startActivity(Intent(activity, AdminMain::class.java))
         }
-        TODO(
-        /*else {
+        else {
             startActivity(Intent(activity, WaiterMain::class.java))
-        }*/)
+        }
     }
 
 }
