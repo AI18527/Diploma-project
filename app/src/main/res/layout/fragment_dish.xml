@@ -2,12 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ItemFragment">
+    android:id="@+id/dishFragment"
+    tools:context=".DishFragment">
 
     <data>
         <variable
             name="itemFragment"
-            type="com.example.letsorder.views.ItemFragment" />
+            type="com.example.letsorder.views.DishFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

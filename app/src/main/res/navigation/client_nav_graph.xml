@@ -10,25 +10,23 @@
         android:label="Menu"
         tools:layout="@layout/fragment_menu">
         <action
-            android:id="@+id/action_menuFragment_to_itemFragment"
-            app:destination="@id/itemFragment" />
+            android:id="@+id/action_menuFragment_to_dish_fragment"
+            app:destination="@id/dishFragment" />
         <action
             android:id="@+id/action_menuFragment_to_summaryOrderFragment"
             app:destination="@id/summaryOrderFragment" />
     </fragment>
     <fragment
-        android:id="@+id/itemFragment"
-        android:name="com.example.letsorder.views.ItemFragment"
+        android:id="@+id/dishFragment"
+        android:name="com.example.letsorder.views.DishFragment"
         android:label="{dishId}"
-        tools:layout="@layout/fragment_item">
+        tools:layout="@layout/fragment_dish">
         <argument
             android:name="dishId"
             app:argType="integer" />
         <action
-            android:id="@+id/action_itemFragment_to_summaryOrderFragment"
-            app:destination="@id/summaryOrderFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/menuFragment" />
+            android:id="@+id/action_dishFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/summaryOrderFragment"

@@ -1,23 +1,23 @@
 package com.example.letsorder.views
 
 import android.os.Bundle
-import android.provider.ContactsContract.Data
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast.LENGTH_SHORT
 import androidx.navigation.fragment.findNavController
 import com.example.letsorder.R
 import com.example.letsorder.data.Datasource
-import com.example.letsorder.databinding.FragmentItemBinding
+import com.example.letsorder.databinding.FragmentDishBinding
 import com.example.letsorder.model.Dish
+import com.google.android.material.snackbar.Snackbar
 import java.text.NumberFormat
 import kotlin.properties.Delegates
 
 
-class ItemFragment : Fragment() {
-    private var _binding: FragmentItemBinding? = null
+class DishFragment : Fragment() {
+    private var _binding: FragmentDishBinding? = null
     private val binding get() = _binding!!
     private var dishId by Delegates.notNull<Int>()
 
@@ -32,7 +32,7 @@ class ItemFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentItemBinding.inflate(inflater, container, false)
+        _binding = FragmentDishBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -49,7 +49,12 @@ class ItemFragment : Fragment() {
         binding?.apply {
             buttonAdd.setOnClickListener {
                 Datasource().addDishToOrder(dish)
-                findNavController().navigate(R.id.action_itemFragment_to_summaryOrderFragment)
+                Snackbar.make(
+                    view.findViewById(R.id.dishFragment),
+                    "${dish.title} has been added to your order!",
+                    LENGTH_SHORT
+                ).show()
+                findNavController().navigate(R.id.action_dishFragment_to_menuFragment)
             }
         }
     }
