@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast.LENGTH_SHORT
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.letsorder.R
 import com.example.letsorder.data.Datasource
@@ -55,6 +56,9 @@ class DishFragment : Fragment() {
                     LENGTH_SHORT
                 ).show()
                 findNavController().navigate(R.id.action_dishFragment_to_menuFragment)
+                Navigation.findNavController(requireView()).popBackStack(
+                    R.id.dishFragment, true
+                )
             }
         }
     }
