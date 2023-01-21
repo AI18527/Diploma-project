@@ -31,6 +31,7 @@ class MenuAdapter(private val dataset: List<Dish>) :
         holder.button.text = dish.title
 
         holder.button.setOnClickListener {
+
             val action = MenuFragmentDirections.actionMenuFragmentToDishFragment(dishId = dish.id)
             holder.view.findNavController().navigate(action)
         }

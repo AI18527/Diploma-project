@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dishFragment"
-    tools:context=".DishFragment">
+    tools:context=".DishEditFragment">
 
     <data>
         <variable
-            name="dishFragment"
-            type="com.example.letsorder.views.DishFragment" />
+            name="itemFragment"
+            type="com.example.letsorder.views.DishEditFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,14 +23,16 @@
             app:layout_constraintBottom_toTopOf="@+id/buttonAdd"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/editCategory"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/photo" />
 
-        <TextView
-            android:id="@+id/title"
+        <EditText
+            android:id="@+id/editTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Title"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -38,26 +40,45 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/description"
+        <EditText
+            android:id="@+id/editCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Category"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTitle" />
+
+        <EditText
+            android:id="@+id/editDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Description"
             android:textAlignment="center"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-        <TextView
-            android:id="@+id/price"
+        <EditText
+            android:id="@+id/editPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Price"
+            android:inputType="text"
+            android:singleLine="true"
             android:textColor="@color/dark_orange"
             android:textAlignment="center"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description" />
+            app:layout_constraintTop_toBottomOf="@+id/editDescription" />
 
         <Button
             android:id="@+id/buttonAdd"

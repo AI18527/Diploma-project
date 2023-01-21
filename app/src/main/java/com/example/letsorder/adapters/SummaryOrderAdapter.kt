@@ -1,6 +1,5 @@
 package com.example.letsorder.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ class SummaryOrderAdapter (private val dataset: List<Dish>):
 
     class SummaryOrderViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val title = view.findViewById<TextView>(R.id.title)
-        val prize = view.findViewById<TextView>(R.id.prize)
+        val price = view.findViewById<TextView>(R.id.price)
     }
 
     override fun getItemCount(): Int = dataset.size
@@ -29,6 +28,6 @@ class SummaryOrderAdapter (private val dataset: List<Dish>):
     override fun onBindViewHolder(holder: SummaryOrderViewHolder, position: Int) {
         val dish = dataset[position]
         holder.title.text = dish.title
-        holder.prize.text = NumberFormat.getCurrencyInstance().format(dish.prize).toString()
+        holder.price.text = NumberFormat.getCurrencyInstance().format(dish.price).toString()
     }
 }

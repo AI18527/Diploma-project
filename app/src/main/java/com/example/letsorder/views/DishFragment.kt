@@ -34,7 +34,6 @@ class DishFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDishBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -45,7 +44,7 @@ class DishFragment : Fragment() {
 
         binding.title.text = dish.title
         binding.description.text = dish.description
-        binding.prize.text = NumberFormat.getCurrencyInstance().format(dish.prize).toString()
+        binding.price.text = NumberFormat.getCurrencyInstance().format(dish.price).toString()
 
         binding?.apply {
             buttonAdd.setOnClickListener {

@@ -12,6 +12,9 @@ import com.example.letsorder.adapters.MenuAdapter
 import com.example.letsorder.R
 import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentMenuBinding
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class MenuFragment : Fragment() {
 
@@ -29,6 +32,7 @@ class MenuFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         recyclerView = binding.recyclerViewMenu
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = MenuAdapter(Datasource().loadDishes())

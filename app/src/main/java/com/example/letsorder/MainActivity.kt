@@ -1,18 +1,14 @@
 package com.example.letsorder
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.letsorder.databinding.ActivityMainBinding
-import com.example.letsorder.views.AdminMain
-import com.example.letsorder.views.ClientMain
-import com.example.letsorder.views.WaiterMain
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 
 class MainActivity : AppCompatActivity() {

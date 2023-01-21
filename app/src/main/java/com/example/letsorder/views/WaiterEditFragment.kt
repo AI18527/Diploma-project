@@ -16,11 +16,12 @@ import com.example.letsorder.databinding.FragmentMenuBinding
 import com.example.letsorder.databinding.FragmentWaiterEditBinding
 import com.example.letsorder.model.Waiter
 
-class WaiterEditFragment : Fragment() {
+class WaiterEditFragment :WaiterEditListener, Fragment() {
     private var _binding: FragmentWaiterEditBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var waiterRecyclerAdapter: WaiterListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +34,8 @@ class WaiterEditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView = binding.recyclerWaitersList
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = WaiterListAdapter(Datasource().loadWaiters())
+        waiterRecyclerAdapter = WaiterListAdapter(Datasource().loadWaiters(), this)
+        recyclerView.adapter = waiterRecyclerAdapter
 
         _binding?.apply {
             buttonRegister.setOnClickListener {
@@ -43,6 +45,7 @@ class WaiterEditFragment : Fragment() {
                         "1234"
                     )
                 )
+                waiterRecyclerAdapter.updateData(Datasource().loadWaiters())
                 binding.inputEmail.setText("")
             }
         }
@@ -52,4 +55,13 @@ class WaiterEditFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun waiterDeleted(waiter: Waiter) {
+        val updatedWaiters = Datasource().deleteWaiter(waiter)
+        waiterRecyclerAdapter.updateData(updatedWaiters)
+    }
+}
+
+interface WaiterEditListener {
+    fun waiterDeleted(waiter: Waiter)
 }

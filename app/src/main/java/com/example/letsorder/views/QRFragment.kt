@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.letsorder.R
 import com.example.letsorder.databinding.FragmentQRBinding
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class QRFragment : Fragment() {
 
@@ -29,6 +31,7 @@ class QRFragment : Fragment() {
         _binding?.apply {
             buttonMenu.setOnClickListener { startActivity(Intent(activity, ClientMain::class.java)) }
             buttonLogin.setOnClickListener {  findNavController().navigate(R.id.action_QRFragment_to_loginFragment) }
+
         }
     }
 

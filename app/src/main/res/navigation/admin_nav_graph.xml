@@ -21,11 +21,24 @@
         android:id="@+id/menuEditFragment"
         android:name="com.example.letsorder.views.MenuEditFragment"
         android:label="Menu edit"
-        tools:layout="@layout/fragment_menu_edit" />
+        tools:layout="@layout/fragment_menu_edit" >
+        <action
+            android:id="@+id/action_menuEditFragment_to_dishEditFragment"
+            app:destination="@id/dishEditFragment" />
+    </fragment>
     <fragment
         android:id="@+id/waiterEditFragment"
         android:name="com.example.letsorder.views.WaiterEditFragment"
         android:label="Waiter edit"
         tools:layout="@layout/fragment_waiter_edit" />
+    <fragment
+        android:id="@+id/dishEditFragment"
+        android:name="com.example.letsorder.views.DishEditFragment"
+        android:label="Add new dish"
+        tools:layout="@layout/fragment_dish_edit" >
+        <action
+            android:id="@+id/action_dishEditFragment_to_menuEditFragment"
+            app:destination="@id/menuEditFragment" />
+    </fragment>
 
 </navigation>
