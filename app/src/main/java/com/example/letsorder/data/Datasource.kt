@@ -7,15 +7,13 @@ import com.example.letsorder.model.Dish
 import com.example.letsorder.model.Table
 import com.example.letsorder.model.Waiter
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.lang.Math.random
 
 class Datasource {
-    private lateinit var database: DatabaseReference
+    //private lateinit var database: DatabaseReference
 
     fun loadWaiters(): List<Waiter>{
         return waiters
@@ -47,22 +45,10 @@ class Datasource {
     }
 
     fun addDishToMenu(category: String, title:String, description: String, price: Double){
-        val dish = hashMapOf(
-            "dishName" to title,
-            "description" to description,
-            "category" to category,
-            "price" to price,
-            "id" to id++
-
-        )
-
-        database = Firebase.database.reference
-
-        menu.add(Dish(category, id, title, description, price))
-        //val dish = Dish(category, 2, title, description, price)
-        val dataRef = database.child("menus")//.child("dishes")
-        //val key = dataRef.push().key
-        dataRef.child(dataRef.push().key!!).setValue(dish)
+        val dishesRef = FirebaseDatabase.getInstance("https://diploma-project-lets-order-default-rtdb.europe-west1.firebasedatabase.app").getReference("menus/0/dishes")
+        val newDish = Dish(category, id, title,  description,price)
+        val newDishRef = dishesRef.push()
+        newDishRef.setValue(newDish)
 
     }
 
