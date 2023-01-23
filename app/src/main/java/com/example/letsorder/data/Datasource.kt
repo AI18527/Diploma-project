@@ -13,13 +13,29 @@ import com.google.firebase.ktx.Firebase
 import java.lang.Math.random
 
 class Datasource {
-    //private lateinit var database: DatabaseReference
 
     fun loadWaiters(): List<Waiter>{
         return waiters
     }
 
     fun loadDishes(): List<Dish> {
+        val ref = database.getReference("menus/0/dishes")
+
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (snapshot in dataSnapshot.children) {
+                    val value = snapshot.getValue(Dish::class.java)
+                    if (value != null) {
+                        if (!menu.contains(value)) {
+                            menu.add(value)
+                        }
+                    }
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                // Handle error
+            }
+        })
         return menu
     }
 
@@ -45,7 +61,7 @@ class Datasource {
     }
 
     fun addDishToMenu(category: String, title:String, description: String, price: Double){
-        val dishesRef = FirebaseDatabase.getInstance("https://diploma-project-lets-order-default-rtdb.europe-west1.firebasedatabase.app").getReference("menus/0/dishes")
+        val dishesRef = database.getReference("menus/0/dishes")
         val newDish = Dish(category, id, title,  description,price)
         val newDishRef = dishesRef.push()
         newDishRef.setValue(newDish)
@@ -62,6 +78,8 @@ class Datasource {
     }
 
     companion object {
+        private var database = FirebaseDatabase.getInstance("https://diploma-project-lets-order-default-rtdb.europe-west1.firebasedatabase.app")
+
         private val menu = ArrayList<Dish>()
         private val order = ArrayList<Dish>()
         private val waiters = mutableListOf(Waiter("waiter1", "1234"))

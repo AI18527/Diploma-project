@@ -1,6 +1,7 @@
 package com.example.letsorder.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,7 @@ class MenuAdapter(private val dataset: List<Dish>) :
 
     override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {
         val dish = dataset[position]
+        Log.d("Adapter", "$dataset")
         holder.button.text = dish.title
 
         holder.button.setOnClickListener {

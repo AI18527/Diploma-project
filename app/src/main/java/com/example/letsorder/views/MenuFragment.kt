@@ -1,6 +1,7 @@
 package com.example.letsorder.views
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,7 +33,6 @@ class MenuFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         recyclerView = binding.recyclerViewMenu
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = MenuAdapter(Datasource().loadDishes())
