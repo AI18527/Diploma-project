@@ -3,6 +3,7 @@ package com.example.letsorder.data
 import android.util.ArraySet
 import android.util.Log
 import androidx.collection.arraySetOf
+import com.example.letsorder.FirebaseDatabaseSingleton
 import com.example.letsorder.model.Dish
 import com.example.letsorder.model.Table
 import com.example.letsorder.model.Waiter
@@ -78,8 +79,7 @@ class Datasource {
     }
 
     companion object {
-        private var database = FirebaseDatabase.getInstance("https://diploma-project-lets-order-default-rtdb.europe-west1.firebasedatabase.app")
-
+        private var database = FirebaseDatabaseSingleton.getInstance()
         private val menu = ArrayList<Dish>()
         private val order = ArrayList<Dish>()
         private val waiters = mutableListOf(Waiter("waiter1", "1234"))
