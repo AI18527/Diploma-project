@@ -1,5 +1,6 @@
 package com.example.letsorder.viewmodel
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,28 +9,31 @@ import com.example.letsorder.FirebaseDatabaseSingleton
 import com.example.letsorder.model.Dish
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
+import java.lang.ref.Reference
 
 
-class MenuViewModel : ViewModel() {
-    private val _menu = MutableLiveData<List<Dish>>()
-    val menu: LiveData<List<Dish>>
-    get() = _menu
+class DishViewModel() : ViewModel(){
 
-    private val ref = FirebaseDatabaseSingleton.getInstance().getReference("/menus/0/dishes")
+    private val _dish = MutableLiveData<Dish>()
+    val dish: LiveData<Dish>
+    get() = _dish
 
-    init {
+    private val ref = FirebaseDatabaseSingleton.getInstance().getReference("/menus/0/dishes/")
+
+    fun getDish(id: Int){
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val menu = arrayListOf<Dish>()
                 for (snapshot in dataSnapshot.children) {
                     val value = snapshot.getValue(Dish::class.java)
-                    if (value != null) {
-                        menu.add(value)
+                    value?.let {
+                        if (it.id == id) {
+                            _dish.postValue(it)
+                        }
                     }
                 }
-                _menu.postValue(menu)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

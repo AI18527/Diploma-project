@@ -19,26 +19,26 @@ class Datasource {
         return waiters
     }
 
-    fun loadDishes(): List<Dish> {
-        val ref = database.getReference("menus/0/dishes")
-
-        ref.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (snapshot in dataSnapshot.children) {
-                    val value = snapshot.getValue(Dish::class.java)
-                    if (value != null) {
-                        if (!menu.contains(value)) {
-                            menu.add(value)
-                        }
-                    }
-                }
-            }
-            override fun onCancelled(error: DatabaseError) {
-                Log.w("Data", "loadPost:onCancelled", error.toException())
-            }
-        })
-        return menu
-    }
+//    fun loadDishes(): List<Dish> {
+//        val ref = database.getReference("menus/0/dishes")
+//
+//        ref.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                for (snapshot in dataSnapshot.children) {
+//                    val value = snapshot.getValue(Dish::class.java)
+//                    if (value != null) {
+//                        if (!menu.contains(value)) {
+//                            menu.add(value)
+//                        }
+//                    }
+//                }
+//            }
+//            override fun onCancelled(error: DatabaseError) {
+//                Log.w("Data", "loadPost:onCancelled", error.toException())
+//            }
+//        })
+//        return menu
+//    }
 
     fun loadOrder(): List<Dish> {
         return order
@@ -66,7 +66,6 @@ class Datasource {
         val newDish = Dish(category, id, title,  description,price)
         val newDishRef = dishesRef.push()
         newDishRef.setValue(newDish)
-
     }
 
     fun addWaiter(waiter: Waiter) {
