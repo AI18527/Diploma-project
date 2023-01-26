@@ -8,7 +8,11 @@
         <variable
             name="menuFragment"
             type="com.example.letsorder.views.MenuFragment" />
+        <variable
+            name="viewModel"
+            type="com.example.letsorder.viewmodel.MenuViewModel" />
     </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

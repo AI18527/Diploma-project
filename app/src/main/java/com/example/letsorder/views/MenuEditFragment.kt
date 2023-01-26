@@ -13,6 +13,7 @@ import com.example.letsorder.adapters.MenuAdapter
 import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentMenuBinding
 import com.example.letsorder.databinding.FragmentMenuEditBinding
+import com.example.letsorder.viewmodel.MenuViewModel
 
 
 class MenuEditFragment : Fragment() {
@@ -33,7 +34,7 @@ class MenuEditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView = binding.recyclerViewMenu
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = MenuAdapter(Datasource().loadDishes())
+        recyclerView.adapter = MenuAdapter(MenuViewModel())
 
         _binding?.apply {
             buttonAddDish.setOnClickListener { findNavController().navigate(R.id.action_menuEditFragment_to_dishEditFragment) }

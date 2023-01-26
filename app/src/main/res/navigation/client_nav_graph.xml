@@ -19,11 +19,14 @@
     <fragment
         android:id="@+id/dishFragment"
         android:name="com.example.letsorder.views.DishFragment"
-        android:label="{dishId}"
+        android:label="{dishTitle}"
         tools:layout="@layout/fragment_dish">
         <argument
             android:name="dishId"
             app:argType="integer" />
+        <argument
+            android:name="dishTitle"
+            app:argType="string" />
         <action
             android:id="@+id/action_dishFragment_to_menuFragment"
             app:destination="@id/menuFragment" />

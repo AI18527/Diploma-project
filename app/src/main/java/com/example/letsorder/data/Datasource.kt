@@ -34,7 +34,7 @@ class Datasource {
                 }
             }
             override fun onCancelled(error: DatabaseError) {
-                // Handle error
+                Log.w("Data", "loadPost:onCancelled", error.toException())
             }
         })
         return menu

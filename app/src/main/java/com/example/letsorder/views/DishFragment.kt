@@ -1,11 +1,14 @@
 package com.example.letsorder.views
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast.LENGTH_SHORT
+import androidx.core.content.PackageManagerCompat.LOG_TAG
+import androidx.databinding.DataBindingUtil.setContentView
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.letsorder.R
@@ -13,7 +16,12 @@ import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentDishBinding
 import com.example.letsorder.model.Dish
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.text.NumberFormat
+import java.util.*
 import kotlin.properties.Delegates
 
 
@@ -22,8 +30,11 @@ class DishFragment : Fragment() {
     private val binding get() = _binding!!
     private var dishId by Delegates.notNull<Int>()
 
+    val ref = FirebaseDatabase.getInstance().getReference("/menus/0/dishes/")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
             dishId = it.get(DISH_ID) as Int
         }
@@ -40,7 +51,7 @@ class DishFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var dish: Dish = getDish(dishId)
+        var dish = getDish(dishId)
 
         binding.title.text = dish.title
         binding.description.text = dish.description
@@ -63,6 +74,7 @@ class DishFragment : Fragment() {
     }
 
     private fun getDish(dishId: Int): Dish {
+
         for (dish: Dish in Datasource().loadDishes()) {
             if (dish.id == dishId) {
                 return dish

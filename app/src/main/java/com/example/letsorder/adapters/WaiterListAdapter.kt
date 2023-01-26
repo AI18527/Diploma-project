@@ -18,9 +18,9 @@ class WaiterListAdapter(dataset: List<Waiter>, val waiterEditListener: WaiterEdi
     private val waiters = ArrayList<Waiter>().apply { addAll(dataset) }
 
     class WaiterListViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val name = view.findViewById<TextView>(R.id.name)
-        val email = view.findViewById<TextView>(R.id.email)
-        val buttonDelete = view.findViewById<Button>(R.id.button_delete)
+        val name = view.findViewById<TextView>(R.id.name)!!
+        val email = view.findViewById<TextView>(R.id.email)!!
+        val buttonDelete = view.findViewById<Button>(R.id.button_delete)!!
     }
 
     override fun getItemCount(): Int = waiters.size
