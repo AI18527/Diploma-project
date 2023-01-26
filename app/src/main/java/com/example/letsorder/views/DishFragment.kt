@@ -1,6 +1,7 @@
 package com.example.letsorder.views
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,8 +27,6 @@ class DishFragment : Fragment() {
 
     private val viewModel: DishViewModel by viewModels()
 
-    private val dish = Dish()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,28 +47,32 @@ class DishFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //viewModel.getDish(dishId)
-
+        var localDish = Dish()
         viewModel.dish.observe(viewLifecycleOwner
         ) { dish ->
+            localDish = dish
+
             binding.title.text = dish.title
             binding.description.text = dish.description
             binding.price.text = NumberFormat.getCurrencyInstance().format(dish.price).toString()
         }
 
-
-//        binding.title.text = dish.title
-//        binding.description.text = dish.description
-//        binding.price.text = NumberFormat.getCurrencyInstance().format(dish.price).toString()
-
         binding?.apply {
             buttonAdd.setOnClickListener {
-                Datasource().addDishToOrder(dish)
+                Datasource().addDishToLocalOrder(localDish)
                 Snackbar.make(
                     view.findViewById(com.example.letsorder.R.id.dishFragment),
-                    "${dish.title} has been added to your order!",
+                    "${binding.title.text} has been added to your order!",
                     LENGTH_SHORT
                 ).show()
+
+                //TODO -> when order is active
+//                Snackbar.make(
+//                    view.findViewById(com.example.letsorder.R.id.dishFragment),
+//                    "Sorry, but you have already ordered!",
+//                    LENGTH_SHORT
+//                ).show()
+
                 findNavController().navigate(com.example.letsorder.R.id.action_dishFragment_to_menuFragment)
                 Navigation.findNavController(requireView()).popBackStack(
                     com.example.letsorder.R.id.dishFragment, true

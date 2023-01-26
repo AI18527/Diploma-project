@@ -5,7 +5,6 @@
     tools:context=".views.QRFragment">
 
     <data>
-
         <variable
             name="qrFragment"
             type="com.example.letsorder.views.QRFragment" />

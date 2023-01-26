@@ -17,7 +17,7 @@ class OrderAdapter (private val dataset: List<Dish>):
 
     class OrderViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val dishTitle = view.findViewById<TextView>(R.id.dishTitle)
-        val dishPrice = view.findViewById<TextView>(R.id.dishPrice)
+        //val dishPrice = view.findViewById<TextView>(R.id.dishPrice)
     }
 
     override fun getItemCount(): Int = dataset.size
@@ -31,6 +31,6 @@ class OrderAdapter (private val dataset: List<Dish>):
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val dish = dataset[position]
         holder.dishTitle.text = dish.title
-        holder.dishPrice.text = dish.price.toString()
+        //holder.dishPrice.text = dish.price.toString()
     }
 }

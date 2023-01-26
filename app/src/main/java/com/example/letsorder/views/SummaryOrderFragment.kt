@@ -13,6 +13,7 @@ import com.example.letsorder.R
 import com.example.letsorder.adapters.SummaryOrderAdapter
 import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentSummaryOrderBinding
+import com.example.letsorder.model.Waiter
 
 class SummaryOrderFragment : Fragment() {
 
@@ -30,12 +31,15 @@ class SummaryOrderFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.bill.text = "Your bill is: "
         recyclerView = binding.recyclerViewMenu
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = SummaryOrderAdapter(Datasource().loadOrder())
+        recyclerView.adapter = SummaryOrderAdapter(Datasource().loadLocalOrder())
 
         binding?.apply {
             buttonOrder.setOnClickListener {
+                Datasource().sendOrder()
+
                 buttonOrder.visibility = View.INVISIBLE
                 buttonAdd.visibility = View.VISIBLE
                 buttonCall.visibility = View.VISIBLE
@@ -48,5 +52,4 @@ class SummaryOrderFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }
