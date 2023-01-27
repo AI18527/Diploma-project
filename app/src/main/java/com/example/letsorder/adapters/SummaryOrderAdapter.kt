@@ -7,14 +7,12 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
-import com.example.letsorder.data.Datasource
 import com.example.letsorder.model.Dish
-import com.example.letsorder.model.Waiter
+import com.example.letsorder.views.SummaryEditListener
 import java.text.NumberFormat
-import java.util.Collections.addAll
 
-class SummaryOrderAdapter (dataset: Map<Dish, Int>):
-    RecyclerView.Adapter<SummaryOrderAdapter.SummaryOrderViewHolder>(){
+class SummaryOrderAdapter(dataset: Map<Dish, Int>, val summaryListener: SummaryEditListener) :
+    RecyclerView.Adapter<SummaryOrderAdapter.SummaryOrderViewHolder>() {
 
     private var allDishes: MutableMap<Dish, Int> = dataset as MutableMap<Dish, Int>
     private val dishes: MutableSet<Dish> = allDishes.keys
@@ -32,7 +30,8 @@ class SummaryOrderAdapter (dataset: Map<Dish, Int>):
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SummaryOrderViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_view_summary, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_view_summary, parent, false)
         return SummaryOrderViewHolder(view)
     }
 
@@ -42,8 +41,17 @@ class SummaryOrderAdapter (dataset: Map<Dish, Int>):
         holder.price.text = NumberFormat.getCurrencyInstance().format(dish.price).toString()
         holder.quantity.text = "Quantity: ${allDishes.getValue(dish)}"
 
-        //TODO liveData for the quantity
-        holder.buttonAdd.setOnClickListener{Datasource().addDishToLocalOrder(dish)}
-        holder.buttonSub.setOnClickListener{Datasource().removeDishFromLocalOrder(dish)}
+        holder.buttonAdd.setOnClickListener {
+            summaryListener.dishAdd(dish)
+        }
+        holder.buttonSub.setOnClickListener {
+            summaryListener.dishSub(dish)
+        }
+    }
+
+    fun updateData(data: Map<Dish, Int>) {
+
+        allDishes.putAll(data)
+        notifyDataSetChanged()
     }
 }

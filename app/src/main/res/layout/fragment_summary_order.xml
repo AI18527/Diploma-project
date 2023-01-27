@@ -70,10 +70,18 @@
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewMenu" />
 
         <TextView
+            android:id="@+id/textBill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Your bill is:"
+            app:layout_constraintBottom_toTopOf="@+id/buttonOrder"
+            app:layout_constraintStart_toStartOf="parent" />
+        <TextView
             android:id="@+id/bill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="20dp"
             app:layout_constraintBottom_toTopOf="@+id/buttonOrder"
             app:layout_constraintEnd_toEndOf="parent" />
 

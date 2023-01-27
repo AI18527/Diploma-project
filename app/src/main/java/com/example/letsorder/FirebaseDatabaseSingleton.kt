@@ -13,3 +13,4 @@ class FirebaseDatabaseSingleton private constructor() {
         }
     }
 }
+

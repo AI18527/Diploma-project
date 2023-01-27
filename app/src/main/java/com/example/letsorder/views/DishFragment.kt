@@ -1,7 +1,6 @@
 package com.example.letsorder.views
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import com.example.letsorder.model.Dish
 import com.example.letsorder.viewmodel.DishViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.text.NumberFormat
-import java.util.*
 import kotlin.properties.Delegates
 
 
@@ -66,13 +64,6 @@ class DishFragment : Fragment() {
                     LENGTH_SHORT
                 ).show()
 
-                //TODO -> when order is active
-//                Snackbar.make(
-//                    view.findViewById(com.example.letsorder.R.id.dishFragment),
-//                    "Sorry, but you have already ordered!",
-//                    LENGTH_SHORT
-//                ).show()
-
                 findNavController().navigate(com.example.letsorder.R.id.action_dishFragment_to_menuFragment)
                 Navigation.findNavController(requireView()).popBackStack(
                     com.example.letsorder.R.id.dishFragment, true
@@ -81,19 +72,10 @@ class DishFragment : Fragment() {
         }
     }
 
-//    private fun getDish(dishId: Int): Dish {
-//
-//        for (dish: Dish in DishViewModel().dish) {
-//            if (dish.id == dishId) {
-//                return dish
-//            }
-//        }
-//        return Dish()
-//    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        viewModel.removeListener()
     }
 
     companion object {

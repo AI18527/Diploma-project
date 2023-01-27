@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "497949426373",
     "project_id": "diploma-project-lets-order",
-    "storage_bucket": "https://diploma-project-lets-order-default-rtdb.europe-west1.firebasedatabase.app"
+    "storage_bucket": "diploma-project-lets-order.appspot.com"
   },
   "client": [
     {

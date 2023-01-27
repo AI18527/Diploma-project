@@ -6,6 +6,7 @@ import com.example.letsorder.model.Order
 import com.example.letsorder.model.Table
 import com.example.letsorder.model.Waiter
 
+
 class Datasource {
 
     //for waiter
@@ -18,12 +19,16 @@ class Datasource {
 
     }
 
+    fun removeTable(){
+        //TODO: remove the ready table from the firebase, so each table can be there only once
+    }
+
     //for client
     fun addOrder(tableNum: Int, order: List<Dish>) {
         //tables.add(Table(tableNum, order, true))
     }
 
-    fun addDishToLocalOrder(dish: Dish) {
+    fun addDishToLocalOrder(dish: Dish): Map<Dish, Int> {
         if (!localOrder.active){
             if (localOrder.dishes.containsKey(dish)) {
                 localOrder.dishes[dish] = localOrder.dishes.getValue(dish) + 1
@@ -31,14 +36,16 @@ class Datasource {
                 localOrder.dishes[dish] = 1
             }
         }
+        return localOrder.dishes
     }
 
-    fun removeDishFromLocalOrder(dish: Dish) {
+    fun removeDishFromLocalOrder(dish: Dish) : Map<Dish, Int> {
         if (localOrder.dishes.getValue(dish) == 1) {
             localOrder.dishes.remove(dish)
         } else {
             localOrder.dishes[dish] = localOrder.dishes.getValue(dish) - 1
         }
+        return localOrder.dishes
     }
 
     fun loadLocalOrder(): Map<Dish, Int> {
@@ -47,6 +54,7 @@ class Datasource {
 
     fun sendOrder(){
         localOrder.active = true
+        //TODO send it to the firebase
     }
 
     fun createLocalOrder() {
@@ -56,7 +64,9 @@ class Datasource {
     //for admin
     fun addDishToMenu(category: String, title: String, description: String, price: Double) {
         val dishesRef = database.getReference("menus/0/dishes")
-        val newDish = Dish(category, id, title, description, price)
+        val nextId = (1..10000).random()
+        //TODO: check if id exists
+        val newDish = Dish(category, nextId, title, description, price)
         val newDishRef = dishesRef.push()
         newDishRef.setValue(newDish)
     }
@@ -76,8 +86,11 @@ class Datasource {
 
     companion object {
         private var database = FirebaseDatabaseSingleton.getInstance()
-
+        //TODO:
+        // it is going to stay here and when the client clicked "order" it is going to be add to the public order // for one person only at first
+        // move to public firebase order // add listener to the waiter to see the changes and move the order to private orders
         private var localOrder = Order()
+
         private val waiters = mutableListOf(Waiter("waiter1", "1234"))
         private val tables = mutableListOf(
             Table(
@@ -86,7 +99,5 @@ class Datasource {
                 true
             )
         )
-
-        private var id: Int = 0
     }
 }

@@ -1,7 +1,6 @@
 package com.example.letsorder.views
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
 import com.example.letsorder.adapters.MenuAdapter
 import com.example.letsorder.databinding.FragmentMenuBinding
-import com.example.letsorder.model.Dish
 import com.example.letsorder.viewmodel.MenuViewModel
-import com.google.firebase.database.*
-import java.util.*
 
 
 class MenuFragment : Fragment() {
@@ -50,6 +46,7 @@ class MenuFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        viewModel.removeListener()
     }
 
 }
