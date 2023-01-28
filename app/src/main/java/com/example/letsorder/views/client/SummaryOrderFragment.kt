@@ -45,14 +45,24 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
         summaryRecyclerAdapter = SummaryOrderAdapter(Datasource().loadLocalOrder(),  this)
         recyclerView.adapter = summaryRecyclerAdapter
 
-        binding?.apply {
-            buttonOrder.setOnClickListener {
-                Datasource().sendOrder()
-                //TODO: add new view that use the data from the database
-                buttonOrder.visibility = View.INVISIBLE
-                buttonAdd.visibility = View.VISIBLE
-                buttonCall.visibility = View.VISIBLE
-                buttonPay.visibility = View.VISIBLE //*closing the app after paying
+        if (active){
+            binding.buttonOrder.visibility = View.INVISIBLE
+            binding.buttonAdd.visibility = View.VISIBLE
+            binding.buttonCall.visibility = View.VISIBLE
+            binding.buttonPay.visibility = View.VISIBLE
+        }
+
+        else {
+            binding?.apply {
+                buttonOrder.setOnClickListener {
+                    viewModel.sendOrder()
+                    active = true
+                    //TODO: add new view that use the data from the database
+                    buttonOrder.visibility = View.INVISIBLE
+                    buttonAdd.visibility = View.VISIBLE
+                    buttonCall.visibility = View.VISIBLE
+                    buttonPay.visibility = View.VISIBLE //*closing the app after paying
+                }
             }
         }
     }
@@ -72,6 +82,9 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
         val updatedSummary = Datasource().removeDishFromLocalOrder(dish)
         summaryRecyclerAdapter.updateData(updatedSummary)
         viewModel.updateData(updatedSummary)
+    }
+    companion object{
+        var active = false
     }
 }
 

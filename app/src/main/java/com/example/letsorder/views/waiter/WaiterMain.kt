@@ -1,4 +1,4 @@
-package com.example.letsorder.views
+package com.example.letsorder.views.waiter
 
 import android.os.Bundle
 import android.util.Log

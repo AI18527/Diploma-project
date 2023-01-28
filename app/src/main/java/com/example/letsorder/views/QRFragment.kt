@@ -2,7 +2,6 @@ package com.example.letsorder.views
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.letsorder.R
 import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentQRBinding
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import com.example.letsorder.views.client.ClientMain
 
 class QRFragment : Fragment() {
 
@@ -32,7 +30,7 @@ class QRFragment : Fragment() {
         _binding?.apply {
             buttonMenu.setOnClickListener {
                 startActivity(Intent(activity, ClientMain::class.java))
-                Datasource().createLocalOrder()
+                //Datasource().createLocalOrder()
             }
             buttonLogin.setOnClickListener { findNavController().navigate(R.id.action_QRFragment_to_loginFragment) }
         }

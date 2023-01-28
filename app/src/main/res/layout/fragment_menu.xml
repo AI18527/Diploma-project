@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".views.MenuFragment">
+    tools:context=".views.client.MenuFragment">
 
     <data>
         <variable
             name="menuFragment"
-            type="com.example.letsorder.views.MenuFragment" />
+            type="com.example.letsorder.views.client.MenuFragment" />
         <variable
             name="viewModel"
             type="com.example.letsorder.viewmodel.MenuViewModel" />

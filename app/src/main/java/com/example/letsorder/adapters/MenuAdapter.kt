@@ -12,16 +12,11 @@ import com.example.letsorder.R
 import com.example.letsorder.model.Dish
 import com.example.letsorder.model.Waiter
 import com.example.letsorder.viewmodel.MenuViewModel
-import com.example.letsorder.views.MenuFragmentDirections
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import java.util.*
-import java.util.Collections.addAll
+import com.example.letsorder.views.client.MenuFragmentDirections
+
 import kotlin.collections.ArrayList
 
-class MenuAdapter(private val viewModel: MenuViewModel) :
+class MenuAdapter(viewModel: MenuViewModel) :
     RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 
     private val menu = ArrayList<Dish>()

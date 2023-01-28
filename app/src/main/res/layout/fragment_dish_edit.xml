@@ -8,7 +8,7 @@
     <data>
         <variable
             name="itemFragment"
-            type="com.example.letsorder.views.DishEditFragment" />
+            type="com.example.letsorder.views.admin.DishEditFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,4 +1,4 @@
-package com.example.letsorder.views
+package com.example.letsorder.views.admin
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.letsorder.R
 import com.example.letsorder.databinding.FragmentAdminPanelBinding
-import com.example.letsorder.databinding.FragmentMenuBinding
-import com.example.letsorder.databinding.FragmentQRBinding
 
 
 class AdminPanelFragment : Fragment() {

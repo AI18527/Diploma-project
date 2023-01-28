@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
 import com.example.letsorder.model.Dish
 import com.example.letsorder.model.Table
-import com.example.letsorder.views.TablesFragmentDirections
+import com.example.letsorder.views.waiter.TablesFragmentDirections
 
 class OrderAdapter (private val dataset: List<Dish>):
     RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {

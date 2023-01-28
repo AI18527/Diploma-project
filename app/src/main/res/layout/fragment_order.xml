@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/orderFragment"
-    tools:context=".views.OrderFragment">
+    tools:context=".views.waiter.OrderFragment">
 
     <data>
         <variable
             name="orderFragment"
-            type="com.example.letsorder.views.OrderFragment" />
+            type="com.example.letsorder.views.waiter.OrderFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

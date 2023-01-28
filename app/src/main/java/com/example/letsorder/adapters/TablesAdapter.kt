@@ -8,32 +8,48 @@ import android.widget.Button
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
-import com.example.letsorder.model.Table
-import com.example.letsorder.views.TablesFragmentDirections
+import com.example.letsorder.model.Order
+import com.example.letsorder.viewmodel.TablesViewModel
+import com.example.letsorder.views.waiter.TablesFragmentDirections
+import java.util.Collections.addAll
 
-class TablesAdapter (private val dataset: List<Table>):
+class TablesAdapter(private val viewModel: TablesViewModel) :
     RecyclerView.Adapter<TablesAdapter.TablesViewHolder>() {
 
-        class TablesViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-            val button = view.findViewById<Button>(R.id.buttonTable)
+    private val tables = arrayListOf<Order>()
+
+    init {
+        viewModel.tables.observeForever {
+            tables.clear()
+            tables.addAll(it)
+            notifyDataSetChanged()
         }
+    }
 
-        override fun getItemCount(): Int = dataset.size
+    class TablesViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        val buttonTable = view.findViewById<Button>(R.id.buttonTable)
+    }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TablesAdapter.TablesViewHolder {
-            val view =
-                LayoutInflater.from(parent.context).inflate(R.layout.item_table_view, parent, false)
-            return TablesViewHolder(view)
+    override fun getItemCount(): Int = tables.size
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): TablesViewHolder {
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_table_view, parent, false)
+        return TablesViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: TablesViewHolder, position: Int) {
+        val table = tables[position]
+        holder.buttonTable.text = "Table ${table.tableNum}"
+
+        holder.buttonTable.setOnClickListener {
+            Log.d("BUTTON", "Clicked")
+            val action =
+                TablesFragmentDirections.actionTablesFragmentToOrderFragment(tableNum = table.tableNum)
+            holder.view.findNavController().navigate(action)
         }
-
-        override fun onBindViewHolder(holder: TablesViewHolder, position: Int) {
-            val table = dataset[position]
-            holder.button.text = "Table ${table.number}"
-
-            holder.button.setOnClickListener {
-                Log.d("BUTTON", "Clicked")
-                val action = TablesFragmentDirections.actionTablesFragmentToOrderFragment(tableNum = table.number)
-                holder.view.findNavController().navigate(action)
-            }
-        }
+    }
 }

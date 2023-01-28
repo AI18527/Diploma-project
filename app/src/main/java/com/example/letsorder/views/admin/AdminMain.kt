@@ -1,4 +1,4 @@
-package com.example.letsorder.views
+package com.example.letsorder.views.admin
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,15 +7,15 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.letsorder.R
 
-class ClientMain : AppCompatActivity() {
+class AdminMain : AppCompatActivity() {
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_client_main)
+        setContentView(R.layout.activity_admin_main)
 
         val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_client_fragment) as NavHostFragment
+            .findFragmentById(R.id.nav_admin_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
         setupActionBarWithNavController(navController)

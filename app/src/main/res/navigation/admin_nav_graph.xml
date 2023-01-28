@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/adminPanelFragment"
-        android:name="com.example.letsorder.views.AdminPanelFragment"
+        android:name="com.example.letsorder.views.admin.AdminPanelFragment"
         android:label="Admin panel"
         tools:layout="@layout/fragment_admin_panel">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/menuEditFragment"
-        android:name="com.example.letsorder.views.MenuEditFragment"
+        android:name="com.example.letsorder.views.admin.MenuEditFragment"
         android:label="Menu edit"
         tools:layout="@layout/fragment_menu_edit" >
         <action
@@ -33,7 +33,7 @@
         tools:layout="@layout/fragment_waiter_edit" />
     <fragment
         android:id="@+id/dishEditFragment"
-        android:name="com.example.letsorder.views.DishEditFragment"
+        android:name="com.example.letsorder.views.admin.DishEditFragment"
         android:label="Add new dish"
         tools:layout="@layout/fragment_dish_edit" >
         <action

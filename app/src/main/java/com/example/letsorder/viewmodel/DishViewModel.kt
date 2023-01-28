@@ -35,7 +35,7 @@ class DishViewModel() : ViewModel(){
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                Log.w("Error", "loadPost:onCancelled", databaseError.toException())
+                Log.w("Error", "load:onCancelled", databaseError.toException())
             }
         })
     }

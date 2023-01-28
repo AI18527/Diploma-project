@@ -1,24 +1,24 @@
-package com.example.letsorder.views
+package com.example.letsorder.views.client
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
 import com.example.letsorder.adapters.MenuAdapter
-import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentMenuBinding
-import com.example.letsorder.databinding.FragmentMenuEditBinding
 import com.example.letsorder.viewmodel.MenuViewModel
 
 
-class MenuEditFragment : Fragment() {
+class MenuFragment : Fragment() {
+    private val viewModel: MenuViewModel by viewModels()
 
-    private var _binding: FragmentMenuEditBinding? = null
+    private var _binding: FragmentMenuBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var recyclerView: RecyclerView
@@ -27,7 +27,7 @@ class MenuEditFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMenuEditBinding.inflate(inflater, container, false)
+        _binding = FragmentMenuBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -37,8 +37,14 @@ class MenuEditFragment : Fragment() {
         recyclerView.adapter = MenuAdapter(MenuViewModel())
 
         _binding?.apply {
-            buttonAddDish.setOnClickListener { findNavController().navigate(R.id.action_menuEditFragment_to_dishEditFragment) }
+            buttonMyOrder.setOnClickListener { findNavController().navigate(R.id.action_menuFragment_to_summaryOrderFragment) }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        viewModel.removeListener()
     }
 
 }

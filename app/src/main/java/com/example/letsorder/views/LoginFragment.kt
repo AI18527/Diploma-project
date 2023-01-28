@@ -6,18 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
-import com.example.letsorder.MainActivity
 import com.example.letsorder.R
 import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentLoginBinding
-import com.example.letsorder.databinding.FragmentMenuBinding
-import com.example.letsorder.databinding.FragmentQRBinding
 import com.example.letsorder.model.Waiter
+import com.example.letsorder.views.admin.AdminMain
+import com.example.letsorder.views.waiter.WaiterMain
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputEditText
 
 class LoginFragment : Fragment() {
 

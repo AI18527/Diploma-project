@@ -1,4 +1,4 @@
-package com.example.letsorder.views
+package com.example.letsorder.views.admin
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.letsorder.R
 import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentDishEditBinding
-import com.example.letsorder.model.Dish
 
 
 class DishEditFragment : Fragment() {

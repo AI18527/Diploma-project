@@ -1,4 +1,4 @@
-package com.example.letsorder.views
+package com.example.letsorder.views.client
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +13,7 @@ import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentDishBinding
 import com.example.letsorder.model.Dish
 import com.example.letsorder.viewmodel.DishViewModel
+import com.example.letsorder.views.SummaryOrderFragment
 import com.google.android.material.snackbar.Snackbar
 import java.text.NumberFormat
 import kotlin.properties.Delegates
@@ -57,12 +58,21 @@ class DishFragment : Fragment() {
 
         binding?.apply {
             buttonAdd.setOnClickListener {
-                Datasource().addDishToLocalOrder(localDish)
+                if (!SummaryOrderFragment.active) {
+                    Datasource().addDishToLocalOrder(localDish)
+                    Snackbar.make(
+                        view.findViewById(com.example.letsorder.R.id.dishFragment),
+                        "${binding.title.text} has been added to your order!",
+                        LENGTH_SHORT
+                    ).show()
+                }
+                else {
                 Snackbar.make(
                     view.findViewById(com.example.letsorder.R.id.dishFragment),
-                    "${binding.title.text} has been added to your order!",
+                    "Sorry, but you cannot add new dishes to your order",
                     LENGTH_SHORT
                 ).show()
+            }
 
                 findNavController().navigate(com.example.letsorder.R.id.action_dishFragment_to_menuFragment)
                 Navigation.findNavController(requireView()).popBackStack(

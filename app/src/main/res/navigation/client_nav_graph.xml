@@ -6,7 +6,7 @@
     app:startDestination="@id/menuFragment">
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.example.letsorder.views.MenuFragment"
+        android:name="com.example.letsorder.views.client.MenuFragment"
         android:label="Menu"
         tools:layout="@layout/fragment_menu">
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/dishFragment"
-        android:name="com.example.letsorder.views.DishFragment"
+        android:name="com.example.letsorder.views.client.DishFragment"
         android:label="{dishTitle}"
         tools:layout="@layout/fragment_dish">
         <argument

@@ -6,28 +6,30 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.letsorder.FirebaseDatabaseSingleton
 import com.example.letsorder.model.Dish
+import com.example.letsorder.model.Order
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
+class TablesViewModel : ViewModel() {
+    private val _tables = MutableLiveData<List<Order>>()
+    val tables: LiveData<List<Order>>
+        get() = _tables
 
-class MenuViewModel : ViewModel() {
-    private val _menu = MutableLiveData<List<Dish>>()
-    val menu: LiveData<List<Dish>>
-        get() = _menu
+    private val ref = FirebaseDatabaseSingleton.getInstance().getReference("/publicOrders/")
 
-    private val ref = FirebaseDatabaseSingleton.getInstance().getReference("/menus/0/dishes")
-
-    private var listener : ValueEventListener = ref.addValueEventListener(object : ValueEventListener {
+    private var listener : ValueEventListener = ref.addValueEventListener(object :
+        ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
-            val menu = arrayListOf<Dish>()
+            val tables = arrayListOf<Order>()
             for (snapshot in dataSnapshot.children) {
-                val value = snapshot.getValue(Dish::class.java)
+                val value = snapshot.getValue(Order::class.java)
+                Log.d("TABLE", "$value")
                 if (value != null) {
-                    menu.add(value)
+                    tables.add(value)
                 }
             }
-            _menu.postValue(menu)
+            _tables.postValue(tables)
         }
 
         override fun onCancelled(databaseError: DatabaseError) {
