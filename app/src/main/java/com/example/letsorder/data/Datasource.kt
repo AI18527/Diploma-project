@@ -1,8 +1,8 @@
 package com.example.letsorder.data
 
+import android.util.Log
 import com.example.letsorder.FirebaseDatabaseSingleton
-import com.example.letsorder.model.Dish
-import com.example.letsorder.model.Waiter
+import com.example.letsorder.model.*
 import com.example.letsorder.viewmodel.MenuViewModel
 
 
@@ -10,14 +10,15 @@ class Datasource {
 
     //for waiter
 
-//    fun loadTables(): List<Table> {
-//        return tables
-//    }
-//
-//    fun loadOrderForTable(tableNum: Int): List<Dish> {
-//        return tables.find { table -> table.number == tableNum }!!.order
-//
-//    }
+    fun addToTables(table: Table) {
+        if (!tables.containsKey(table.number)) {
+            tables[table.number] = table.order.dishes
+        }
+    }
+
+    fun loadOrderForTable(tableNum: Int): List<OrderDetails> {
+        return tables[tableNum]!!
+    }
 
     fun removeTable(){
         //TODO: remove the ready table from the firebase, so each table can be there only once
@@ -84,15 +85,9 @@ class Datasource {
         // move to public firebase order // add listener to the waiter to see the changes and move the order to private orders
         var localOrder = mutableMapOf<Dish, Int>()
         var sent = false
-        var waiterMenu = MenuViewModel().menu
 
         private val waiters = mutableListOf(Waiter("waiter1", "1234"))
-        /*private val tables = mutableListOf(
-            Table(
-                1,
-                listOf(Dish("Soups", 1, "Tomato soup", "Creamy tomato soup", 7.60)),
-                true
-            )
-        )*/
+        private var tables = mutableMapOf<Int, List<OrderDetails>>()
+
     }
 }

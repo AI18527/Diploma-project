@@ -39,7 +39,7 @@ class TablesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView = binding.recyclerViewTables
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = TablesAdapter(TablesViewModel())
+        recyclerView.adapter = TablesAdapter(TablesViewModel(), requireContext())
     }
 
     override fun onDestroyView() {

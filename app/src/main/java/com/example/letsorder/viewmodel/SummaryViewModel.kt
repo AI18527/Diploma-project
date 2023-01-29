@@ -38,7 +38,7 @@ class SummaryViewModel : ViewModel() {
 
         var dishes = arrayListOf<OrderDetails>()
         for (item in map){
-            dishes.add(OrderDetails(item.key.id, item.value))
+            dishes.add(OrderDetails(item.key.title, item.value))
         }
         val newOrder = hashMapOf(
             "active" to Datasource.sent,

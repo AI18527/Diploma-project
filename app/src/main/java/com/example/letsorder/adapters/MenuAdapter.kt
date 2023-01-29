@@ -5,12 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.core.content.PackageManagerCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
 import com.example.letsorder.model.Dish
-import com.example.letsorder.model.Waiter
 import com.example.letsorder.viewmodel.MenuViewModel
 import com.example.letsorder.views.client.MenuFragmentDirections
 

@@ -41,7 +41,7 @@ class OrderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView = binding.recyclerViewOrder
         recyclerView.layoutManager = LinearLayoutManager(context)
-        //recyclerView.adapter = OrderAdapter(Datasource().loadOrderForTable(tableNum))
+        recyclerView.adapter = OrderAdapter(Datasource().loadOrderForTable(tableNum))
 
         _binding?.apply {
             buttonDone.setOnClickListener { findNavController().navigate(R.id.action_orderFragment_to_tablesFragment) }
