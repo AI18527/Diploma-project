@@ -14,8 +14,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
 class TablesViewModel : ViewModel() {
-    private val _tables = MutableLiveData<List<Order>>()
-    val tables: LiveData<List<Order>>
+    private val _tables = MutableLiveData<Map<Int, Boolean>>()
+    val tables: LiveData<Map<Int, Boolean>>
         get() = _tables
 
     private val ref = FirebaseDatabaseSingleton.getInstance().getReference("/publicOrders/")
@@ -23,12 +23,11 @@ class TablesViewModel : ViewModel() {
     private var listener : ValueEventListener = ref.addValueEventListener(object :
         ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
-            val tables = arrayListOf<Order>()
+            val tables = mutableMapOf<Int, Boolean>()
             for (snapshot in dataSnapshot.children) {
                 val value = snapshot.getValue(Order::class.java)
-                if (value != null) {
-                    tables.add(value)
-                    Datasource().addToTables(Table(value.tableNum, value, value.active))
+                value?.let {
+                    tables[value.tableNum] = value.flagForWaiter
                 }
             }
             _tables.postValue(tables)
@@ -38,8 +37,6 @@ class TablesViewModel : ViewModel() {
             Log.w("Error", "load:onCancelled", databaseError.toException())
         }
     })
-
-
 
     fun removeListener() {
         ref.removeEventListener(listener)

@@ -10,15 +10,15 @@ class Datasource {
 
     //for waiter
 
-    fun addToTables(table: Table) {
-        if (!tables.containsKey(table.number)) {
-            tables[table.number] = table.order.dishes
-        }
-    }
-
-    fun loadOrderForTable(tableNum: Int): List<OrderDetails> {
-        return tables[tableNum]!!
-    }
+//    fun addToTables(table: Table) {
+//        if (!tables.containsKey(table.number)) {
+//            tables[table.number] = table.order.dishes
+//        }
+//    }
+//
+//    fun loadOrderForTable(tableNum: Int): List<OrderDetails> {
+//        return tables[tableNum]!!
+//    }
 
     fun removeTable(){
         //TODO: remove the ready table from the firebase, so each table can be there only once

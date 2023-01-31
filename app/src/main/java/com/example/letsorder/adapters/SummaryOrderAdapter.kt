@@ -39,7 +39,7 @@ class SummaryOrderAdapter(dataset: Map<Dish, Int>, val summaryListener: SummaryE
         val dish = dishes.elementAt(position)
         holder.title.text = dish.title
         holder.price.text = NumberFormat.getCurrencyInstance().format(dish.price).toString()
-        holder.quantity.text = "Quantity: ${allDishes.getValue(dish)}"
+        holder.quantity.text = allDishes.getValue(dish).toString()
 
         holder.buttonAdd.setOnClickListener {
             summaryListener.dishAdd(dish)

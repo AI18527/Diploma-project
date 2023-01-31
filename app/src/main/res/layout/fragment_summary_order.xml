@@ -19,7 +19,6 @@
             android:id="@+id/recyclerViewMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
             android:scrollbars="vertical"
             app:layoutManager="LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
@@ -73,8 +72,8 @@
             android:id="@+id/textBill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Your bill is:"
+            android:textSize="20sp"
+            android:text="Bill:"
             app:layout_constraintBottom_toTopOf="@+id/buttonOrder"
             app:layout_constraintStart_toStartOf="parent" />
         <TextView

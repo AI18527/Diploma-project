@@ -21,12 +21,12 @@ import com.example.letsorder.viewmodel.TablesViewModel
 
 
 class TablesFragment : Fragment() {
+    private val viewModel: TablesViewModel by viewModels()
+
     private var _binding: FragmentTablesBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var recyclerView: RecyclerView
-
-    private val viewModel: TablesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
