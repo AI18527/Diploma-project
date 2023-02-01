@@ -30,7 +30,6 @@ class OrderAdapter (dataset : List<OrderDetails>):
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val dish = order[position]
-        Log.d("ORDER DISH", "$dish")
         holder.dishTitle.text = dish.dish
         holder.dishQuantity.text = dish.quantity.toString()
     }

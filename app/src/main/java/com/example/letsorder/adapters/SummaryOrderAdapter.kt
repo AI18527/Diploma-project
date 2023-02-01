@@ -8,7 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
 import com.example.letsorder.model.Dish
+import com.example.letsorder.model.OrderDetails
+import com.example.letsorder.viewmodel.SummaryViewModel
+import com.example.letsorder.viewmodel.SummaryViewModel.Companion.active
 import com.example.letsorder.views.SummaryEditListener
+import com.example.letsorder.views.SummaryOrderFragment
+import kotlinx.coroutines.NonDisposableHandle.parent
 import java.text.NumberFormat
 
 class SummaryOrderAdapter(dataset: Map<Dish, Int>, val summaryListener: SummaryEditListener) :
@@ -23,7 +28,6 @@ class SummaryOrderAdapter(dataset: Map<Dish, Int>, val summaryListener: SummaryE
         val quantity = view.findViewById<TextView>(R.id.quantity)
         val buttonAdd = view.findViewById<Button>(R.id.buttonAdd)
         val buttonSub = view.findViewById<Button>(R.id.buttonSubtract)
-
     }
 
     override fun getItemCount(): Int = dishes.size
@@ -50,7 +54,6 @@ class SummaryOrderAdapter(dataset: Map<Dish, Int>, val summaryListener: SummaryE
     }
 
     fun updateData(data: Map<Dish, Int>) {
-
         allDishes.putAll(data)
         notifyDataSetChanged()
     }

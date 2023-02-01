@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.letsorder.FirebaseDatabaseSingleton
 import com.example.letsorder.model.*
 import com.example.letsorder.viewmodel.MenuViewModel
+import com.example.letsorder.viewmodel.QRViewModel
 
 
 class Datasource {
@@ -14,10 +15,6 @@ class Datasource {
 //        if (!tables.containsKey(table.number)) {
 //            tables[table.number] = table.order.dishes
 //        }
-//    }
-//
-//    fun loadOrderForTable(tableNum: Int): List<OrderDetails> {
-//        return tables[tableNum]!!
 //    }
 
     fun removeTable(){
@@ -51,10 +48,6 @@ class Datasource {
         return localOrder
     }
 
-//    fun createLocalOrder() {
-//        localOrder = Order(1, 1) //from the qr
-//    }
-
     //for admin
     fun addDishToMenu(category: String, title: String, description: String, price: Double) {
         val dishesRef = database.getReference("menus/0/dishes")
@@ -81,13 +74,14 @@ class Datasource {
     companion object {
         private var database = FirebaseDatabaseSingleton.getInstance()
         //TODO:
-        // it is going to stay here and when the client clicked "order" it is going to be add to the public order // for one person only at first
-        // move to public firebase order // add listener to the waiter to see the changes and move the order to private orders
+        // add waiter to move the order to private orders
         var localOrder = mutableMapOf<Dish, Int>()
         var sent = false
+        var tableNum = 0
+        var free = true
+        var currOrder = Order()
 
         private val waiters = mutableListOf(Waiter("waiter1", "1234"))
-        private var tables = mutableMapOf<Int, List<OrderDetails>>()
 
     }
 }

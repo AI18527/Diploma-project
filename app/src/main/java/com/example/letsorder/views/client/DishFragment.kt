@@ -14,6 +14,7 @@ import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentDishBinding
 import com.example.letsorder.model.Dish
 import com.example.letsorder.viewmodel.DishViewModel
+import com.example.letsorder.viewmodel.SummaryViewModel
 import com.example.letsorder.views.SummaryOrderFragment
 import com.google.android.material.snackbar.Snackbar
 import java.text.NumberFormat
@@ -59,7 +60,7 @@ class DishFragment : Fragment() {
 
         binding?.apply {
             buttonAdd.setOnClickListener {
-                if (!SummaryOrderFragment.active) {
+                if (!SummaryViewModel.active) {
                     Datasource().addDishToLocalOrder(localDish)
                     Snackbar.make(
                         view.findViewById(com.example.letsorder.R.id.dishFragment),
