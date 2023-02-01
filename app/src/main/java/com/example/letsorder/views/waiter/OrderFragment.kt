@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
 import com.example.letsorder.adapters.OrderAdapter
+import com.example.letsorder.adapters.TablesAdapter
 import com.example.letsorder.databinding.FragmentOrderBinding
 import com.example.letsorder.model.OrderDetails
 import com.example.letsorder.viewmodel.OrderViewModel
@@ -62,6 +63,7 @@ class OrderFragment : Fragment() {
         }
 
         _binding?.apply {
+            //move
             buttonDone.setOnClickListener { findNavController().navigate(R.id.action_orderFragment_to_tablesFragment) }
         }
     }

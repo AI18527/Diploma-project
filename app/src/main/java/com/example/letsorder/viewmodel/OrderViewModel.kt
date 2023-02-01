@@ -45,6 +45,10 @@ class OrderViewModel: ViewModel() {
         })
     }
 
+    fun moveOrder(){
+        val refOrder = FirebaseDatabaseSingleton.getInstance().getReference("orders")
+    }
+
     fun removeListener(){
         ref.removeEventListener(listener)
     }

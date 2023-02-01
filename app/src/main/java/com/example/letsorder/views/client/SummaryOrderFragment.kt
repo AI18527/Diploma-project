@@ -65,7 +65,7 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
                 buttonOrder.setOnClickListener {
                     viewModel.sendOrder()
                     active = true
-                    //TODO: add new view that use the data from the database
+
                     buttonOrder.visibility = View.INVISIBLE
                     buttonAdd.visibility = View.VISIBLE
                     buttonCall.visibility = View.VISIBLE

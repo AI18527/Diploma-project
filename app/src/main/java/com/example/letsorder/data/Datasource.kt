@@ -81,7 +81,7 @@ class Datasource {
         var free = true
         var currOrder = Order()
 
-        private val waiters = mutableListOf(Waiter("waiter1", "1234"))
+        private val waiters = mutableListOf<Waiter>()
 
     }
 }

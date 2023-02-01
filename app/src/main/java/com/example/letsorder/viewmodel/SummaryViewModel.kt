@@ -48,7 +48,7 @@ class SummaryViewModel : ViewModel() {
                 active = Datasource.sent,
                 bill = it,
                 dishes = dishes,
-                flagForWaiter = false,
+                flagForWaiter = true,
                 restaurantId = 1,
                 tableNum = Datasource.tableNum
             )

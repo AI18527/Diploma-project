@@ -6,17 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.letsorder.R
-import com.example.letsorder.adapters.MenuAdapter
 import com.example.letsorder.adapters.TablesAdapter
-import com.example.letsorder.data.Datasource
-import com.example.letsorder.databinding.FragmentDishBinding
 import com.example.letsorder.databinding.FragmentTablesBinding
-import com.example.letsorder.viewmodel.DishViewModel
-import com.example.letsorder.viewmodel.MenuViewModel
 import com.example.letsorder.viewmodel.TablesViewModel
 
 

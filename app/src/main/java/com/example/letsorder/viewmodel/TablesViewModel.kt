@@ -33,10 +33,14 @@ class TablesViewModel : ViewModel() {
             _tables.postValue(tables)
         }
 
-        override fun onCancelled(databaseError: DatabaseError) {
-            Log.w("Error", "load:onCancelled", databaseError.toException())
+        override fun onCancelled(error: DatabaseError) {
+            Log.w("Error", "load:onCancelled", error.toException())
         }
     })
+
+//    fun seen(tableNum: Int){
+//
+//    }
 
     fun removeListener() {
         ref.removeEventListener(listener)
