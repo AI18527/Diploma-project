@@ -5,10 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.letsorder.FirebaseDatabaseSingleton
-import com.example.letsorder.data.Datasource
-import com.example.letsorder.model.Dish
 import com.example.letsorder.model.Order
-import com.example.letsorder.model.Table
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener

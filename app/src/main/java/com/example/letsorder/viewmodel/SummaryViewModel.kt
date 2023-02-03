@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.letsorder.FirebaseDatabaseSingleton
+import com.example.letsorder.data.LocalOrder
 import com.example.letsorder.data.Datasource
 import com.example.letsorder.model.Dish
 import com.example.letsorder.model.Order
@@ -11,7 +12,7 @@ import com.example.letsorder.model.OrderDetails
 
 
 class SummaryViewModel : ViewModel() { //to be shared model
-    private var map = Datasource().loadLocalOrder()
+    private var map = LocalOrder().loadLocalOrder()
 
     private var _bill = MutableLiveData<Double>()
     val bill: LiveData<Double>

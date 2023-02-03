@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.example.letsorder.data.LocalOrder
 import com.example.letsorder.R
 import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentDishBinding
@@ -57,7 +58,7 @@ class DishFragment : Fragment() {
             }
             binding.buttonAdd.setOnClickListener {
                 Log.d("DISH", "here")
-                Datasource().addDishToLocalOrder(dish)
+                LocalOrder().addDishToLocalOrder(dish)
                 Snackbar.make(
                     view.findViewById(R.id.dishFragment),
                     "${binding.title.text} has been added to your order!",

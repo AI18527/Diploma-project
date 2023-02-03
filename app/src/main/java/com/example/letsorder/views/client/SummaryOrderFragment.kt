@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.letsorder.data.LocalOrder
 import com.example.letsorder.adapters.CurrOrderAdapter
 import com.example.letsorder.adapters.SummaryOrderAdapter
 import com.example.letsorder.data.Datasource
@@ -52,7 +53,7 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
             }
 
         } else {
-            summaryRecyclerAdapter = SummaryOrderAdapter(Datasource().loadLocalOrder(), this)
+            summaryRecyclerAdapter = SummaryOrderAdapter(LocalOrder().loadLocalOrder(), this)
             recyclerView.adapter = summaryRecyclerAdapter
 
             viewModel.sumBill()
@@ -68,7 +69,7 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
                     buttonOrder.visibility = View.INVISIBLE
                     buttonAdd.visibility = View.VISIBLE
                     buttonCall.visibility = View.VISIBLE
-                    buttonPay.visibility = View.VISIBLE //*closing the app after paying
+                    buttonPay.visibility = View.VISIBLE
                 }
             }
         }
@@ -81,13 +82,13 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
 
     override fun dishAdd(dish: Dish) {
         Log.d("ADD", "$dish")
-        val updatedSummary = Datasource().addDishToLocalOrder(dish)
+        val updatedSummary = LocalOrder().addDishToLocalOrder(dish)
         summaryRecyclerAdapter.updateData(updatedSummary)
         viewModel.updateData(updatedSummary)
     }
 
     override fun dishSub(dish: Dish) {
-        val updatedSummary = Datasource().removeDishFromLocalOrder(dish)
+        val updatedSummary = LocalOrder().removeDishFromLocalOrder(dish)
         summaryRecyclerAdapter.updateData(updatedSummary)
         viewModel.updateData(updatedSummary)
     }

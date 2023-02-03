@@ -26,7 +26,7 @@ class TablesAdapter(viewModel: TablesViewModel, val context: Context) :
     }
 
     class TablesViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val buttonTable = view.findViewById<Button>(R.id.buttonTable)
+        val buttonTable: Button = view.findViewById(R.id.buttonTable)
     }
 
     override fun getItemCount(): Int = tables.size
@@ -43,21 +43,17 @@ class TablesAdapter(viewModel: TablesViewModel, val context: Context) :
     override fun onBindViewHolder(holder: TablesViewHolder, position: Int) {
         var table = tables.toList()[position]
 
-        if (!table.second) {
+        if (table.second) {
             holder.buttonTable.setBackgroundColor(getColor(context, R.color.green))
         }
 
         else {
-            holder.buttonTable.setBackgroundColor(getColor(context, R.color.mango_orange))
+            holder.buttonTable.setBackgroundColor(getColor(context, R.color.mustard_yellow))
         }
 
         holder.buttonTable.text = "Table ${table.first}"
 
         holder.buttonTable.setOnClickListener {
-            //TablesViewModel().seen(table.first)
-            Log.d("TABLE", "$tables")
-            // viewModel addToOrders
-            //TODO: move to the private orders// change in the base
             val action =
                 TablesFragmentDirections.actionTablesFragmentToOrderFragment(tableNum = table.first)
             holder.view.findNavController().navigate(action)
