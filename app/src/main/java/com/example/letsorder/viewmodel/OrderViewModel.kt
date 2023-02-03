@@ -21,35 +21,41 @@ class OrderViewModel: ViewModel() {
     val bill: LiveData<Double>
         get() = _bill
 
-    private val ref = FirebaseDatabaseSingleton.getInstance().getReference("/publicOrders/")
-
-    private lateinit var listener : ValueEventListener
+    private val ref = FirebaseDatabaseSingleton.getInstance()
 
     fun getOrder(tableNum : Int){
-        listener = ref.addValueEventListener(object : ValueEventListener {
+        val query =  ref.getReference("/publicOrders/").orderByChild("tableNum").equalTo(tableNum.toDouble()).limitToFirst(1)
+        query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (snapshot in dataSnapshot.children) {
-                    val value = snapshot.getValue(Order::class.java)
-                    value?.let {
-                        if (it.tableNum == tableNum) {
-                            _order.postValue(it.dishes)
-                            _bill.postValue(it.bill)
-                        }
-                    }
+                dataSnapshot.children.map {
+                    it.getValue(Order::class.java)
+                }.firstOrNull()?.let {
+                    _order.postValue(it.dishes)
+                    _bill.postValue(it.bill)
+                    query.removeEventListener(this)
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.w("Error", "load:onCancelled", error.toException())
+                Log.w("TAG", "load:onCancelled", error.toException())
             }
         })
     }
 
-    fun moveOrder(){
-        val refOrder = FirebaseDatabaseSingleton.getInstance().getReference("orders")
-    }
+    fun removeOrder(tableNum: Int){
+        val query = ref.getReference("/publicOrders/").orderByChild("tableNum").equalTo(tableNum.toDouble()).limitToFirst(1)
+            query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                dataSnapshot.children.map{
+                    val order = it.getValue(Order::class.java)
+                    ref.getReference("/orders/").push().setValue(order)
+                }
+                dataSnapshot.children.iterator().next().ref.removeValue()
+            }
 
-    fun removeListener(){
-        ref.removeEventListener(listener)
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("TAG", "load:onCancelled", error.toException())
+            }
+        })
     }
 }

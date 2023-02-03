@@ -40,6 +40,4 @@ class TablesFragment : Fragment() {
         _binding = null
         viewModel.removeListener()
     }
-
-
 }

@@ -19,7 +19,7 @@ class TablesAdapter(viewModel: TablesViewModel, val context: Context) :
 
     init {
         viewModel.tables.observeForever {
-            //tables.clear()
+            tables.clear()
             tables.putAll(it)
             notifyDataSetChanged()
         }

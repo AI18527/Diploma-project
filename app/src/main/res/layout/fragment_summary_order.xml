@@ -7,7 +7,7 @@
     <data>
         <variable
             name="summaryOrderFragment"
-            type="com.example.letsorder.views.SummaryOrderFragment" />
+            type="com.example.letsorder.views.client.SummaryOrderFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

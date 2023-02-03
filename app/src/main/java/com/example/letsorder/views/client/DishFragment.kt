@@ -10,12 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.example.letsorder.R
 import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentDishBinding
-import com.example.letsorder.model.Dish
 import com.example.letsorder.viewmodel.DishViewModel
-import com.example.letsorder.viewmodel.SummaryViewModel
-import com.example.letsorder.views.SummaryOrderFragment
 import com.google.android.material.snackbar.Snackbar
 import java.text.NumberFormat
 import kotlin.properties.Delegates
@@ -48,37 +46,27 @@ class DishFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var localDish = Dish()
-        viewModel.dish.observe(viewLifecycleOwner
-        ) { dish ->
-            localDish = dish
-
+        viewModel.dish.observe(viewLifecycleOwner){
+            dish ->
             binding.title.text = dish.title
             binding.description.text = dish.description
             binding.price.text = NumberFormat.getCurrencyInstance().format(dish.price).toString()
-        }
 
-        binding?.apply {
-            buttonAdd.setOnClickListener {
-                if (!SummaryViewModel.active) {
-                    Datasource().addDishToLocalOrder(localDish)
-                    Snackbar.make(
-                        view.findViewById(com.example.letsorder.R.id.dishFragment),
-                        "${binding.title.text} has been added to your order!",
-                        LENGTH_SHORT
-                    ).show()
-                }
-                else {
+            if (!Datasource.free) {
+                binding.buttonAdd.visibility = View.INVISIBLE
+            }
+            binding.buttonAdd.setOnClickListener {
+                Log.d("DISH", "here")
+                Datasource().addDishToLocalOrder(dish)
                 Snackbar.make(
-                    view.findViewById(com.example.letsorder.R.id.dishFragment),
-                    "Sorry, but you cannot add new dishes to your order",
+                    view.findViewById(R.id.dishFragment),
+                    "${binding.title.text} has been added to your order!",
                     LENGTH_SHORT
                 ).show()
-            }
 
-                findNavController().navigate(com.example.letsorder.R.id.action_dishFragment_to_menuFragment)
+                findNavController().navigate(R.id.action_dishFragment_to_menuFragment)
                 Navigation.findNavController(requireView()).popBackStack(
-                    com.example.letsorder.R.id.dishFragment, true
+                    R.id.dishFragment, true
                 )
             }
         }
@@ -87,7 +75,6 @@ class DishFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        viewModel.removeListener()
     }
 
     companion object {

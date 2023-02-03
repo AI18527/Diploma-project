@@ -2,9 +2,12 @@ package com.example.letsorder.views
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,6 +18,7 @@ import com.example.letsorder.databinding.FragmentQRBinding
 import com.example.letsorder.viewmodel.QRViewModel
 import com.example.letsorder.viewmodel.SummaryViewModel
 import com.example.letsorder.views.client.ClientMain
+import com.google.android.material.snackbar.Snackbar
 
 class QRFragment : Fragment() {
     val viewModel : QRViewModel by viewModels()
@@ -33,25 +37,35 @@ class QRFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _binding?.apply {
-            buttonMenu.setOnClickListener {
-                val tableNumber = binding.tableNumber.text.toString().toInt()
-                viewModel.isTableFree(tableNumber)
+            /*buttonMenu.setOnClickListener {
+                viewModel.isTableFree(binding.tableNumber.text.toString().toInt())
+
                 viewModel.freeTable.observe(viewLifecycleOwner) { freeTable ->
-                    free = freeTable
+                    //to tell you that the table is not free *pop up if you want to see the order
                     SummaryViewModel.active = !freeTable
-                    if (free){
-                        tableNum = tableNumber
-                    }
+                    Log.d("TABLE FREE", "$freeTable")
                     startActivity(Intent(activity, ClientMain::class.java))
                 }
-            }
-            buttonLogin.setOnClickListener { findNavController().navigate(R.id.action_QRFragment_to_loginFragment) }
+            }*/
+
+
+        binding.buttonMenu.setOnClickListener {
+            viewModel.isTableFree(binding.tableNumber.text.toString().toInt(), ::navigateToTableSummary)
+            //startActivity(Intent(activity, ClientMain::class.java))
+            /**/
         }
+            //free = freeTable
+            //SummaryViewModel.active = !freeTable
+            //TODO: навигацията много по- бързо се изпълнява отколкото взимаменето на информация
+        binding.buttonLogin.setOnClickListener { findNavController().navigate(R.id.action_QRFragment_to_loginFragment) }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun navigateToTableSummary() {
+        startActivity(Intent(activity, ClientMain::class.java))
     }
 }

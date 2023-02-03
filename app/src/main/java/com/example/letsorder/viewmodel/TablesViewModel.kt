@@ -38,10 +38,6 @@ class TablesViewModel : ViewModel() {
         }
     })
 
-//    fun seen(tableNum: Int){
-//
-//    }
-
     fun removeListener() {
         ref.removeEventListener(listener)
     }

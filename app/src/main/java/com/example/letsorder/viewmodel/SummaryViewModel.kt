@@ -10,7 +10,7 @@ import com.example.letsorder.model.Order
 import com.example.letsorder.model.OrderDetails
 
 
-class SummaryViewModel : ViewModel() {
+class SummaryViewModel : ViewModel() { //to be shared model
     private var map = Datasource().loadLocalOrder()
 
     private var _bill = MutableLiveData<Double>()
@@ -54,9 +54,5 @@ class SummaryViewModel : ViewModel() {
             )
         }
         ref.push().setValue(newOrder)
-    }
-
-    companion object{
-        var active: Boolean = false
     }
 }

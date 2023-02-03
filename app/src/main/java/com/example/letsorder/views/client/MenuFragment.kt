@@ -28,28 +28,23 @@ class MenuFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (!Datasource.free){
-            findNavController().navigate(R.id.action_menuFragment_to_summaryOrderFragment)
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("Menu", "here")
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        Log.d("MENU", "here")
         recyclerView = binding.recyclerViewMenu
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = MenuAdapter(MenuViewModel())
 
         _binding?.apply {
+            Log.d("MENU", "binding")
             buttonMyOrder.setOnClickListener { findNavController().navigate(R.id.action_menuFragment_to_summaryOrderFragment) }
         }
     }

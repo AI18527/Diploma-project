@@ -19,28 +19,20 @@ class DishViewModel() : ViewModel(){
 
     private val ref = FirebaseDatabaseSingleton.getInstance().getReference("/menus/0/dishes/")
 
-    private lateinit var listener : ValueEventListener
-
     fun getDish(id: Int){
-        listener = ref.addValueEventListener(object : ValueEventListener {
+        val query =  ref.orderByChild("id").equalTo(id.toDouble()).limitToFirst(1)
+        query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (snapshot in dataSnapshot.children) {
-                    val value = snapshot.getValue(Dish::class.java)
-                    value?.let {
-                        if (it.id == id) {
-                            _dish.postValue(it)
-                        }
-                    }
+                dataSnapshot.children.map {
+                    it.getValue(Dish::class.java)
+                }.firstOrNull()?.let {
+                    _dish.postValue(it)
                 }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                Log.w("Error", "load:onCancelled", databaseError.toException())
+                Log.w("TAG", "load:onCancelled", databaseError.toException())
             }
         })
-    }
-
-    fun removeListener(){
-        ref.removeEventListener(listener)
     }
 }

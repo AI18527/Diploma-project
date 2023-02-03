@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/summaryOrderFragment"
-        android:name="com.example.letsorder.views.SummaryOrderFragment"
+        android:name="com.example.letsorder.views.client.SummaryOrderFragment"
         android:label="My order"
         tools:layout="@layout/fragment_summary_order" />
 

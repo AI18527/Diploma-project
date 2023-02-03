@@ -7,11 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
-import com.example.letsorder.model.Dish
 import com.example.letsorder.model.OrderDetails
-import com.example.letsorder.viewmodel.SummaryViewModel
-import com.example.letsorder.views.SummaryEditListener
-import java.text.NumberFormat
 
 class CurrOrderAdapter(dataset: List<OrderDetails>) :
     RecyclerView.Adapter<CurrOrderAdapter.CurrOrderViewHolder>() {

@@ -1,4 +1,4 @@
-package com.example.letsorder.views
+package com.example.letsorder.views.client
 
 import android.os.Bundle
 import android.util.Log
@@ -15,7 +15,6 @@ import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentSummaryOrderBinding
 import com.example.letsorder.model.Dish
 import com.example.letsorder.viewmodel.SummaryViewModel
-import com.example.letsorder.viewmodel.SummaryViewModel.Companion.active
 import java.text.NumberFormat
 
 class SummaryOrderFragment : SummaryEditListener, Fragment() {
@@ -40,7 +39,7 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
         recyclerView = binding.recyclerViewMenu
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        if (active) {
+        if (!Datasource.free) {
             recyclerView.adapter = CurrOrderAdapter(Datasource.currOrder.dishes)
 
             binding?.apply {
@@ -53,7 +52,7 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
             }
 
         } else {
-            summaryRecyclerAdapter = SummaryOrderAdapter(Datasource.localOrder, this)
+            summaryRecyclerAdapter = SummaryOrderAdapter(Datasource().loadLocalOrder(), this)
             recyclerView.adapter = summaryRecyclerAdapter
 
             viewModel.sumBill()
@@ -64,7 +63,7 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
             binding?.apply {
                 buttonOrder.setOnClickListener {
                     viewModel.sendOrder()
-                    active = true
+                    Datasource.free = true
 
                     buttonOrder.visibility = View.INVISIBLE
                     buttonAdd.visibility = View.VISIBLE

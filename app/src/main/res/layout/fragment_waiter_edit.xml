@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".views.WaiterEditFragment">
+    tools:context=".views.admin.WaiterEditFragment">
 
     <data>
         <variable
             name="waiterEditFragment"
-            type="com.example.letsorder.views.WaiterEditFragment" />
+            type="com.example.letsorder.views.admin.WaiterEditFragment" />
     </data>
 
 
@@ -17,7 +17,7 @@
 
 
         <EditText
-            android:id="@+id/input_email"
+            android:id="@+id/inputEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -29,6 +29,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.233" />
 
+        <EditText
+            android:id="@+id/inputName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter name"
+            android:inputType="text"
+            app:layout_constraintBottom_toTopOf="@id/inputEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <Button
             android:id="@+id/button_register"
             android:text="Register"
@@ -36,7 +48,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_email" />
+            app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
 
 
         <androidx.recyclerview.widget.RecyclerView

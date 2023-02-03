@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_adminPanelFragment_to_waiterEditFragment"
             app:destination="@id/waiterEditFragment" />
+        <action
+            android:id="@+id/action_adminPanelFragment_to_tablesEditFragment"
+            app:destination="@id/tablesEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/menuEditFragment"
@@ -28,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/waiterEditFragment"
-        android:name="com.example.letsorder.views.WaiterEditFragment"
+        android:name="com.example.letsorder.views.admin.WaiterEditFragment"
         android:label="Waiter edit"
         tools:layout="@layout/fragment_waiter_edit" />
     <fragment
@@ -40,5 +43,10 @@
             android:id="@+id/action_dishEditFragment_to_menuEditFragment"
             app:destination="@id/menuEditFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/tablesEditFragment"
+        android:name="com.example.letsorder.views.admin.TablesEditFragment"
+        android:label="fragment_tables_edit"
+        tools:layout="@layout/fragment_tables_edit" />
 
 </navigation>

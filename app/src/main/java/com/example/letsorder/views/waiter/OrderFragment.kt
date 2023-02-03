@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -52,26 +53,29 @@ class OrderFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         var orderList: ArrayList<OrderDetails>
-        viewModel.order.observe(viewLifecycleOwner){
-            order ->
+        viewModel.order.observe(viewLifecycleOwner) { order ->
             orderList = order as ArrayList<OrderDetails>
 
             recyclerView.adapter = OrderAdapter(orderList)
         }
-        viewModel.bill.observe(viewLifecycleOwner){
-                bill -> binding.orderBill.text = "Bill: ${NumberFormat.getCurrencyInstance().format(bill)}"
+        viewModel.bill.observe(viewLifecycleOwner) { bill ->
+            binding.orderBill.text = "Bill: ${NumberFormat.getCurrencyInstance().format(bill)}"
         }
 
         _binding?.apply {
-            //move
-            buttonDone.setOnClickListener { findNavController().navigate(R.id.action_orderFragment_to_tablesFragment) }
+            buttonDone.setOnClickListener {
+                viewModel.removeOrder(tableNum)
+                findNavController().navigate(R.id.action_orderFragment_to_tablesFragment)
+                Navigation.findNavController(requireView()).popBackStack(
+                    R.id.dishFragment, true
+                )
+            }
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        viewModel.removeListener()
     }
 
     companion object {

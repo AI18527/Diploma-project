@@ -7,15 +7,22 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
-import com.example.letsorder.data.Datasource
 import com.example.letsorder.model.Waiter
-import com.example.letsorder.views.WaiterEditListener
-import org.w3c.dom.Text
+import com.example.letsorder.viewmodel.WaiterEditViewModel
+import com.example.letsorder.views.admin.WaiterEditListener
 
-class WaiterListAdapter(dataset: List<Waiter>, val waiterEditListener: WaiterEditListener) :
+class WaiterListAdapter(viewModel: WaiterEditViewModel, val waiterEditListener: WaiterEditListener) :
     RecyclerView.Adapter<WaiterListAdapter.WaiterListViewHolder>() {
 
-    private val waiters = ArrayList<Waiter>().apply { addAll(dataset) }
+    private val waiters = ArrayList<Waiter>()
+
+    init {
+        viewModel.waiters.observeForever {
+            waiters.clear()
+            waiters.addAll(it)
+            notifyDataSetChanged()
+        }
+    }
 
     class WaiterListViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val name = view.findViewById<TextView>(R.id.name)!!
@@ -33,7 +40,7 @@ class WaiterListAdapter(dataset: List<Waiter>, val waiterEditListener: WaiterEdi
 
     override fun onBindViewHolder(holder: WaiterListViewHolder, position: Int) {
         val waiter = waiters[position]
-        holder.name.text = waiter.email
+        holder.name.text = waiter.name
         holder.email.text = waiter.email
 
         holder.buttonDelete.setOnClickListener {
@@ -41,9 +48,10 @@ class WaiterListAdapter(dataset: List<Waiter>, val waiterEditListener: WaiterEdi
         }
     }
 
-    fun updateData(data: List<Waiter>) {
-        waiters.clear()
-        waiters.addAll(data)
-        notifyDataSetChanged()
-    }
+//    fun updateData(data: List<Waiter>) {
+//        waiters.clear()
+//        waiters.addAll(data)
+//        notifyDataSetChanged()
+//    }
+
 }

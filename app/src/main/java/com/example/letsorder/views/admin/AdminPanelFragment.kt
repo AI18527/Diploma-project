@@ -25,8 +25,9 @@ class AdminPanelFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding?.apply {
-            buttonAddWaiter.setOnClickListener { waiterEdit() }
-            buttonAddMenu.setOnClickListener { menuEdit() }
+            buttonWaiters.setOnClickListener { waiterEdit() }
+            buttonMenu.setOnClickListener { menuEdit() }
+            buttonTables.setOnClickListener { tablesEdit() }
         }
     }
 
@@ -36,6 +37,10 @@ class AdminPanelFragment : Fragment() {
 
     private fun waiterEdit() {
         findNavController().navigate(R.id.action_adminPanelFragment_to_waiterEditFragment)
+    }
+
+    private fun tablesEdit(){
+        findNavController().navigate(R.id.action_adminPanelFragment_to_tablesEditFragment)
     }
 
 }

@@ -8,12 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
 import com.example.letsorder.model.Dish
-import com.example.letsorder.model.OrderDetails
-import com.example.letsorder.viewmodel.SummaryViewModel
-import com.example.letsorder.viewmodel.SummaryViewModel.Companion.active
-import com.example.letsorder.views.SummaryEditListener
-import com.example.letsorder.views.SummaryOrderFragment
-import kotlinx.coroutines.NonDisposableHandle.parent
+import com.example.letsorder.views.client.SummaryEditListener
 import java.text.NumberFormat
 
 class SummaryOrderAdapter(dataset: Map<Dish, Int>, val summaryListener: SummaryEditListener) :
