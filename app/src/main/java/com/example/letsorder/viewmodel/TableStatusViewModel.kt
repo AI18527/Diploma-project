@@ -27,6 +27,7 @@ class TableStatusViewModel: ViewModel() {
     private val ref = FirebaseDatabaseSingleton.getInstance().getReference("/publicOrders/")
     private lateinit var listener : ValueEventListener
 
+    //TODO: to rewrite this method
     fun isTableFree(tableNum: Int, navCallback: () -> Unit){
         listener = ref.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

@@ -8,11 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import com.example.letsorder.R
 import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentLoginBinding
 import com.example.letsorder.model.Waiter
+import com.example.letsorder.viewmodel.LoginViewModel
 import com.example.letsorder.views.admin.AdminMain
+import com.example.letsorder.views.client.ClientMain
 import com.example.letsorder.views.waiter.WaiterMain
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -20,6 +23,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class LoginFragment : Fragment() {
+    val viewModel: LoginViewModel by viewModels()
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
@@ -47,27 +51,40 @@ class LoginFragment : Fragment() {
     }
 
     private fun goToNextScreen(view: View) {
-        if (binding.inputEmail.text.toString() == "Admin") {
-            startActivity(Intent(activity, AdminMain::class.java))
-        } else {
-            auth.signInWithEmailAndPassword(
-                binding.inputEmail.text.toString(),
-                binding.inputPassword.text.toString()
-            )
-                .addOnCompleteListener() { task ->
-                    if (task.isSuccessful) {
-                        Log.d("TAG", "signInWithEmail:success")
-                        val user = auth.currentUser
-                        startActivity(Intent(activity, WaiterMain::class.java))
-                    } else {
-                        Log.w("TAG", "signInWithEmail:failure", task.exception)
-                        Snackbar.make(
-                            view.findViewById(R.id.loginFragment),
-                            "Wrong email or password",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
+        auth.signInWithEmailAndPassword(
+            binding.inputEmail.text.toString(),
+            binding.inputPassword.text.toString()
+        ).addOnCompleteListener() { task ->
+            if (task.isSuccessful) {
+                Log.d("TAG", "signInWithEmail:success")
+                val user = auth.currentUser
+                viewModel.checkUser(user?.email!!, ::navigateToAdmin, ::navigateToWaiter)
+
+                /*if (user?.email == admin) {
+                    startActivity(Intent(activity, AdminMain::class.java))
+                } else {
+                    startActivity(Intent(activity, WaiterMain::class.java))
+                }*/
+            } else {
+                Log.w("TAG", "signInWithEmail:failure", task.exception)
+                Snackbar.make(
+                    view.findViewById(R.id.loginFragment),
+                    "Wrong email or password",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
+    }
+
+    /*companion object {
+        val admin = "avigeiailieva@gmail.com"
+    }*/
+
+    private fun navigateToAdmin() {
+        startActivity(Intent(activity, AdminMain::class.java))
+    }
+
+    private fun navigateToWaiter(){
+        startActivity(Intent(activity, WaiterMain::class.java))
     }
 }
