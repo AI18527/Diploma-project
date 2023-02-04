@@ -12,17 +12,12 @@ import com.google.firebase.database.ValueEventListener
 
 class LoginViewModel : ViewModel() {
 
-    /*private var _admin = MutableLiveData<String>()
-    val admin : LiveData<String>
-        get() = _admin*/
-
     private val ref = FirebaseDatabaseSingleton.getInstance().getReference("/restaurants/")
 
     fun checkUser(email: String, navCallbackAdmin: () -> Unit, navCallbackWaiter: () -> Unit ){
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val admin = dataSnapshot.child("/admin/").value
-                Log.d("TAG", "${email == admin.toString()} $email")
                 if (email == admin.toString()){
                     navCallbackAdmin()
                 }

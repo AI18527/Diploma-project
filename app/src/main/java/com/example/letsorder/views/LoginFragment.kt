@@ -60,11 +60,6 @@ class LoginFragment : Fragment() {
                 val user = auth.currentUser
                 viewModel.checkUser(user?.email!!, ::navigateToAdmin, ::navigateToWaiter)
 
-                /*if (user?.email == admin) {
-                    startActivity(Intent(activity, AdminMain::class.java))
-                } else {
-                    startActivity(Intent(activity, WaiterMain::class.java))
-                }*/
             } else {
                 Log.w("TAG", "signInWithEmail:failure", task.exception)
                 Snackbar.make(
@@ -75,10 +70,6 @@ class LoginFragment : Fragment() {
             }
         }
     }
-
-    /*companion object {
-        val admin = "avigeiailieva@gmail.com"
-    }*/
 
     private fun navigateToAdmin() {
         startActivity(Intent(activity, AdminMain::class.java))
