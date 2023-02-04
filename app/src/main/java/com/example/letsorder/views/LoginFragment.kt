@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import com.example.letsorder.R
 import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentLoginBinding
@@ -73,9 +74,15 @@ class LoginFragment : Fragment() {
 
     private fun navigateToAdmin() {
         startActivity(Intent(activity, AdminMain::class.java))
+        Navigation.findNavController(requireView()).popBackStack(
+            R.id.loginFragment, true
+        )
     }
 
     private fun navigateToWaiter(){
         startActivity(Intent(activity, WaiterMain::class.java))
+        Navigation.findNavController(requireView()).popBackStack(
+            R.id.loginFragment, true
+        )
     }
 }

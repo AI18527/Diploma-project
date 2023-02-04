@@ -65,7 +65,7 @@ class OrderFragment : Fragment() {
                 viewModel.reMoveOrder(tableNum)
                 findNavController().navigate(R.id.action_orderFragment_to_tablesFragment)
                 Navigation.findNavController(requireView()).popBackStack(
-                    R.id.dishFragment, true
+                    R.id.orderFragment, true
                 )
             }
         }
