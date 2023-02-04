@@ -1,6 +1,5 @@
 package com.example.letsorder.viewmodel
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -47,7 +46,7 @@ class OrderViewModel : ViewModel() {
         })
     }
 
-    fun removeOrder(tableNum: Int) {
+    fun reMoveOrder(tableNum: Int) {
         val query =
             ref.getReference("/publicOrders/").orderByChild("tableNum").equalTo(tableNum.toDouble())
                 .limitToFirst(1)

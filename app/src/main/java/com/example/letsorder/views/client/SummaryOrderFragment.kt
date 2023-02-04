@@ -6,21 +6,28 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.letsorder.R
 import com.example.letsorder.data.LocalOrder
 import com.example.letsorder.adapters.CurrOrderAdapter
 import com.example.letsorder.adapters.SummaryOrderAdapter
-import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentSummaryOrderBinding
 import com.example.letsorder.model.Dish
 import com.example.letsorder.viewmodel.SummaryViewModel
+import com.example.letsorder.viewmodel.TableStatusViewModel
+import com.google.android.material.snackbar.Snackbar
 import java.text.NumberFormat
 
 class SummaryOrderFragment : SummaryEditListener, Fragment() {
 
     private val viewModel: SummaryViewModel by viewModels()
+    private val sharedViewModel: TableStatusViewModel by activityViewModels()
 
     private var _binding: FragmentSummaryOrderBinding? = null
     private val binding get() = _binding!!
@@ -40,19 +47,7 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
         recyclerView = binding.recyclerViewMenu
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        if (!Datasource.free) {
-            recyclerView.adapter = CurrOrderAdapter(Datasource.currOrder.dishes)
-
-            binding?.apply {
-                bill.text =
-                    NumberFormat.getCurrencyInstance().format(Datasource.currOrder.bill)
-                buttonOrder.visibility = View.INVISIBLE
-                buttonAdd.visibility = View.VISIBLE
-                buttonCall.visibility = View.VISIBLE
-                buttonPay.visibility = View.VISIBLE
-            }
-
-        } else {
+        if (sharedViewModel.freeTable) {
             summaryRecyclerAdapter = SummaryOrderAdapter(LocalOrder().loadLocalOrder(), this)
             recyclerView.adapter = summaryRecyclerAdapter
 
@@ -60,17 +55,49 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
             viewModel.bill.observe(viewLifecycleOwner) { bill ->
                 binding.bill.text = NumberFormat.getCurrencyInstance().format(bill).toString()
             }
+            binding.buttonOrder.setOnClickListener {
+                viewModel.sendOrder()
+                sharedViewModel.takeTable()
+                showButtons()
+                //go to menu Idk why
+            }
+        }
+        else {
+            sharedViewModel.getOrder()
+            sharedViewModel.tableOrder.observe(viewLifecycleOwner){
+                    order ->
+                recyclerView.adapter = CurrOrderAdapter(order.dishes)
+                binding.bill.text = NumberFormat.getCurrencyInstance().format(order.bill).toString()
+            }
+            showButtons()
+        }
+    }
 
-            binding?.apply {
-                buttonOrder.setOnClickListener {
-                    viewModel.sendOrder()
-                    Datasource.free = true
+    private fun showButtons() {
+        binding?.apply {
+            buttonOrder.visibility = View.INVISIBLE
+            buttonAdd.visibility = View.VISIBLE
+            buttonCall.visibility = View.VISIBLE
+            buttonPay.visibility = View.VISIBLE
 
-                    buttonOrder.visibility = View.INVISIBLE
-                    buttonAdd.visibility = View.VISIBLE
-                    buttonCall.visibility = View.VISIBLE
-                    buttonPay.visibility = View.VISIBLE
-                }
+            binding.buttonCall.setOnClickListener {
+                viewModel.callWaiter()
+                buttonCall.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.dark_orange
+                    )
+                )
+            }
+            binding.buttonPay.setOnClickListener {
+                viewModel.callWaiter()
+                //snack error
+                buttonCall.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.dark_orange
+                    )
+                )
             }
         }
     }
@@ -96,5 +123,5 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
 
 interface SummaryEditListener {
     fun dishAdd(dish: Dish)
-    fun dishSub(dish:Dish)
+    fun dishSub(dish: Dish)
 }

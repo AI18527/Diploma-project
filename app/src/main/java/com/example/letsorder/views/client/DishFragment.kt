@@ -15,6 +15,7 @@ import com.example.letsorder.R
 import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentDishBinding
 import com.example.letsorder.viewmodel.DishViewModel
+import com.example.letsorder.viewmodel.TableStatusViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.text.NumberFormat
 import kotlin.properties.Delegates
@@ -26,6 +27,7 @@ class DishFragment : Fragment() {
     private var dishId by Delegates.notNull<Int>()
 
     private val viewModel: DishViewModel by viewModels()
+    private val sharedViewModel: TableStatusViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,15 +51,15 @@ class DishFragment : Fragment() {
 
         viewModel.dish.observe(viewLifecycleOwner){
             dish ->
+            Log.d("TAG", "$dish")
             binding.title.text = dish.title
             binding.description.text = dish.description
             binding.price.text = NumberFormat.getCurrencyInstance().format(dish.price).toString()
 
-            if (!Datasource.free) {
+            if (!sharedViewModel.freeTable) {
                 binding.buttonAdd.visibility = View.INVISIBLE
             }
             binding.buttonAdd.setOnClickListener {
-                Log.d("DISH", "here")
                 LocalOrder().addDishToLocalOrder(dish)
                 Snackbar.make(
                     view.findViewById(R.id.dishFragment),
