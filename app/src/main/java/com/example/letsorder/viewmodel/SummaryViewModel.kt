@@ -27,6 +27,10 @@ class SummaryViewModel : ViewModel() {
     val order: LiveData<Order>
         get() = _order
 
+    private var _sent = MutableLiveData<Boolean>()
+    val sent: LiveData<Boolean>
+        get() = _sent
+
     private val ref = FirebaseDatabaseSingleton.getInstance().getReference("/publicOrders/")
 
     fun updateData(updatedMap: Map<Dish, Int>) {
@@ -43,7 +47,6 @@ class SummaryViewModel : ViewModel() {
     }
 
     fun sendOrder() {
-
         var dishes = arrayListOf<OrderDetails>()
         for (item in map) {
             dishes.add(OrderDetails(item.key.title, item.value))
@@ -59,6 +62,7 @@ class SummaryViewModel : ViewModel() {
             )
         }
         ref.push().setValue(newOrder)
+        _sent.postValue(true)
     }
 
     fun callWaiter() {

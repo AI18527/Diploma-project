@@ -7,8 +7,5 @@ class Datasource {
     companion object {
         var sent = false
         var tableNum = 0
-        var free = true
-        //var currOrder = Order()
-        var seen = false
     }
 }

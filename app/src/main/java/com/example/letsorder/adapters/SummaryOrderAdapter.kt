@@ -5,17 +5,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
 import com.example.letsorder.model.Dish
+import com.example.letsorder.viewmodel.SummaryViewModel
 import com.example.letsorder.views.client.SummaryEditListener
 import java.text.NumberFormat
 
-class SummaryOrderAdapter(dataset: Map<Dish, Int>, val summaryListener: SummaryEditListener) :
+class SummaryOrderAdapter(viewModel: SummaryViewModel, dataset: Map<Dish, Int>, val summaryListener: SummaryEditListener) :
     RecyclerView.Adapter<SummaryOrderAdapter.SummaryOrderViewHolder>() {
 
     private var allDishes: MutableMap<Dish, Int> = dataset as MutableMap<Dish, Int>
     private val dishes: MutableSet<Dish> = allDishes.keys
+
+    private var sent: Boolean = false
+
+    init{
+        viewModel.sent.observeForever {
+            sent = viewModel.sent.value!!
+            notifyDataSetChanged()
+        }
+    }
 
     class SummaryOrderViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val title = view.findViewById<TextView>(R.id.title)
@@ -39,6 +50,11 @@ class SummaryOrderAdapter(dataset: Map<Dish, Int>, val summaryListener: SummaryE
         holder.title.text = dish.title
         holder.price.text = NumberFormat.getCurrencyInstance().format(dish.price).toString()
         holder.quantity.text = allDishes.getValue(dish).toString()
+
+        if(sent){
+            holder.buttonSub.visibility = View.INVISIBLE
+            holder.buttonAdd.visibility = View.INVISIBLE
+        }
 
         holder.buttonAdd.setOnClickListener {
             summaryListener.dishAdd(dish)

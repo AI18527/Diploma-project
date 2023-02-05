@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -47,27 +48,28 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
         recyclerView = binding.recyclerViewMenu
         recyclerView.layoutManager = LinearLayoutManager(context)
 
+        //TODO: better logic
         if (sharedViewModel.freeTable) {
-            summaryRecyclerAdapter = SummaryOrderAdapter(LocalOrder().loadLocalOrder(), this)
+            summaryRecyclerAdapter =
+                SummaryOrderAdapter(viewModel, LocalOrder().loadLocalOrder(), this)
             recyclerView.adapter = summaryRecyclerAdapter
 
             viewModel.sumBill()
             viewModel.bill.observe(viewLifecycleOwner) { bill ->
-                binding.bill.text = NumberFormat.getCurrencyInstance().format(bill).toString()
+                binding.bill.text =
+                    NumberFormat.getCurrencyInstance().format(bill).toString()
             }
             binding.buttonOrder.setOnClickListener {
                 viewModel.sendOrder()
                 sharedViewModel.takeTable()
                 showButtons()
-                //go to menu Idk why
             }
-        }
-        else {
+        } else {
             sharedViewModel.getOrder()
-            sharedViewModel.tableOrder.observe(viewLifecycleOwner){
-                    order ->
+            sharedViewModel.tableOrder.observe(viewLifecycleOwner) { order ->
                 recyclerView.adapter = CurrOrderAdapter(order.dishes)
-                binding.bill.text = NumberFormat.getCurrencyInstance().format(order.bill).toString()
+                binding.bill.text =
+                    NumberFormat.getCurrencyInstance().format(order.bill).toString()
             }
             showButtons()
         }
@@ -108,7 +110,6 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
     }
 
     override fun dishAdd(dish: Dish) {
-        Log.d("ADD", "$dish")
         val updatedSummary = LocalOrder().addDishToLocalOrder(dish)
         summaryRecyclerAdapter.updateData(updatedSummary)
         viewModel.updateData(updatedSummary)

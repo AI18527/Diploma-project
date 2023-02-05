@@ -5,9 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.letsorder.FirebaseDatabaseSingleton
-import com.example.letsorder.data.Datasource.Companion.free
-import com.example.letsorder.data.Datasource.Companion.tableNum
-import com.example.letsorder.model.Dish
 import com.example.letsorder.model.Order
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -27,8 +24,8 @@ class TableStatusViewModel: ViewModel() {
     private val ref = FirebaseDatabaseSingleton.getInstance().getReference("/publicOrders/")
     private lateinit var listener : ValueEventListener
 
-    //TODO: to rewrite this method
     fun isTableFree(tableNum: Int, navCallback: () -> Unit){
+
         listener = ref.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 TABLENUM = tableNum
@@ -37,12 +34,11 @@ class TableStatusViewModel: ViewModel() {
                     value?.let {
                         if (it.tableNum == tableNum) {
                             FREETABLE = false
-                            navCallback()
+                            if (first) {
+                                navCallback()
+                            }
                         }
                     }
-                }
-                if(free){
-                    navCallback()
                 }
             }
 
@@ -50,6 +46,10 @@ class TableStatusViewModel: ViewModel() {
                 Log.w("Error", "load:onCancelled", error.toException())
             }
         })
+        if(first){
+            navCallback()
+            first = false
+        }
     }
 
     fun getOrder(){
@@ -76,5 +76,7 @@ class TableStatusViewModel: ViewModel() {
     companion object{
         private var TABLENUM : Int = 0
         private var FREETABLE : Boolean = true
+
+        private var first = true
     }
 }
