@@ -42,7 +42,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button_register"
+            android:id="@+id/buttonRegister"
             android:text="Register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,8 +50,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
 
-
-        <androidx.recyclerview.widget.RecyclerView
+       <!-- <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_waiters_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,7 +59,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_register" />
+            app:layout_constraintTop_toBottomOf="@+id/button_register" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

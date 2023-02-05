@@ -8,10 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
 import com.example.letsorder.model.Waiter
-import com.example.letsorder.viewmodel.WaiterEditViewModel
+import com.example.letsorder.viewmodel.WaiterRegisterViewModel
 import com.example.letsorder.views.admin.WaiterEditListener
 
-class WaiterListAdapter(viewModel: WaiterEditViewModel, val waiterEditListener: WaiterEditListener) :
+class WaiterListAdapter(viewModel: WaiterRegisterViewModel, val waiterEditListener: WaiterEditListener) :
     RecyclerView.Adapter<WaiterListAdapter.WaiterListViewHolder>() {
 
     private val waiters = ArrayList<Waiter>()
@@ -40,7 +40,7 @@ class WaiterListAdapter(viewModel: WaiterEditViewModel, val waiterEditListener: 
 
     override fun onBindViewHolder(holder: WaiterListViewHolder, position: Int) {
         val waiter = waiters[position]
-        holder.name.text = waiter.name
+        holder.name.text = waiter.waiterName
         holder.email.text = waiter.email
 
         holder.buttonDelete.setOnClickListener {

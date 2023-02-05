@@ -34,6 +34,7 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
+        Log.d("TAG Login", "${auth.currentUser!!.uid}")
     }
 
     override fun onCreateView(
@@ -47,27 +48,9 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding?.apply {
-            buttonLogin.setOnClickListener { goToNextScreen(view) }
-        }
-    }
-
-    private fun goToNextScreen(view: View) {
-        auth.signInWithEmailAndPassword(
-            binding.inputEmail.text.toString(),
-            binding.inputPassword.text.toString()
-        ).addOnCompleteListener() { task ->
-            if (task.isSuccessful) {
-                Log.d("TAG", "signInWithEmail:success")
-                val user = auth.currentUser
-                viewModel.checkUser(user?.email!!, ::navigateToAdmin, ::navigateToWaiter)
-
-            } else {
-                Log.w("TAG", "signInWithEmail:failure", task.exception)
-                Snackbar.make(
-                    view.findViewById(R.id.loginFragment),
-                    "Wrong email or password",
-                    Toast.LENGTH_SHORT
-                ).show()
+            buttonLogin.setOnClickListener {
+                viewModel.checkUser(binding.inputEmail.text.toString(),
+                    binding.inputPassword.text.toString(), ::navigateToAdmin, ::navigateToWaiter)
             }
         }
     }

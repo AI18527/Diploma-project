@@ -1,3 +1,3 @@
 package com.example.letsorder.model
 
-data class Waiter(val name: String, val email: String)
+data class Waiter(val waiterName: String = "", val email: String = "@", val restaurantId: Int = 0)

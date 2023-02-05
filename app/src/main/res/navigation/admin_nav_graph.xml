@@ -33,7 +33,7 @@
         android:id="@+id/waiterEditFragment"
         android:name="com.example.letsorder.views.admin.WaiterEditFragment"
         android:label="Waiter edit"
-        tools:layout="@layout/fragment_waiter_edit" />
+        tools:layout="@layout/fragment_waiter_register" />
     <fragment
         android:id="@+id/dishEditFragment"
         android:name="com.example.letsorder.views.admin.DishEditFragment"
