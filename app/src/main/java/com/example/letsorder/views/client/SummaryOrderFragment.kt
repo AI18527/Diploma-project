@@ -78,7 +78,7 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
     private fun showButtons() {
         binding?.apply {
             buttonOrder.visibility = View.INVISIBLE
-            buttonAdd.visibility = View.VISIBLE
+            //buttonAdd.visibility = View.VISIBLE
             buttonCall.visibility = View.VISIBLE
             buttonPay.visibility = View.VISIBLE
 
