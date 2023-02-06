@@ -34,7 +34,6 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
-        Log.d("TAG Login", "${auth.currentUser!!.uid}")
     }
 
     override fun onCreateView(
