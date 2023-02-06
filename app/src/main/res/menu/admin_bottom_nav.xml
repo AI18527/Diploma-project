@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/adminPanelFragment"
+        android:title="Home"
+        android:icon="@drawable/ic_baseline_home_24"/>
+    <item
+        android:id="@+id/waiterEditFragment"
+        android:title="Waiters"
+        android:icon="@drawable/ic_baseline_person_24"/>
+    <item
+        android:id="@+id/menuEditFragment"
+        android:title="Menu"
+        android:icon="@drawable/ic_baseline_restaurant_menu_24"/>
+    <item
+        android:id="@+id/tablesEditFragment"
+        android:title="Tables"
+        android:icon="@drawable/ic_baseline_table_bar_24"/>
+</menu>

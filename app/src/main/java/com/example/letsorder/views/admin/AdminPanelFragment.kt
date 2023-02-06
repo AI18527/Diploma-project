@@ -24,11 +24,11 @@ class AdminPanelFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding?.apply {
+        /*_binding?.apply {
             buttonWaiters.setOnClickListener { waiterEdit() }
             buttonMenu.setOnClickListener { menuEdit() }
             buttonTables.setOnClickListener { tablesEdit() }
-        }
+        }*/
     }
 
     private fun menuEdit() {
