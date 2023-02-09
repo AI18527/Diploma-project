@@ -1,29 +1,22 @@
 package com.example.letsorder.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.letsorder.FirebaseDatabaseSingleton
-import com.example.letsorder.data.Datasource
-import com.example.letsorder.data.Datasource.Companion.tableNum
-import com.example.letsorder.model.Dish
-import com.example.letsorder.model.Order
 import com.example.letsorder.model.Waiter
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
-import java.net.PasswordAuthentication
-import javax.security.auth.callback.Callback
-import kotlin.text.Typography.registered
 
 class LoginViewModel : ViewModel() {
 
     private val ref = FirebaseDatabaseSingleton.getInstance()
     private var auth = Firebase.auth
+
+    val isWaiter : Boolean
+    get() = IS_WAITER
 
     fun checkUser(email: String, password: String, navCallbackAdmin: () -> Unit, navCallbackWaiter: () -> Unit) {
         ref.getReference("/restaurants/").addValueEventListener(object : ValueEventListener {
@@ -44,7 +37,6 @@ class LoginViewModel : ViewModel() {
     }
 
     fun isWaiter(email: String,password: String, navCallbackWaiter: () -> Unit) {
-        var isWaiter = false
         val listener =
             ref.getReference("/waiters/").addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -52,12 +44,12 @@ class LoginViewModel : ViewModel() {
                         val value = snapshot.getValue(Waiter::class.java)
                         value?.let {
                             if (it.email == email) {
-                                isWaiter = true
+                                IS_WAITER = true
                                 singIn(email, password, navCallbackWaiter)
                             }
                         }
                     }
-                    if (!isWaiter) {
+                    if (!IS_WAITER) {
                         Log.d("TAG", "not a waiter")
                     }
                 }
@@ -91,5 +83,8 @@ class LoginViewModel : ViewModel() {
                     register(email, password, navCallbackWaiter)
                 }
             }
+    }
+    companion object{
+        var IS_WAITER = false
     }
 }

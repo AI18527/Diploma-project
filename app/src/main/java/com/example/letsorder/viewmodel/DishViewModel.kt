@@ -19,8 +19,8 @@ class DishViewModel() : ViewModel(){
 
     private val ref = FirebaseDatabaseSingleton.getInstance().getReference("/menus/0/dishes/")
 
-    fun getDish(id: Int){
-        val query =  ref.orderByChild("id").equalTo(id.toDouble()).limitToFirst(1)
+    fun getDish(title: String){
+        val query =  ref.orderByChild("title").equalTo(title).limitToFirst(1)
         query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 dataSnapshot.children.map {

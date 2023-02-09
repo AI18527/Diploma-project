@@ -5,8 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.letsorder.FirebaseDatabaseSingleton
-import com.example.letsorder.data.Datasource
-import com.example.letsorder.data.Datasource.Companion.tableNum
 import com.example.letsorder.data.LocalOrder
 import com.example.letsorder.model.Dish
 import com.example.letsorder.model.Order
@@ -53,7 +51,6 @@ class SummaryViewModel : ViewModel() {
         }
         val newOrder = bill.value?.let {
             Order(
-                active = true,
                 bill = it,
                 dishes = dishes,
                 flagForWaiter = true,

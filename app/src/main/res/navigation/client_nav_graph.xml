@@ -22,9 +22,6 @@
         android:label="{dishTitle}"
         tools:layout="@layout/fragment_dish">
         <argument
-            android:name="dishId"
-            app:argType="integer" />
-        <argument
             android:name="dishTitle"
             app:argType="string" />
         <action

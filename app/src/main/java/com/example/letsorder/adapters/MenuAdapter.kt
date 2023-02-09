@@ -44,7 +44,7 @@ class MenuAdapter(viewModel: MenuViewModel) :
 
         holder.buttonDish.text = dish.title
         holder.buttonDish.setOnClickListener {
-            holder.view.findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToDishFragment(dishId = dish.id, dishTitle = dish.title))
+            holder.view.findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToDishFragment(dishTitle = dish.title))
         }
     }
 

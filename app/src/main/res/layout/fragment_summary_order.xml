@@ -39,10 +39,11 @@
             android:id="@+id/buttonCall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Call waiter"
+            android:text="Call"
             android:visibility="invisible"
+            app:cornerRadius="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonPay"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewMenu" />
 
@@ -52,12 +53,22 @@
             android:layout_height="wrap_content"
             android:text="Bill"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonAdd"
-            app:layout_constraintStart_toEndOf="@+id/buttonCall"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerViewMenu" />
+            app:cornerRadius="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonOrder" />
 
-        <Button
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_margin="10dp"
+            android:background="@color/dark_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewMenu"/>
+
+        <!--<Button
             android:id="@+id/buttonAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,23 +77,27 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/buttonPay"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerViewMenu" />
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewMenu" />-->
 
         <TextView
             android:id="@+id/textBill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Bill:"
-            app:layout_constraintBottom_toTopOf="@+id/buttonOrder"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:text="Total: "
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+
         <TextView
             android:id="@+id/bill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/buttonOrder"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:textSize="24dp"
+            android:textColor="@color/mustard_yellow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

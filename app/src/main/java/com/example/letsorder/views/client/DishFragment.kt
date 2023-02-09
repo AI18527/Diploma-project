@@ -12,7 +12,6 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.letsorder.data.LocalOrder
 import com.example.letsorder.R
-import com.example.letsorder.data.Datasource
 import com.example.letsorder.databinding.FragmentDishBinding
 import com.example.letsorder.viewmodel.DishViewModel
 import com.example.letsorder.viewmodel.TableStatusViewModel
@@ -24,7 +23,7 @@ import kotlin.properties.Delegates
 class DishFragment : Fragment() {
     private var _binding: FragmentDishBinding? = null
     private val binding get() = _binding!!
-    private var dishId by Delegates.notNull<Int>()
+    private var dishTitle by Delegates.notNull<String>()
 
     private val viewModel: DishViewModel by viewModels()
     private val sharedViewModel: TableStatusViewModel by viewModels()
@@ -33,9 +32,9 @@ class DishFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            dishId = it.get(DISH_ID) as Int
+            dishTitle = it.get(DISH_TITLE) as String
         }
-        viewModel.getDish(dishId)
+        viewModel.getDish(dishTitle)
     }
 
     override fun onCreateView(
@@ -52,7 +51,7 @@ class DishFragment : Fragment() {
         viewModel.dish.observe(viewLifecycleOwner){
             dish ->
             Log.d("TAG", "$dish")
-            binding.title.text = dish.title
+            //binding.title.text = dish.title
             binding.description.text = dish.description
             binding.price.text = NumberFormat.getCurrencyInstance().format(dish.price).toString()
 
@@ -63,7 +62,7 @@ class DishFragment : Fragment() {
                 LocalOrder().addDishToLocalOrder(dish)
                 Snackbar.make(
                     view.findViewById(R.id.dishFragment),
-                    "${binding.title.text} has been added to your order!",
+                    "${dish.title} has been added to your order!",
                     LENGTH_SHORT
                 ).show()
 
@@ -81,6 +80,6 @@ class DishFragment : Fragment() {
     }
 
     companion object {
-        const val DISH_ID = "dishId"
+        const val DISH_TITLE = "dishTitle"
     }
 }

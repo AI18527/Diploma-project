@@ -35,10 +35,6 @@ class MenuFragment : Fragment() {
         recyclerView = binding.recyclerViewMenu
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = MenuAdapter(MenuViewModel())
-
-        /*_binding?.apply {
-            buttonMyOrder.setOnClickListener { findNavController().navigate(R.id.action_menuFragment_to_summaryOrderFragment) }
-        }*/
     }
 
     override fun onDestroyView() {
