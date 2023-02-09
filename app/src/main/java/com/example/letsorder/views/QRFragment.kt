@@ -31,7 +31,7 @@ class QRFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonMenu.setOnClickListener {
-            sharedViewModel.isTableFree(
+            sharedViewModel.doTableExists(
                 binding.tableNumber.text.toString().toInt(),
                 ::navigate
             )

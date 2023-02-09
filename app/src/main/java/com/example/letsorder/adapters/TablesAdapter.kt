@@ -41,7 +41,8 @@ class TablesAdapter(viewModel: TablesViewModel, val context: Context) :
     }
 
     override fun onBindViewHolder(holder: TablesViewHolder, position: Int) {
-        var table = tables.toList()[position]
+        var tables = tables.toList().sortedBy { it.first }.sortedBy { !it.second }
+        var table = tables[position]
 
         if (table.second) {
             holder.buttonTable.setBackgroundColor(getColor(context, R.color.green))
