@@ -34,7 +34,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_menu" />
 
-        <EditText
+        <!--<EditText
             android:id="@+id/tableNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,8 +52,7 @@
             android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tableNumber" />
-
+            app:layout_constraintTop_toBottomOf="@+id/tableNumber" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,23 +1,32 @@
 package com.example.letsorder.views
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.example.letsorder.R
 import com.example.letsorder.databinding.FragmentQRBinding
 import com.example.letsorder.viewmodel.TableStatusViewModel
 import com.example.letsorder.views.client.ClientMain
+
 
 class QRFragment : Fragment() {
     private val sharedViewModel: TableStatusViewModel by viewModels()
 
     private var _binding: FragmentQRBinding? = null
     private val binding get() = _binding!!
+
+    private val REQUEST_IMAGE_CAPTURE = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,14 +39,20 @@ class QRFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonMenu.setOnClickListener {
-            sharedViewModel.doesTableExist(binding.restaurantId.text.toString().toInt(),
-                binding.tableNumber.text.toString().toInt(),
-                ::navigate
-            )
+        val camera = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intent = result.data
+            }
+            else{
+                Log.d("Error", "Camera did not open")
+            }
         }
-        binding.buttonLogin.setOnClickListener { findNavController().navigate(R.id.action_QRFragment_to_loginFragment) }
+        startForResult.launch(camera)
+
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
