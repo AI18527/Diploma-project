@@ -17,7 +17,7 @@ class DishViewModel() : ViewModel(){
     val dish: LiveData<Dish>
     get() = _dish
 
-    private val ref = FirebaseDatabaseSingleton.getInstance().getReference("/menus/0/dishes/")
+    private val ref = FirebaseDatabaseSingleton.getInstance().getReference("/dishes/")
 
     fun getDish(title: String){
         val query =  ref.orderByChild("title").equalTo(title).limitToFirst(1)

@@ -31,7 +31,7 @@ class QRFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonMenu.setOnClickListener {
-            sharedViewModel.doTableExists(
+            sharedViewModel.doesTableExist(binding.restaurantId.text.toString().toInt(),
                 binding.tableNumber.text.toString().toInt(),
                 ::navigate
             )

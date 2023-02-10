@@ -50,8 +50,6 @@ class DishFragment : Fragment() {
 
         viewModel.dish.observe(viewLifecycleOwner){
             dish ->
-            Log.d("TAG", "$dish")
-            //binding.title.text = dish.title
             binding.description.text = dish.description
             binding.price.text = NumberFormat.getCurrencyInstance().format(dish.price).toString()
 

@@ -19,22 +19,23 @@ class TableStatusViewModel: ViewModel() {
     val freeTable : Boolean
         get() = FREETABLE
 
-    val tableReal : Boolean
-    get() = TABLEREAL
-
     val tableNum : Int
         get() = TABLENUM
+
+    val restaurantId : Int
+        get() = RESTAURANT_ID
 
     private val ref = FirebaseDatabaseSingleton.getInstance()
     private lateinit var listener : ValueEventListener
 
-    fun doTableExists(tableNum: Int, navCallback: () -> Unit){
+    fun doesTableExist(restaurantId: Int, tableNum: Int, navCallback: () -> Unit){
         ref.getReference("/tables/").addValueEventListener(object: ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
                     val value = snapshot.getValue(Table::class.java)
                     value?.let {
-                        if (it.tableNum == tableNum) {
+                        if (it.tableNum == tableNum && it.restaurantId == restaurantId) {
+                            RESTAURANT_ID = it.restaurantId
                             isTableFree(tableNum, navCallback)
                         }
                     }
@@ -98,7 +99,7 @@ class TableStatusViewModel: ViewModel() {
     companion object{
         private var TABLENUM : Int = 0
         private var FREETABLE : Boolean = true
-        private var TABLEREAL : Boolean = false
+        private var RESTAURANT_ID : Int = 0
 
         private var first = true
     }

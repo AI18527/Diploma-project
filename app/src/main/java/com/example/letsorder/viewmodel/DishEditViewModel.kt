@@ -6,10 +6,10 @@ import com.example.letsorder.model.Dish
 
 class DishEditViewModel : ViewModel() {
 
-    private val ref = FirebaseDatabaseSingleton.getInstance().getReference("menus/0/dishes")
+    private val ref = FirebaseDatabaseSingleton.getInstance().getReference("dishes")
 
     fun addDishToMenu(category: String, title: String, description: String, price: Double) {
-        val newDish = Dish(category, title, description, price)
+        val newDish = Dish(category, title, description, price, 1)
         ref.push().setValue(newDish)
     }
 }
