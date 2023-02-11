@@ -34,7 +34,7 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView = binding.recyclerViewMenu
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = MenuAdapter(MenuViewModel())
+        recyclerView.adapter = MenuAdapter(viewModel)
     }
 
     override fun onPause() {

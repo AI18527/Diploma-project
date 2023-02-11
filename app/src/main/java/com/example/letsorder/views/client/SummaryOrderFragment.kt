@@ -78,7 +78,6 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
     private fun showButtons() {
         binding?.apply {
             buttonOrder.visibility = View.INVISIBLE
-            //buttonAdd.visibility = View.VISIBLE
             buttonCall.visibility = View.VISIBLE
             buttonPay.visibility = View.VISIBLE
 
@@ -104,10 +103,10 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
         }
     }
 
-    override fun onPause() {
+    /*override fun onPause() {
         super.onPause()
         viewModel.removeListener()
-    }
+    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()
