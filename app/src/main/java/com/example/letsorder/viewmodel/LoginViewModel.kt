@@ -2,7 +2,7 @@ package com.example.letsorder.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.letsorder.FirebaseDatabaseSingleton
+import com.example.letsorder.data.FirebaseDatabaseSingleton
 import com.example.letsorder.model.Waiter
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -15,11 +15,14 @@ class LoginViewModel : ViewModel() {
     private val ref = FirebaseDatabaseSingleton.getInstance()
     private var auth = Firebase.auth
 
+    private lateinit var listenerRestaurant :ValueEventListener
+    private lateinit var listenerWaiters: ValueEventListener
+
     val isWaiter : Boolean
     get() = IS_WAITER
 
     fun checkUser(email: String, password: String, navCallbackAdmin: () -> Unit, navCallbackWaiter: () -> Unit) {
-        ref.getReference("/restaurants/").addValueEventListener(object : ValueEventListener {
+        listenerRestaurant = ref.getReference("/restaurants/").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val admin = dataSnapshot.child("/admin/").value
                 if (email == admin.toString()) {
@@ -37,7 +40,7 @@ class LoginViewModel : ViewModel() {
     }
 
     fun isWaiter(email: String,password: String, navCallbackWaiter: () -> Unit) {
-        val listener =
+        listenerWaiters =
             ref.getReference("/waiters/").addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     for (snapshot in dataSnapshot.children) {
@@ -84,6 +87,12 @@ class LoginViewModel : ViewModel() {
                 }
             }
     }
+
+    fun removeListener(){
+        ref.getReference("/restaurants/").removeEventListener(listenerRestaurant)
+        ref.getReference("/waiters/").removeEventListener(listenerWaiters)
+    }
+
     companion object{
         var IS_WAITER = false
     }

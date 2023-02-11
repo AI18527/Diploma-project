@@ -51,7 +51,7 @@ class OrderFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         var orderList: ArrayList<OrderDetails>
-        viewModel.order.observe(viewLifecycleOwner) { order ->
+        viewModel.orderDetails.observe(viewLifecycleOwner) { order ->
             orderList = order as ArrayList<OrderDetails>
 
             recyclerView.adapter = OrderAdapter(orderList)
@@ -62,13 +62,18 @@ class OrderFragment : Fragment() {
 
         _binding?.apply {
             buttonDone.setOnClickListener {
-                viewModel.reMoveOrder(tableNum)
+                viewModel.removeOrder(tableNum)
                 findNavController().navigate(R.id.action_orderFragment_to_tablesFragment)
                 Navigation.findNavController(requireView()).popBackStack(
                     R.id.orderFragment, true
                 )
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.removeListener()
     }
 
     override fun onDestroyView() {

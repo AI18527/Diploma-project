@@ -104,6 +104,11 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.removeListener()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

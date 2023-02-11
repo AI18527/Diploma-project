@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.letsorder.FirebaseDatabaseSingleton
+import com.example.letsorder.data.FirebaseDatabaseSingleton
 import com.example.letsorder.model.Dish
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -18,10 +18,11 @@ class DishViewModel() : ViewModel(){
     get() = _dish
 
     private val ref = FirebaseDatabaseSingleton.getInstance().getReference("/dishes/")
+    private lateinit var listener : ValueEventListener
 
     fun getDish(title: String){
         val query =  ref.orderByChild("title").equalTo(title).limitToFirst(1)
-        query.addValueEventListener(object : ValueEventListener {
+        listener =  query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 dataSnapshot.children.map {
                     it.getValue(Dish::class.java)
@@ -34,5 +35,9 @@ class DishViewModel() : ViewModel(){
                 Log.w("TAG", "load:onCancelled", databaseError.toException())
             }
         })
+    }
+
+    fun removeListener(){
+        ref.removeEventListener(listener)
     }
 }

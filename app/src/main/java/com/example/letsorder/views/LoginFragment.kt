@@ -59,6 +59,16 @@ class LoginFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.removeListener()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun navigateToAdmin() {
         startActivity(Intent(activity, AdminMain::class.java))
         Navigation.findNavController(requireView()).popBackStack(

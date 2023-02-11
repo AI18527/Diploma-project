@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ import com.example.letsorder.viewmodel.MenuViewModel
 
 
 class MenuEditFragment : Fragment() {
+
 
     private var _binding: FragmentMenuEditBinding? = null
     private val binding get() = _binding!!
@@ -37,6 +39,11 @@ class MenuEditFragment : Fragment() {
         _binding?.apply {
             buttonAddDish.setOnClickListener { findNavController().navigate(R.id.action_menuEditFragment_to_dishEditFragment) }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.letsorder.FirebaseDatabaseSingleton
+import com.example.letsorder.data.FirebaseDatabaseSingleton
 import com.example.letsorder.model.Order
 import com.example.letsorder.model.Table
 import com.google.firebase.database.DataSnapshot
@@ -26,10 +26,12 @@ class TableStatusViewModel: ViewModel() {
         get() = RESTAURANT_ID
 
     private val ref = FirebaseDatabaseSingleton.getInstance()
+    private lateinit var listenerPublicOrders : ValueEventListener
+    private lateinit var listenerTables: ValueEventListener
     private lateinit var listener : ValueEventListener
 
     fun doesTableExist(restaurantId: Int, tableNum: Int, navCallback: () -> Unit){
-        ref.getReference("/tables/").addValueEventListener(object: ValueEventListener{
+        listenerTables = ref.getReference("/tables/").addValueEventListener(object: ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
                     val value = snapshot.getValue(Table::class.java)
@@ -49,17 +51,16 @@ class TableStatusViewModel: ViewModel() {
     }
 
     fun isTableFree(tableNum: Int, navCallback: () -> Unit){
+        TABLENUM = tableNum
         listener = ref.getReference("/publicOrders/").addValueEventListener(object: ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                TABLENUM = tableNum
                 for (snapshot in dataSnapshot.children){
                     val value = snapshot.getValue(Order::class.java)
                     value?.let {
                         if (it.tableNum == tableNum) {
                             FREETABLE = false
-                            if (first) {
-                                navCallback()
-                            }
+                            //getOrderDetails()
+                            navCallback()
                         }
                     }
                 }
@@ -69,15 +70,12 @@ class TableStatusViewModel: ViewModel() {
                 Log.w("Error", "load:onCancelled", error.toException())
             }
         })
-        if(first){
-            navCallback()
-            first = false
-        }
+        navCallback()
     }
 
     fun getOrder(){
         val query =  ref.getReference("/publicOrders/").orderByChild("tableNum").equalTo(tableNum.toDouble()).limitToFirst(1)
-        query.addValueEventListener(object : ValueEventListener {
+        listenerPublicOrders = query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 dataSnapshot.children.map {
                     it.getValue(Order::class.java)
@@ -94,6 +92,11 @@ class TableStatusViewModel: ViewModel() {
 
     fun takeTable(){
         FREETABLE = false
+    }
+
+    fun removeListeners(){
+        ref.getReference("/tables/").removeEventListener(listenerTables)
+        ref.getReference("/publicOrders/").removeEventListener(listener)
     }
 
     companion object{

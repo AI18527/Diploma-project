@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.letsorder.FirebaseDatabaseSingleton
+import com.example.letsorder.data.FirebaseDatabaseSingleton
 import com.example.letsorder.model.Table
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -17,9 +17,10 @@ class TablesEditViewModel : ViewModel() {
     get() = _existingTable
 
     private val ref = FirebaseDatabaseSingleton.getInstance().getReference("tables")
+    private lateinit var listener: ValueEventListener
 
     fun doesTableExist(tableNum : Int){
-        ref.addValueEventListener(object: ValueEventListener {
+        listener = ref.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
                     val value = snapshot.getValue(Table::class.java)
@@ -39,5 +40,9 @@ class TablesEditViewModel : ViewModel() {
     fun addTable(tableNum:Int, capacity: Int) {
         val table = Table(tableNum = tableNum, capacity = capacity, restaurantId = 1)
         ref.push().setValue(table)
+    }
+
+    fun removeListener(){
+        ref.removeEventListener(listener)
     }
 }

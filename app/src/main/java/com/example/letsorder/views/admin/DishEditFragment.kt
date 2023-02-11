@@ -47,3 +47,18 @@ class DishEditFragment : Fragment() {
         }
     }
 }
+
+    /*private fun chooseImageGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                binding.imageView.setImageURI(result.data?.data)
+            }
+            else{
+                Log.d("Error", "Camera did not open")
+            }
+        }
+        startForResult.launch(intent)
+    }*/

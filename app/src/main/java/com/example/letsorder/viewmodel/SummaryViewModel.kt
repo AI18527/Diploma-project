@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.letsorder.FirebaseDatabaseSingleton
+import com.example.letsorder.data.FirebaseDatabaseSingleton
 import com.example.letsorder.data.LocalOrder
 import com.example.letsorder.model.Dish
 import com.example.letsorder.model.Order
@@ -30,6 +30,7 @@ class SummaryViewModel : ViewModel() {
         get() = _sent
 
     private val ref = FirebaseDatabaseSingleton.getInstance().getReference("/publicOrders/")
+    private lateinit var listener : ValueEventListener
 
     fun updateData(updatedMap: Map<Dish, Int>) {
         map = updatedMap
@@ -49,6 +50,7 @@ class SummaryViewModel : ViewModel() {
         for (item in map) {
             dishes.add(OrderDetails(item.key.title, item.value))
         }
+
         val newOrder = bill.value?.let {
             Order(
                 bill = it,
@@ -66,7 +68,7 @@ class SummaryViewModel : ViewModel() {
         val query =
             ref.orderByChild("tableNum").equalTo(TableStatusViewModel().tableNum.toDouble())
                 .limitToFirst(1)
-        query.addValueEventListener(object : ValueEventListener {
+        listener = query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 dataSnapshot.children.iterator().next().child("/flagForWaiter/").ref.setValue(true)
                 query.removeEventListener(this)
@@ -76,5 +78,9 @@ class SummaryViewModel : ViewModel() {
                 Log.w("TAG", "load:onCancelled", error.toException())
             }
         })
+    }
+
+    fun removeListener(){
+        ref.removeEventListener(listener)
     }
 }

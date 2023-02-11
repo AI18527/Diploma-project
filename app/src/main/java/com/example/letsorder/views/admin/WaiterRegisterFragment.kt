@@ -51,7 +51,7 @@ class WaiterEditFragment : WaiterEditListener, Fragment() {
     }
 
     override fun waiterDeleted(waiter: Waiter) {
-        viewModel.deleteWaiter(waiter)
+        //viewModel.deleteWaiter(waiter)
     }
 }
 

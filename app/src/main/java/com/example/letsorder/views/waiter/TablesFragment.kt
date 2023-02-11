@@ -35,9 +35,13 @@ class TablesFragment : Fragment() {
         recyclerView.adapter = TablesAdapter(TablesViewModel(), requireContext())
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.removeListener()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        viewModel.removeListener()
     }
 }

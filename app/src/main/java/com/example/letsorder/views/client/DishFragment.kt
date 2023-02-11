@@ -60,7 +60,7 @@ class DishFragment : Fragment() {
                 LocalOrder().addDishToLocalOrder(dish)
                 Snackbar.make(
                     view.findViewById(R.id.dishFragment),
-                    "${dish.title} has been added to your order!",
+                    "${dish.title} has been added to your orderDetails!",
                     LENGTH_SHORT
                 ).show()
 
@@ -70,6 +70,11 @@ class DishFragment : Fragment() {
                 )
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.removeListener()
     }
 
     override fun onDestroyView() {
