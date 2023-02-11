@@ -59,10 +59,10 @@ class LoginFragment : Fragment() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        viewModel.removeListener()
-    }
+//    override fun onPause() {
+//        super.onPause()
+//        viewModel.removeListener()
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

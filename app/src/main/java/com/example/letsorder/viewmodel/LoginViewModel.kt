@@ -40,8 +40,7 @@ class LoginViewModel : ViewModel() {
     }
 
     fun isWaiter(email: String,password: String, navCallbackWaiter: () -> Unit) {
-        listenerWaiters =
-            ref.getReference("/waiters/").addValueEventListener(object : ValueEventListener {
+        listenerWaiters = ref.getReference("/waiters/").addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     for (snapshot in dataSnapshot.children) {
                         val value = snapshot.getValue(Waiter::class.java)
@@ -86,11 +85,6 @@ class LoginViewModel : ViewModel() {
                     register(email, password, navCallbackWaiter)
                 }
             }
-    }
-
-    fun removeListener(){
-        ref.getReference("/restaurants/").removeEventListener(listenerRestaurant)
-        ref.getReference("/waiters/").removeEventListener(listenerWaiters)
     }
 
     companion object{
