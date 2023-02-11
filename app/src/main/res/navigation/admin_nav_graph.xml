@@ -32,12 +32,12 @@
     <fragment
         android:id="@+id/waiterEditFragment"
         android:name="com.example.letsorder.views.admin.WaiterEditFragment"
-        android:label="Waiter edit"
+        android:label="Add waiter"
         tools:layout="@layout/fragment_waiter_register" />
     <fragment
         android:id="@+id/dishEditFragment"
         android:name="com.example.letsorder.views.admin.DishEditFragment"
-        android:label="Add new dish"
+        android:label="Add dish"
         tools:layout="@layout/fragment_dish_edit" >
         <action
             android:id="@+id/action_dishEditFragment_to_menuEditFragment"
@@ -46,7 +46,7 @@
     <fragment
         android:id="@+id/tablesEditFragment"
         android:name="com.example.letsorder.views.admin.TablesEditFragment"
-        android:label="fragment_tables_edit"
+        android:label="Add table"
         tools:layout="@layout/fragment_tables_edit" />
 
 </navigation>
