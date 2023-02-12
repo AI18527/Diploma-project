@@ -60,7 +60,7 @@ class QRFragment : Fragment() {
         startForResult.launch(camera)
     }*/
         binding.buttonMenu.setOnClickListener {
-            sharedViewModel.doesTableExist(
+            sharedViewModel.getTable(
                 binding.restaurantId.text.toString().toInt(),
                 binding.tableNumber.text.toString().toInt()
             )
@@ -69,10 +69,8 @@ class QRFragment : Fragment() {
                 d?.let {
                     if (d) {
                         navigate()
-                    } else
-                        FREETABLE = false
+                    }
                     navigate()
-
                 }
             }
         }

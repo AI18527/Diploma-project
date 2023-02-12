@@ -14,6 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!--<androidx.camera.view.PreviewView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>-->
+
         <Button
             android:id="@+id/button_menu"
             android:layout_width="wrap_content"
@@ -34,7 +38,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_menu" />
 
-        <!--<EditText
+        <EditText
             android:id="@+id/tableNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,7 +56,7 @@
             android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tableNumber" />-->
+            app:layout_constraintTop_toBottomOf="@+id/tableNumber" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

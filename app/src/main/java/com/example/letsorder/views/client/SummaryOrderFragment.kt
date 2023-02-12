@@ -49,6 +49,7 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         //TODO: better logic
+
         if (sharedViewModel.freeTable) {
             summaryRecyclerAdapter =
                 SummaryOrderAdapter(viewModel, LocalOrder().loadLocalOrder(), this)
@@ -93,7 +94,7 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
             binding.buttonPay.setOnClickListener {
                 viewModel.callWaiter()
                 //snack error
-                buttonCall.setBackgroundColor(
+                buttonPay.setBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
                         R.color.dark_orange

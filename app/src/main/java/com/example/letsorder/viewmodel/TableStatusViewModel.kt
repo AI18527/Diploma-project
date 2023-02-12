@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.letsorder.data.Event
 import com.example.letsorder.data.FirebaseDatabaseSingleton
-import com.example.letsorder.model.Dish
 import com.example.letsorder.model.Order
 import com.example.letsorder.model.Table
 import com.google.firebase.database.DataSnapshot
@@ -24,6 +23,7 @@ class TableStatusViewModel : ViewModel() {
     val tableNum: Int
         get() = TABLENUM
 
+
     val restaurantId: Int
         get() = RESTAURANT_ID
 
@@ -38,7 +38,7 @@ class TableStatusViewModel : ViewModel() {
     private lateinit var listenerTables: ValueEventListener
     private lateinit var listener: ValueEventListener
 
-    fun doesTableExist(restaurantId: Int, tableNum: Int) {
+    fun getTable(restaurantId: Int, tableNum: Int) {
         listenerTables =
             ref.getReference("/tables/").addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -68,8 +68,11 @@ class TableStatusViewModel : ViewModel() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.value == null) {
                     onStateChanged(true)
-                } else
+                    FREETABLE = true
+                } else {
+                    FREETABLE = false
                     onStateChanged(false)
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

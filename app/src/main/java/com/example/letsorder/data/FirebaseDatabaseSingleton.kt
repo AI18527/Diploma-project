@@ -1,4 +1,4 @@
-package com.example.letsorder
+package com.example.letsorder.data
 
 import com.google.firebase.database.FirebaseDatabase
 
