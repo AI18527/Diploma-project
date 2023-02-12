@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
+import com.example.letsorder.adapters.WaiterListAdapter
 import com.example.letsorder.databinding.FragmentWaiterRegisterBinding
 import com.example.letsorder.model.Waiter
 import com.example.letsorder.viewmodel.WaiterRegisterViewModel
@@ -19,8 +22,8 @@ class WaiterEditFragment : WaiterEditListener, Fragment() {
     private var _binding: FragmentWaiterRegisterBinding? = null
     private val binding get() = _binding!!
 
-    //private lateinit var recyclerView: RecyclerView
-    //private lateinit var waiterRecyclerAdapter: WaiterListAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var waiterRecyclerAdapter: WaiterListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,15 +34,16 @@ class WaiterEditFragment : WaiterEditListener, Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        /*recyclerView = binding.recyclerWaitersList
+        recyclerView = binding.recyclerWaitersList
         recyclerView.layoutManager = LinearLayoutManager(context)
-        waiterRecyclerAdapter = WaiterListAdapter(WaiterEditViewModel(), this)
-        recyclerView.adapter = waiterRecyclerAdapter*/
+        waiterRecyclerAdapter = WaiterListAdapter(viewModel, this)
+        recyclerView.adapter = waiterRecyclerAdapter
 
         _binding?.apply {
             buttonRegister.setOnClickListener {
                 //Toast
                 viewModel.addWaiter(binding.inputName.text.toString(), binding.inputEmail.text.toString())
+                inputName.setText("")
                 inputEmail.setText("")
             }
         }
@@ -51,7 +55,7 @@ class WaiterEditFragment : WaiterEditListener, Fragment() {
     }
 
     override fun waiterDeleted(waiter: Waiter) {
-        //viewModel.deleteWaiter(waiter)
+        viewModel.deleteWaiter(waiter)
     }
 }
 

@@ -47,11 +47,4 @@ class WaiterListAdapter(viewModel: WaiterRegisterViewModel, val waiterEditListen
             waiterEditListener.waiterDeleted(waiter)
         }
     }
-
-//    fun updateData(data: List<Waiter>) {
-//        waiters.clear()
-//        waiters.addAll(data)
-//        notifyDataSetChanged()
-//    }
-
 }
