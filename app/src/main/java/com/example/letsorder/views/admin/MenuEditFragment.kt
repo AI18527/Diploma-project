@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
 import com.example.letsorder.adapters.MenuAdapter
+import com.example.letsorder.adapters.MenuEditAdapter
 import com.example.letsorder.databinding.FragmentMenuEditBinding
 import com.example.letsorder.viewmodel.MenuViewModel
 
 
 class MenuEditFragment : Fragment() {
-
+    val viewModel: MenuViewModel by viewModels()
 
     private var _binding: FragmentMenuEditBinding? = null
     private val binding get() = _binding!!
@@ -34,7 +35,7 @@ class MenuEditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView = binding.recyclerViewMenu
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = MenuAdapter(MenuViewModel())
+        recyclerView.adapter = MenuEditAdapter(viewModel)
 
         _binding?.apply {
             buttonAddDish.setOnClickListener { findNavController().navigate(R.id.action_menuEditFragment_to_dishEditFragment) }

@@ -5,7 +5,6 @@
     tools:context=".views.admin.MenuEditFragment">
 
     <data>
-
         <variable
             name="menuEditFragment"
             type="com.example.letsorder.views.admin.MenuEditFragment" />
@@ -19,8 +18,7 @@
             android:id="@+id/recyclerViewMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_marginTop="24dp"
+            android:layout_margin="10dp"
             android:scrollbars="vertical"
             app:layoutManager="LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
