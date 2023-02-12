@@ -1,9 +1,10 @@
 package com.example.letsorder.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.letsorder.data.Event
 import com.example.letsorder.data.FirebaseDatabaseSingleton
-import com.example.letsorder.model.Waiter
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -15,79 +16,91 @@ class LoginViewModel : ViewModel() {
     private val ref = FirebaseDatabaseSingleton.getInstance()
     private var auth = Firebase.auth
 
-    private lateinit var listenerRestaurant :ValueEventListener
+    private lateinit var listenerRestaurant: ValueEventListener
     private lateinit var listenerWaiters: ValueEventListener
 
-    val isWaiter : Boolean
-    get() = IS_WAITER
+    val isAdmin = MutableLiveData<Event<Boolean>>()
+    val isWaiter = MutableLiveData<Event<Boolean>>()
+    val rightLogin = MutableLiveData<Event<Boolean>>()
 
-    fun checkUser(email: String, password: String, navCallbackAdmin: () -> Unit, navCallbackWaiter: () -> Unit) {
-        listenerRestaurant = ref.getReference("/restaurants/").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val admin = dataSnapshot.child("/admin/").value
-                if (email == admin.toString()) {
-                    auth.signInWithEmailAndPassword(email, password)
-                    navCallbackAdmin()
-                } else {
-                    isWaiter(email, password, navCallbackWaiter)
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.w("TAG", "loadPost:onCancelled", error.toException())
-            }
-        })
+    fun onStateChangedWaiter(newState: Boolean) {
+        isWaiter.postValue(Event(newState))
     }
 
-    fun isWaiter(email: String,password: String, navCallbackWaiter: () -> Unit) {
-        listenerWaiters = ref.getReference("/waiters/").addValueEventListener(object : ValueEventListener {
+    fun onStateChangedAdmin(newState: Boolean) {
+        isAdmin.postValue(Event(newState))
+    }
+
+    fun onStateChangedLogin(newState: Boolean) {
+        rightLogin.postValue(Event(newState))
+    }
+
+    fun isAdmin(email: String, password: String) {
+        listenerRestaurant =
+            ref.getReference("/restaurants/").addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    for (snapshot in dataSnapshot.children) {
-                        val value = snapshot.getValue(Waiter::class.java)
-                        value?.let {
-                            if (it.email == email) {
-                                IS_WAITER = true
-                                singIn(email, password, navCallbackWaiter)
-                            }
-                        }
-                    }
-                    if (!IS_WAITER) {
-                        Log.d("TAG", "not a waiter")
+                    val admin = dataSnapshot.child("/admin/").value
+                    if (email == admin.toString()) {
+                        singIn(email, password, "Admin")
+                    } else {
+                        onStateChangedAdmin(false)
                     }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Log.w("Error", "load:onCancelled", error.toException())
+                    Log.w("TAG", "loadPost:onCancelled", error.toException())
                 }
             })
     }
 
-    private fun register(email: String, password: String, navCallbackWaiter: () -> Unit) {
+    fun isWaiter(email: String, password: String) {
+        val query = ref.getReference("/waiters/").orderByChild("/email/")
+            .equalTo(email).limitToFirst(1)
+        listenerWaiters = query.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.value == null) {
+                    onStateChangedWaiter(false)
+                } else {
+                    singIn(email, password, "Waiter")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("Error", "load:onCancelled", error.toException())
+            }
+        })
+    }
+
+    private fun register(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("TAG", "createUserWithEmail:success")
-                    navCallbackWaiter()
+                    onStateChangedWaiter(true)
                 } else {
+                    onStateChangedLogin(false)
                     Log.w("TAG", "createUserWithEmail:failure", task.exception)
                 }
             }
     }
 
-    private fun singIn(email: String, password: String, navCallbackWaiter: () -> Unit) {
+    private fun singIn(email: String, password: String, role: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("TAG", "signInWithEmail:success")
-                    navCallbackWaiter()
+                    if (role == "Waiter")
+                        onStateChangedWaiter(true)
+                    else if (role == "Admin")
+                        onStateChangedAdmin(true)
                 } else {
+                    if (role == "Waiter") {
+                        register(email, password)
+                    } else if (role == "Admin") {
+                        onStateChangedLogin(false)
+                    }
                     Log.w("TAG", "signInWithEmail:failure", task.exception)
-                    register(email, password, navCallbackWaiter)
                 }
             }
-    }
-
-    companion object{
-        var IS_WAITER = false
     }
 }

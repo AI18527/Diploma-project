@@ -6,13 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.example.letsorder.R
+import com.example.letsorder.data.Event
 import com.example.letsorder.databinding.FragmentLoginBinding
 import com.example.letsorder.viewmodel.LoginViewModel
 import com.example.letsorder.views.admin.AdminMain
 import com.example.letsorder.views.waiter.WaiterMain
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -42,19 +46,49 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         _binding?.apply {
             buttonLogin.setOnClickListener {
-                viewModel.checkUser(
-                    binding.inputEmail.text.toString(),
-                    binding.inputPassword.text.toString(), ::navigateToAdmin, ::navigateToWaiter
+                viewModel.isAdmin(
+                    inputEmail.text.toString(),
+                    inputPassword.text.toString()
                 )
-
-//                if (!viewModel.isWaiter) {
-//                    Log.d("TAG", "${viewModel.isWaiter}")
-//                    Snackbar.make(
-//                        view.findViewById(R.id.loginFragment),
-//                        "You are not registered!",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
+                viewModel.isAdmin.observe(viewLifecycleOwner) { data: Event<Boolean> ->
+                    val d = data.handle()
+                    d?.let {
+                        if (d) {
+                            navigateToAdmin()
+                        } else {
+                            viewModel.isWaiter(
+                                inputEmail.text.toString(),
+                                inputPassword.text.toString()
+                            )
+                            viewModel.isWaiter.observe(viewLifecycleOwner) { data: Event<Boolean> ->
+                                val d = data.handle()
+                                d?.let {
+                                    if (d) {
+                                        navigateToWaiter()
+                                    } else {
+                                        Snackbar.make(
+                                            view.findViewById(R.id.loginFragment),
+                                            "You have not been added by the admin.",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                viewModel.rightLogin.observe(viewLifecycleOwner) { data: Event<Boolean> ->
+                    val d = data.handle()
+                    d?.let {
+                        if (!d) {
+                            Snackbar.make(
+                                view.findViewById(R.id.loginFragment),
+                                "Invalid email or password",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
             }
         }
     }
