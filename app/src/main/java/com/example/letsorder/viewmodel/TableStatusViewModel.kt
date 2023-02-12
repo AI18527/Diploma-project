@@ -4,77 +4,84 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.letsorder.data.Event
 import com.example.letsorder.data.FirebaseDatabaseSingleton
+import com.example.letsorder.model.Dish
 import com.example.letsorder.model.Order
 import com.example.letsorder.model.Table
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
-class TableStatusViewModel: ViewModel() {
+class TableStatusViewModel : ViewModel() {
     private var _tableOrder = MutableLiveData<Order>()
-    val tableOrder : LiveData<Order>
-    get() = _tableOrder
+    val tableOrder: LiveData<Order>
+        get() = _tableOrder
 
-    val freeTable : Boolean
+    val freeTable: Boolean
         get() = FREETABLE
 
-    val tableNum : Int
+    val tableNum: Int
         get() = TABLENUM
 
-    val restaurantId : Int
+    val restaurantId: Int
         get() = RESTAURANT_ID
 
+    val isFree = MutableLiveData<Event<Boolean>>()
+
+    fun onStateChanged(newState: Boolean) {
+        isFree.postValue(Event(newState))
+    }
+
     private val ref = FirebaseDatabaseSingleton.getInstance()
-    private lateinit var listenerPublicOrders : ValueEventListener
+    private lateinit var listenerPublicOrders: ValueEventListener
     private lateinit var listenerTables: ValueEventListener
-    private lateinit var listener : ValueEventListener
+    private lateinit var listener: ValueEventListener
 
-    fun doesTableExist(restaurantId: Int, tableNum: Int, navCallback: () -> Unit){
-        listenerTables = ref.getReference("/tables/").addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (snapshot in dataSnapshot.children) {
-                    val value = snapshot.getValue(Table::class.java)
-                    value?.let {
-                        if (it.tableNum == tableNum && it.restaurantId == restaurantId) {
-                            RESTAURANT_ID = it.restaurantId
-                            isTableFree(tableNum, navCallback)
+    fun doesTableExist(restaurantId: Int, tableNum: Int) {
+        listenerTables =
+            ref.getReference("/tables/").addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    for (snapshot in dataSnapshot.children) {
+                        val value = snapshot.getValue(Table::class.java)
+                        value?.let {
+                            if (it.tableNum == tableNum && it.restaurantId == restaurantId) {
+                                RESTAURANT_ID = it.restaurantId
+                                isTableFree(tableNum)
+                            }
                         }
                     }
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                Log.w("Error", "load:onCancelled", error.toException())
-            }
-        })
+                override fun onCancelled(error: DatabaseError) {
+                    Log.w("Error", "load:onCancelled", error.toException())
+                }
+            })
     }
 
-    fun isTableFree(tableNum: Int, navCallback: () -> Unit){
+    fun isTableFree(tableNum: Int) {
         TABLENUM = tableNum
-        listener = ref.getReference("/publicOrders/").addValueEventListener(object: ValueEventListener {
+        val query = ref.getReference("/publicOrders/").orderByChild("/tableNum/")
+            .equalTo(tableNum.toDouble()).limitToFirst(1)
+
+        listener = query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (snapshot in dataSnapshot.children){
-                    val value = snapshot.getValue(Order::class.java)
-                    value?.let {
-                        if (it.tableNum == tableNum) {
-                            FREETABLE = false
-                            //getOrderDetails()
-                            navCallback()
-                        }
-                    }
-                }
+                if (dataSnapshot.value == null) {
+                    onStateChanged(true)
+                } else
+                    onStateChanged(false)
             }
 
             override fun onCancelled(error: DatabaseError) {
                 Log.w("Error", "load:onCancelled", error.toException())
             }
         })
-        navCallback()
     }
 
-    fun getOrder(){
-        val query =  ref.getReference("/publicOrders/").orderByChild("tableNum").equalTo(tableNum.toDouble()).limitToFirst(1)
+    fun getOrder() {
+        val query =
+            ref.getReference("/publicOrders/").orderByChild("tableNum").equalTo(tableNum.toDouble())
+                .limitToFirst(1)
         listenerPublicOrders = query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 dataSnapshot.children.map {
@@ -90,20 +97,18 @@ class TableStatusViewModel: ViewModel() {
         })
     }
 
-    fun takeTable(){
+    fun takeTable() {
         FREETABLE = false
     }
 
-    fun removeListeners(){
+    fun removeListeners() {
         ref.getReference("/tables/").removeEventListener(listenerTables)
         ref.getReference("/publicOrders/").removeEventListener(listener)
     }
 
-    companion object{
-        private var TABLENUM : Int = 0
-        private var FREETABLE : Boolean = true
-        private var RESTAURANT_ID : Int = 0
-
-        private var first = true
+    companion object {
+        private var TABLENUM: Int = 0
+        var FREETABLE: Boolean = true
+        private var RESTAURANT_ID: Int = 0
     }
 }

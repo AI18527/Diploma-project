@@ -60,14 +60,11 @@ class DishFragment : Fragment() {
                 LocalOrder().addDishToLocalOrder(dish)
                 Snackbar.make(
                     view.findViewById(R.id.dishFragment),
-                    "${dish.title} has been added to your orderDetails!",
+                    "${dish.title} has been added to your order!",
                     LENGTH_SHORT
                 ).show()
 
                 findNavController().navigate(R.id.action_dishFragment_to_menuFragment)
-                Navigation.findNavController(requireView()).popBackStack(
-                    R.id.dishFragment, true
-                )
             }
         }
     }
