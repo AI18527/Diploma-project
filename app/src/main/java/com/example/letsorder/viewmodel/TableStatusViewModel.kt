@@ -27,6 +27,8 @@ class TableStatusViewModel : ViewModel() {
     val restaurantId: Int
         get() = RESTAURANT_ID
 
+    //RestaurantInfo
+
     val isFree = MutableLiveData<Event<Boolean>>()
 
     fun onStateChanged(newState: Boolean) {

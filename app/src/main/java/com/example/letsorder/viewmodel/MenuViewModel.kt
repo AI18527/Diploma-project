@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.letsorder.data.FirebaseDatabaseSingleton
+import com.example.letsorder.data.RestaurantInfo
 import com.example.letsorder.model.Dish
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -24,9 +25,9 @@ class MenuViewModel : ViewModel() {
             for (snapshot in dataSnapshot.children) {
                 val value = snapshot.getValue(Dish::class.java)
                 value?.let{
-                    //if (it.restaurantId == TableStatusViewModel().restaurantId){
+                    if (it.restaurantId == TableStatusViewModel().restaurantId || it.restaurantId == RestaurantInfo.restaurantId){
                         dishes.add(it)
-                    //}
+                    }
                 }
             }
             _menu.postValue(dishes)

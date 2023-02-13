@@ -17,7 +17,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewMenu"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="600dp"
             android:layout_margin="10dp"
             android:scrollbars="vertical"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,12 +28,12 @@
             android:id="@+id/buttonAddDish"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginBottom="72dp"
             android:text="Add new dish"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.546"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerViewMenu" />
+            app:layout_constraintHorizontal_bias="0.526"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
