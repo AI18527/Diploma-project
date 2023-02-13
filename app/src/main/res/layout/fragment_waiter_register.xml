@@ -15,12 +15,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add new waiter:"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/textFieldName"
+            app:layout_constraintStart_toStartOf="@+id/textFieldName" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textFieldName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="92dp"
             android:hint="Name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.504"
@@ -67,7 +75,7 @@
             android:id="@+id/divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_margin="10dp"
+            android:layout_marginTop="40dp"
             android:background="@color/dark_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -86,9 +94,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerWaitersList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:layout_margin="10dp"
-            android:scrollbars="horizontal"
+            android:scrollbars="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />

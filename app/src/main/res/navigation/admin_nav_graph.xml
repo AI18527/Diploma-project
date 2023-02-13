@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/menuEditFragment"
         android:name="com.example.letsorder.views.admin.MenuEditFragment"
-        android:label="Menu edit"
+        android:label="Menu"
         tools:layout="@layout/fragment_menu_edit" >
         <action
             android:id="@+id/action_menuEditFragment_to_dishEditFragment"
@@ -32,12 +32,12 @@
     <fragment
         android:id="@+id/waiterEditFragment"
         android:name="com.example.letsorder.views.admin.WaiterEditFragment"
-        android:label="Add waiter"
+        android:label="Waiters"
         tools:layout="@layout/fragment_waiter_register" />
     <fragment
         android:id="@+id/dishEditFragment"
         android:name="com.example.letsorder.views.admin.DishEditFragment"
-        android:label="Add dish"
+        android:label="New dish"
         tools:layout="@layout/fragment_dish_edit" >
         <action
             android:id="@+id/action_dishEditFragment_to_menuEditFragment"
@@ -46,7 +46,7 @@
     <fragment
         android:id="@+id/tablesEditFragment"
         android:name="com.example.letsorder.views.admin.TablesEditFragment"
-        android:label="Add table"
+        android:label="Tables"
         tools:layout="@layout/fragment_tables_edit" />
 
 </navigation>
