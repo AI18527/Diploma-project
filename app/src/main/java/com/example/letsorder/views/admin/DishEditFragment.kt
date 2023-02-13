@@ -18,6 +18,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.camera.core.ImageAnalysis
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -33,22 +34,6 @@ class DishEditFragment : Fragment() {
     private var _binding: FragmentDishEditBinding? = null
     private val binding get() = _binding!!
 
-    private var activityResultLauncher: ActivityResultLauncher<Array<String>>
-
-    init{
-        this.activityResultLauncher = registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()) {result ->
-            var allAreGranted = true
-            for(b in result.values) {
-                allAreGranted = allAreGranted && b
-            }
-
-            if(allAreGranted) {
-                chooseImageGallery()
-            }
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,10 +47,7 @@ class DishEditFragment : Fragment() {
 
         binding?.apply {
             buttonAddImage.setOnClickListener{
-                val permissions = arrayOf(
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                )
-                activityResultLauncher.launch(permissions)
+                findNavController().navigate(R.id.action_dishEditFragment_to_galleryFragment)
             }
 
             buttonAdd.setOnClickListener {
@@ -77,25 +59,7 @@ class DishEditFragment : Fragment() {
                 )
 
                 findNavController().navigate(R.id.action_dishEditFragment_to_menuEditFragment)
-                Navigation.findNavController(requireView()).popBackStack(
-                    R.id.dishEditFragment, true
-                )
             }
         }
-    }
-
-    private fun chooseImageGallery() {
-        Log.d("TAG", "To gallery")
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        intent.type = "image/*"
-        val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                result: ActivityResult ->
-                if (result.resultCode == Activity.RESULT_OK) {
-                    binding.imageView.setImageURI(result.data?.data)
-                } else {
-                    Log.d("Error", "Camera did not open")
-                }
-            }
-        startForResult.launch(intent)
     }
 }

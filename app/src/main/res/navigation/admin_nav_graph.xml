@@ -42,11 +42,19 @@
         <action
             android:id="@+id/action_dishEditFragment_to_menuEditFragment"
             app:destination="@id/menuEditFragment" />
+        <action
+            android:id="@+id/action_dishEditFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment" />
     </fragment>
     <fragment
         android:id="@+id/tablesEditFragment"
         android:name="com.example.letsorder.views.admin.TablesEditFragment"
         android:label="Tables"
         tools:layout="@layout/fragment_tables_edit" />
+    <fragment
+        android:id="@+id/galleryFragment"
+        android:name="com.example.letsorder.views.admin.GalleryFragment"
+        android:label="fragment_gallery"
+        tools:layout="@layout/fragment_gallery" />
 
 </navigation>
