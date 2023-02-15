@@ -43,10 +43,10 @@ class MenuEditFragment : Fragment(), DishEditListener {
         }
     }
 
-    override fun onPause() {
+    /*override fun onPause() {
         super.onPause()
         viewModel.removeListener()
-    }
+    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()
