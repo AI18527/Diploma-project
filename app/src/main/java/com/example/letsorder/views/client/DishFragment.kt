@@ -9,14 +9,15 @@ import android.widget.Toast.LENGTH_SHORT
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.letsorder.R
 import com.example.letsorder.data.GlideApp
 import com.example.letsorder.data.LocalOrder
 import com.example.letsorder.databinding.FragmentDishBinding
 import com.example.letsorder.viewmodel.DishViewModel
 import com.example.letsorder.viewmodel.TableStatusViewModel
+import com.example.letsorder.views.admin.GalleryFragment.Companion.DISH_TITLE
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.storage.FirebaseStorage
 import java.text.NumberFormat
 import kotlin.properties.Delegates
 
@@ -55,14 +56,16 @@ class DishFragment : Fragment() {
             binding.description.text = dish.description
             binding.price.text = NumberFormat.getCurrencyInstance().format(dish.price).toString()
 
-            val storageRef = FirebaseStorage.getInstance().reference.child("${dish.image}")
-
-            Log.d("TAG", "${dish.image?.let { storageRef}}")
-
-            GlideApp.with(this)
-                .load(dish.image?.let { storageRef })
-                //.load("https://go359.com/wp-content/uploads/2021/07/placeholder-image.png")
-                .into(binding.imageView)
+            if (dish.image != null) {
+                GlideApp.with(this)
+                    .load("https://storage.googleapis.com/diploma-project-lets-order.appspot.com/${dish.image}")
+                    .into(binding.imageView)
+            }
+            else {
+                GlideApp.with(this)
+                    .load("https://go359.com/wp-content/uploads/2021/07/placeholder-image.png")
+                    .into(binding.imageView)
+            }
 
             if (!sharedViewModel.freeTable) {
                 binding.buttonAdd.visibility = View.INVISIBLE
