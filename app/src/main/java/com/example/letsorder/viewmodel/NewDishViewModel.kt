@@ -7,15 +7,12 @@ import com.example.letsorder.data.FirebaseDatabaseSingleton
 import com.example.letsorder.data.RestaurantInfo
 import com.example.letsorder.model.Dish
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import java.util.*
 
-class DishEditViewModel : ViewModel() {
+class NewDishViewModel : ViewModel() {
     val storage = Firebase.storage
     var storageRef = storage.reference
-
-    var imagesRef: StorageReference? = storageRef.child("images")
 
     private val ref = FirebaseDatabaseSingleton.getInstance().getReference("dishes")
 

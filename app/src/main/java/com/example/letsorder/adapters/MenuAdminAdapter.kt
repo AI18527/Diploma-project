@@ -5,14 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
 import com.example.letsorder.model.Dish
 import com.example.letsorder.viewmodel.MenuViewModel
+import com.example.letsorder.views.admin.DishEditListener
 
-class MenuEditAdapter(viewModel: MenuViewModel) :
-    RecyclerView.Adapter<MenuEditAdapter.MenuEditViewHolder>() {
+class MenuAdminAdapter(viewModel: MenuViewModel, val dishEditListener: DishEditListener) :
+    RecyclerView.Adapter<MenuAdminAdapter.MenuEditViewHolder>() {
 
     private val menu = ArrayList<Dish>()
 
@@ -28,6 +28,7 @@ class MenuEditAdapter(viewModel: MenuViewModel) :
         val title = view.findViewById<TextView>(R.id.title)!!
         val category = view.findViewById<TextView>(R.id.category)!!
         val price = view.findViewById<TextView>(R.id.price)!!
+        val buttonDelete = view.findViewById<Button>(R.id.buttonDelete)!!
     }
 
     override fun getItemCount(): Int = menu.size
@@ -44,6 +45,10 @@ class MenuEditAdapter(viewModel: MenuViewModel) :
         holder.title.text = dish.title
         holder.category.text = dish.category
         holder.price.text = dish.price.toString()
+
+        holder.buttonDelete.setOnClickListener {
+            dishEditListener.dishDeleted(dish.title)
+        }
     }
 
 }

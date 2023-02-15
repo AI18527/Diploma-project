@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.letsorder.data.FirebaseDatabaseSingleton
+import com.example.letsorder.data.RestaurantInfo
 import com.example.letsorder.model.Table
+import com.example.letsorder.model.Waiter
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -16,8 +18,29 @@ class TablesEditViewModel : ViewModel() {
     val existingTable : LiveData<Boolean>
     get() = _existingTable
 
+    private var _tables = MutableLiveData<List<Table>>()
+    val tables: LiveData<List<Table>>
+        get() = _tables
+
     private val ref = FirebaseDatabaseSingleton.getInstance().getReference("tables")
     private lateinit var listener: ValueEventListener
+
+    private var listenerTables : ValueEventListener = ref.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            var tables = arrayListOf<Table>()
+            for (snapshot in dataSnapshot.children) {
+                val value = snapshot.getValue(Table::class.java)
+                value?.let{
+                    tables.add(it)
+                }
+            }
+            _tables.postValue(tables.sortedBy { it.tableNum })
+        }
+
+        override fun onCancelled(databaseError: DatabaseError) {
+            Log.w("Error", "load:onCancelled", databaseError.toException())
+        }
+    })
 
     fun doesTableExist(tableNum : Int){
         listener = ref.addValueEventListener(object: ValueEventListener {
@@ -38,11 +61,26 @@ class TablesEditViewModel : ViewModel() {
         })
     }
     fun addTable(tableNum:Int, capacity: Int) {
-        val table = Table(tableNum = tableNum, capacity = capacity, restaurantId = 1)
+        val table = Table(tableNum = tableNum, capacity = capacity, restaurantId = RestaurantInfo.restaurantId)
         ref.push().setValue(table)
+    }
+
+    fun deleteTable(table: Int) {
+        val query = ref.orderByChild("tableNum").equalTo(table.toDouble())
+            .limitToFirst(1)
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                dataSnapshot.children.iterator().next().ref.removeValue()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("TAG", "load:onCancelled", error.toException())
+            }
+        })
     }
 
     fun removeListener(){
         ref.removeEventListener(listener)
+        ref.removeEventListener(listenerTables)
     }
 }

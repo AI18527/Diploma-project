@@ -18,6 +18,8 @@ import com.example.letsorder.viewmodel.DishViewModel
 import com.example.letsorder.viewmodel.TableStatusViewModel
 import com.example.letsorder.views.admin.GalleryFragment.Companion.DISH_TITLE
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.text.NumberFormat
 import kotlin.properties.Delegates
 
@@ -59,11 +61,6 @@ class DishFragment : Fragment() {
             if (dish.image != null) {
                 GlideApp.with(this)
                     .load("https://storage.googleapis.com/diploma-project-lets-order.appspot.com/${dish.image}")
-                    .into(binding.imageView)
-            }
-            else {
-                GlideApp.with(this)
-                    .load("https://go359.com/wp-content/uploads/2021/07/placeholder-image.png")
                     .into(binding.imageView)
             }
 

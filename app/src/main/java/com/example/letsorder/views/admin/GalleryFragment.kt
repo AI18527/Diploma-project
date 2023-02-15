@@ -3,8 +3,6 @@ package com.example.letsorder.views.admin
 import android.app.Activity
 import android.content.Intent
 import android.content.Intent.ACTION_PICK
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -16,19 +14,12 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.letsorder.data.RestaurantInfo
 import com.example.letsorder.databinding.FragmentGalleryBinding
-import com.example.letsorder.model.Dish
-import com.example.letsorder.viewmodel.DishEditViewModel
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.ktx.storage
-import java.io.ByteArrayOutputStream
-import java.util.*
+import com.example.letsorder.viewmodel.NewDishViewModel
 import kotlin.properties.Delegates
 
 class GalleryFragment : Fragment() {
-    val viewModel: DishEditViewModel by viewModels()
+    val viewModel: NewDishViewModel by viewModels()
 
     private var _binding: FragmentGalleryBinding? = null
     private val binding get() = _binding!!

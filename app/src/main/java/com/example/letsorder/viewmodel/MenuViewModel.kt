@@ -39,6 +39,20 @@ class MenuViewModel : ViewModel() {
         }
     })
 
+    fun deleteDish(dish: String) {
+        val query = ref.orderByChild("title").equalTo(dish)
+            .limitToFirst(1)
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                dataSnapshot.children.iterator().next().ref.removeValue()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("TAG", "load:onCancelled", error.toException())
+            }
+        })
+    }
+
     fun removeListener() {
         ref.removeEventListener(listener)
     }

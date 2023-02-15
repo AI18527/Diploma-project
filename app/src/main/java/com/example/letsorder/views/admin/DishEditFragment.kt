@@ -1,36 +1,19 @@
 package com.example.letsorder.views.admin
 
-import android.Manifest
-import android.annotation.TargetApi
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.camera.core.ImageAnalysis
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.letsorder.R
 import com.example.letsorder.databinding.FragmentDishEditBinding
-import com.example.letsorder.viewmodel.DishEditViewModel
-import com.example.letsorder.views.client.MenuFragmentDirections
+import com.example.letsorder.viewmodel.NewDishViewModel
 
 
 class DishEditFragment : Fragment() {
-    val viewModel: DishEditViewModel by viewModels()
+    val viewModel: NewDishViewModel by viewModels()
 
     private var _binding: FragmentDishEditBinding? = null
     private val binding get() = _binding!!
