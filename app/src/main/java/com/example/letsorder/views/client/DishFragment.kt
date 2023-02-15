@@ -1,6 +1,5 @@
 package com.example.letsorder.views.client
 
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,38 +9,26 @@ import android.widget.Toast.LENGTH_SHORT
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
-import com.bumptech.glide.annotation.GlideModule
-import com.bumptech.glide.module.AppGlideModule
-import com.bumptech.glide.request.RequestOptions
 import com.example.letsorder.R
+import com.example.letsorder.data.GlideApp
 import com.example.letsorder.data.LocalOrder
 import com.example.letsorder.databinding.FragmentDishBinding
 import com.example.letsorder.viewmodel.DishViewModel
 import com.example.letsorder.viewmodel.TableStatusViewModel
-import com.example.letsorder.views.admin.GalleryFragment.Companion.DISH_TITLE
-import com.firebase.ui.storage.images.FirebaseImageLoader
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.ktx.storage
 import java.text.NumberFormat
 import kotlin.properties.Delegates
 
 
 class DishFragment : Fragment() {
+
     private var _binding: FragmentDishBinding? = null
     private val binding get() = _binding!!
     private var dishTitle by Delegates.notNull<String>()
 
     private val viewModel: DishViewModel by viewModels()
     private val sharedViewModel: TableStatusViewModel by viewModels()
-
-    private val storageRef = Firebase.storage.reference
-
-    @GlideModule
-    class MyAppGlideModule : AppGlideModule(){}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,21 +57,12 @@ class DishFragment : Fragment() {
 
             val storageRef = FirebaseStorage.getInstance().reference.child("${dish.image}")
 
-            /*context?.let {
-                Glide.with(it)
-                    .load(storageRef)
-                    .into(binding.imageView)
-            }*/
+            Log.d("TAG", "${dish.image?.let { storageRef}}")
 
-            Log.d("TAG", "${storageRef.child("${dish.image}")}")
-            Log.d("TAG", "${storageRef.child("${dish.image}").downloadUrl}")
-
-            Glide.with(requireActivity())
-                //.load(dish.image?.let { storageRef.child(it) })
-                .load("https://go359.com/wp-content/uploads/2021/07/placeholder-image.png")
+            GlideApp.with(this)
+                .load(dish.image?.let { storageRef })
+                //.load("https://go359.com/wp-content/uploads/2021/07/placeholder-image.png")
                 .into(binding.imageView)
-
-
 
             if (!sharedViewModel.freeTable) {
                 binding.buttonAdd.visibility = View.INVISIBLE

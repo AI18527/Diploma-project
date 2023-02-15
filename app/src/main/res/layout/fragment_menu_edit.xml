@@ -19,7 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="600dp"
             android:layout_margin="10dp"
+            android:layout_marginBottom="1dp"
             android:scrollbars="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/buttonAddDish"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
