@@ -25,7 +25,7 @@ class MenuViewModel : ViewModel() {
             for (snapshot in dataSnapshot.children) {
                 val value = snapshot.getValue(Dish::class.java)
                 value?.let{
-                    if (it.restaurantId == TableStatusViewModel().restaurantId || it.restaurantId == RestaurantInfo.restaurantId){
+                    if (it.restaurantId == RestaurantInfo.restaurantId){
                         dishes.add(it)
                     }
                 }

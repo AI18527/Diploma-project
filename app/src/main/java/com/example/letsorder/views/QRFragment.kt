@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
@@ -35,6 +36,7 @@ import com.example.letsorder.viewmodel.TableStatusViewModel
 import com.example.letsorder.viewmodel.TableStatusViewModel.Companion.FREETABLE
 import com.example.letsorder.views.client.ClientMain
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -93,18 +95,29 @@ class QRFragment : Fragment() {
         startForResult.launch(camera)
     }*/
         binding.buttonMenu.setOnClickListener {
-            sharedViewModel.getTable(
-                binding.restaurantId.text.toString().toInt(),
-                binding.tableNumber.text.toString().toInt()
-            )
-            sharedViewModel.isFree.observe(viewLifecycleOwner) { data: Event<Boolean> ->
-                val d = data.handle()
-                d?.let {
-                    if (d) {
+            if (binding.restaurantId.text.toString() != "" &&
+                binding.tableNumber.text.toString() != ""
+            ) {
+                RestaurantInfo.restaurantId = binding.restaurantId.text.toString().toInt()
+                sharedViewModel.getTable(
+                    binding.restaurantId.text.toString().toInt(),
+                    binding.tableNumber.text.toString().toInt()
+                )
+                sharedViewModel.isFree.observe(viewLifecycleOwner) { isFree: Event<Boolean> ->
+                    val free = isFree.handle()
+                    free?.let {
+                        if (free) {
+                            navigate()
+                        }
                         navigate()
                     }
-                    navigate()
                 }
+            } else {
+                Snackbar.make(
+                    view,
+                    "You should enter table's number and restaurant's number",
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
         binding.buttonLogin.setOnClickListener {
@@ -125,58 +138,58 @@ class QRFragment : Fragment() {
     }
 }
 
-    /*private fun startCamera() {
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+/*private fun startCamera() {
+    val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
-        cameraProviderFuture.addListener({
-            val cameraProvider = cameraProviderFuture.get()
+    cameraProviderFuture.addListener({
+        val cameraProvider = cameraProviderFuture.get()
 
-            val preview = Preview.Builder()
-                .build()
-                .also {
-                    it.setSurfaceProvider(binding.previewView.createSurfaceProvider())
-                }
-
-            val imageAnalyzer = ImageAnalysis.Builder()
-                .setBackpressureStrategy(STRATEGY_KEEP_ONLY_LATEST)
-                .build()
-                .also {
-                    it.setAnalyzer(cameraExecutor, QRAnalyzer())
-                }
-
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
-            try {
-                cameraProvider.unbindAll()
-                cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview, imageAnalyzer
-                )
-            } catch (exc: Exception) {
-                exc.printStackTrace()
+        val preview = Preview.Builder()
+            .build()
+            .also {
+                it.setSurfaceProvider(binding.previewView.createSurfaceProvider())
             }
-        }, ContextCompat.getMainExecutor(requireContext()))
 
-        // Image analyzer
-        /* val imageAnalysis = ImageAnalysis.Builder()
-                 .setBackpressureStrategy(STRATEGY_KEEP_ONLY_LATEST)
-                 .build()
+        val imageAnalyzer = ImageAnalysis.Builder()
+            .setBackpressureStrategy(STRATEGY_KEEP_ONLY_LATEST)
+            .build()
+            .also {
+                it.setAnalyzer(cameraExecutor, QRAnalyzer())
+            }
 
-             imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(requireContext()), QRAnalyzer{ result ->
-                 var code = result
-                 Log.d("Tag", "$code")
-             })
-             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+        val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
-             try {
-                 cameraProvider.unbindAll()
-                 cameraProvider.bindToLifecycle(
-                     this, cameraSelector, preview, imageAnalysis
-                 )
+        try {
+            cameraProvider.unbindAll()
+            cameraProvider.bindToLifecycle(
+                this, cameraSelector, preview, imageAnalyzer
+            )
+        } catch (exc: Exception) {
+            exc.printStackTrace()
+        }
+    }, ContextCompat.getMainExecutor(requireContext()))
 
-             } catch (exc: Exception) {
-                 exc.printStackTrace()
-             }
-         }, ContextCompat.getMainExecutor(requireContext()))
-     }
-    }*/
+    // Image analyzer
+    /* val imageAnalysis = ImageAnalysis.Builder()
+             .setBackpressureStrategy(STRATEGY_KEEP_ONLY_LATEST)
+             .build()
+
+         imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(requireContext()), QRAnalyzer{ result ->
+             var code = result
+             Log.d("Tag", "$code")
+         })
+         val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
+         try {
+             cameraProvider.unbindAll()
+             cameraProvider.bindToLifecycle(
+                 this, cameraSelector, preview, imageAnalysis
+             )
+
+         } catch (exc: Exception) {
+             exc.printStackTrace()
+         }
+     }, ContextCompat.getMainExecutor(requireContext()))
+ }
+}*/
 }*/

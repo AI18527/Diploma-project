@@ -42,7 +42,7 @@ class OrderViewModel : ViewModel() {
                     _bill.postValue(it.bill)
                     order = it
 
-                    dataSnapshot.children.iterator().next().child("/flagForWaiter/").ref.setValue(false)
+                    dataSnapshot.children.iterator().next().child("/flagForWaiter/").ref.setValue("SEEN")
                     query.removeEventListener(this)
                 }
             }

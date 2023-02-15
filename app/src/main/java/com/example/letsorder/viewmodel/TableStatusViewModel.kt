@@ -23,12 +23,6 @@ class TableStatusViewModel : ViewModel() {
     val tableNum: Int
         get() = TABLENUM
 
-
-    val restaurantId: Int
-        get() = RESTAURANT_ID
-
-    //RestaurantInfo
-
     val isFree = MutableLiveData<Event<Boolean>>()
 
     fun onStateChanged(newState: Boolean) {
@@ -48,13 +42,12 @@ class TableStatusViewModel : ViewModel() {
                         val value = snapshot.getValue(Table::class.java)
                         value?.let {
                             if (it.tableNum == tableNum && it.restaurantId == restaurantId) {
-                                RESTAURANT_ID = it.restaurantId
                                 isTableFree(tableNum)
                             }
+                            // event for existing
                         }
                     }
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                     Log.w("Error", "load:onCancelled", error.toException())
                 }
@@ -114,6 +107,5 @@ class TableStatusViewModel : ViewModel() {
     companion object {
         private var TABLENUM: Int = 0
         var FREETABLE: Boolean = true
-        private var RESTAURANT_ID: Int = 0
     }
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.letsorder.data.FirebaseDatabaseSingleton
 import com.example.letsorder.data.LocalOrder
 import com.example.letsorder.model.Dish
+import com.example.letsorder.model.Flag
 import com.example.letsorder.model.Order
 import com.example.letsorder.model.OrderDetails
 import com.google.firebase.database.DataSnapshot
@@ -55,7 +56,7 @@ class SummaryViewModel : ViewModel() {
             Order(
                 bill = it,
                 dishes = dishes,
-                flagForWaiter = true,
+                flagForWaiter = Flag.UNSEEN,
                 restaurantId = 1,
                 tableNum = TableStatusViewModel().tableNum
             )
@@ -64,13 +65,13 @@ class SummaryViewModel : ViewModel() {
         _sent.postValue(true)
     }
 
-    fun callWaiter() {
+    fun callWaiter(flag: Flag) {
         val query =
             ref.orderByChild("tableNum").equalTo(TableStatusViewModel().tableNum.toDouble())
                 .limitToFirst(1)
         listener = query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                dataSnapshot.children.iterator().next().child("/flagForWaiter/").ref.setValue(true)
+                dataSnapshot.children.iterator().next().child("/flagForWaiter/").ref.setValue(flag)
                 query.removeEventListener(this)
             }
 

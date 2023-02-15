@@ -1,21 +1,27 @@
 package com.example.letsorder.adapters
 
 import android.content.Context
+import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.getColor
+import androidx.core.content.ContextCompat.getDrawable
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
+import com.example.letsorder.model.Flag
 import com.example.letsorder.viewmodel.TablesViewModel
 import com.example.letsorder.views.waiter.TablesFragmentDirections
 
 class TablesAdapter(viewModel: TablesViewModel, val context: Context) :
     RecyclerView.Adapter<TablesAdapter.TablesViewHolder>() {
+
+    private val tables = mutableMapOf<Int, Flag>()
 
     init {
         viewModel.tables.observeForever {
@@ -41,27 +47,20 @@ class TablesAdapter(viewModel: TablesViewModel, val context: Context) :
     }
 
     override fun onBindViewHolder(holder: TablesViewHolder, position: Int) {
-        var tables = tables.toList().sortedBy { it.first }.sortedBy { !it.second }
+        var tables = tables.toList().sortedBy { it.second }
         var table = tables[position]
 
-        if (table.second) {
-            holder.buttonTable.setBackgroundColor(getColor(context, R.color.green))
-        }
-
-        else {
-            holder.buttonTable.setBackgroundColor(getColor(context, R.color.mustard_yellow))
+        when (table.second) {
+            Flag.UNSEEN -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.green))
+            Flag.SEEN -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.mango_orange))
+            Flag.CALL -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.mustard_yellow))
+            Flag.BILL -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.dark_orange))
         }
 
         holder.buttonTable.text = "Table ${table.first}"
 
         holder.buttonTable.setOnClickListener {
-            val action =
-                TablesFragmentDirections.actionTablesFragmentToOrderFragment(tableNum = table.first)
-            holder.view.findNavController().navigate(action)
+            holder.view.findNavController().navigate(TablesFragmentDirections.actionTablesFragmentToOrderFragment(tableNum = table.first))
         }
-    }
-
-    companion object{
-        val tables = mutableMapOf<Int, Boolean>()
     }
 }

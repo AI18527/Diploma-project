@@ -20,6 +20,7 @@ import com.example.letsorder.adapters.CurrOrderAdapter
 import com.example.letsorder.adapters.SummaryOrderAdapter
 import com.example.letsorder.databinding.FragmentSummaryOrderBinding
 import com.example.letsorder.model.Dish
+import com.example.letsorder.model.Flag
 import com.example.letsorder.viewmodel.SummaryViewModel
 import com.example.letsorder.viewmodel.TableStatusViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -83,7 +84,7 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
             buttonPay.visibility = View.VISIBLE
 
             binding.buttonCall.setOnClickListener {
-                viewModel.callWaiter()
+                viewModel.callWaiter(Flag.CALL)
                 buttonCall.setBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
@@ -92,8 +93,7 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
                 )
             }
             binding.buttonPay.setOnClickListener {
-                viewModel.callWaiter()
-                //snack error
+                viewModel.callWaiter(Flag.BILL)
                 buttonPay.setBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
