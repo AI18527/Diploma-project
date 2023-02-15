@@ -55,6 +55,22 @@
         android:id="@+id/galleryFragment"
         android:name="com.example.letsorder.views.admin.GalleryFragment"
         android:label="fragment_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_gallery">
+        <argument
+            android:name="dishTitle"
+            app:argType="string" />
+        <argument
+            android:name="dishCategory"
+            app:argType="string" />
+        <argument
+            android:name="dishDescription"
+            app:argType="string" />
+        <argument
+            android:name="dishPrice"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_galleryFragment_to_menuEditFragment"
+            app:destination="@id/menuEditFragment" />
+    </fragment>
 
 </navigation>

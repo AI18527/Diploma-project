@@ -30,6 +30,7 @@ class MenuViewModel : ViewModel() {
                     }
                 }
             }
+            dishes = dishes.sortedBy{it.category}.reversed() as ArrayList<Dish>
             _menu.postValue(dishes)
         }
 
