@@ -83,7 +83,7 @@ class LoginFragment : Fragment() {
                         if (!d) {
                             Snackbar.make(
                                 view.findViewById(R.id.loginFragment),
-                                "Invalid email or password",
+                                "Wrong password. Try again",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

@@ -18,6 +18,7 @@ class DishViewModel() : ViewModel(){
     get() = _dish
 
     private val ref = FirebaseDatabaseSingleton.getInstance().getReference("/dishes/")
+
     private lateinit var listener : ValueEventListener
 
     fun getDish(title: String){

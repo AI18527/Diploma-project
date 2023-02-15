@@ -40,7 +40,6 @@ android {
 }
 
 dependencies {
-
     implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
 
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -53,6 +52,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-storage-ktx'
+    implementation 'com.firebaseui:firebase-ui-storage:7.2.0'
+
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
 
     implementation 'androidx.camera:camera-core:1.0.2'
     implementation "androidx.camera:camera-camera2:1.0.0-beta06"
@@ -60,11 +64,11 @@ dependencies {
     implementation "androidx.camera:camera-view:1.0.0-alpha13"
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
+    implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
 
     implementation 'com.google.mlkit:barcode-scanning:17.0.3'
 }

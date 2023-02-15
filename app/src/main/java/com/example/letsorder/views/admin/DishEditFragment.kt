@@ -26,6 +26,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.letsorder.R
 import com.example.letsorder.databinding.FragmentDishEditBinding
 import com.example.letsorder.viewmodel.DishEditViewModel
+import com.example.letsorder.views.client.MenuFragmentDirections
 
 
 class DishEditFragment : Fragment() {
@@ -46,8 +47,15 @@ class DishEditFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.apply {
-            buttonAddImage.setOnClickListener{
-                findNavController().navigate(R.id.action_dishEditFragment_to_galleryFragment)
+            buttonAddImage.setOnClickListener {
+                findNavController().navigate(
+                    DishEditFragmentDirections.actionDishEditFragmentToGalleryFragment(
+                        dishTitle = binding.editTitle.text.toString(),
+                        dishCategory = binding.editCategory.text.toString(),
+                        dishDescription = binding.editDescription.text.toString(),
+                        dishPrice = binding.editPrice.text.toString()
+                    )
+                )
             }
 
             buttonAdd.setOnClickListener {
