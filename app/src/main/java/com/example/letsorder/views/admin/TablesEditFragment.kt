@@ -45,10 +45,10 @@ class TablesEditFragment : Fragment(), TableEditListener{
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        viewModel.removeListener()
-    }
+//    override fun onPause() {
+//        super.onPause()
+//        viewModel.removeListener()
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

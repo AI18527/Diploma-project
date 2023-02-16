@@ -6,13 +6,11 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.letsorder.data.FirebaseDatabaseSingleton
-import com.example.letsorder.model.Dish
+import com.example.letsorder.util.FirebaseDatabaseSingleton
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import java.time.LocalDateTime
-import kotlin.reflect.typeOf
 
 class AdminViewModel : ViewModel(){
 

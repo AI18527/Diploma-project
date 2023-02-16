@@ -47,7 +47,7 @@ class TablesAdapter(viewModel: TablesViewModel, val context: Context) :
     }
 
     override fun onBindViewHolder(holder: TablesViewHolder, position: Int) {
-        var tables = tables.toList().sortedBy { it.second }
+        var tables = tables.toList().sortedBy { it.second }.reversed()
         var table = tables[position]
 
         when (table.second) {

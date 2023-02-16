@@ -4,10 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.letsorder.data.FirebaseDatabaseSingleton
-import com.example.letsorder.data.RestaurantInfo
+import com.example.letsorder.util.FirebaseDatabaseSingleton
+import com.example.letsorder.util.RestaurantInfo
 import com.example.letsorder.model.Table
-import com.example.letsorder.model.Waiter
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener

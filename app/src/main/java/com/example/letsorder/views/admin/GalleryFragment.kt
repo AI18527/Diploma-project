@@ -16,6 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.letsorder.databinding.FragmentGalleryBinding
 import com.example.letsorder.viewmodel.NewDishViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlin.properties.Delegates
 
 class GalleryFragment : Fragment() {
@@ -60,16 +61,19 @@ class GalleryFragment : Fragment() {
         binding.price.text = dishPrice
 
         binding.buttonAdd.setOnClickListener {
-            image?.let { img ->
+            if (image != null) {
                 viewModel.addDishWithPick(
                     dishTitle,
                     dishCategory,
                     dishDescription,
                     dishPrice.toDouble(),
-                    img
+                    image!!
                 )
+                findNavController().navigate(GalleryFragmentDirections.actionGalleryFragmentToMenuEditFragment())
             }
-            findNavController().navigate(GalleryFragmentDirections.actionGalleryFragmentToMenuEditFragment())
+            else {
+                Snackbar.make(view, "There is no image", Snackbar.LENGTH_SHORT).show()
+            }
         }
     }
 

@@ -2,15 +2,14 @@ package com.example.letsorder.views.admin
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.example.letsorder.R
-import com.example.letsorder.data.RestaurantInfo
+import com.example.letsorder.util.RestaurantInfo
 import com.example.letsorder.databinding.FragmentAdminPanelBinding
 import com.example.letsorder.viewmodel.AdminViewModel
 import java.time.LocalDateTime
@@ -24,6 +23,7 @@ class AdminPanelFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("TAG", "HERE 2")
         viewModel.getOrders(RestaurantInfo.restaurantId)
     }
 

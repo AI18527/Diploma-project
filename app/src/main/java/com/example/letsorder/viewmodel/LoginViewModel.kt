@@ -3,8 +3,8 @@ package com.example.letsorder.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.letsorder.data.Event
-import com.example.letsorder.data.FirebaseDatabaseSingleton
+import com.example.letsorder.util.Event
+import com.example.letsorder.util.FirebaseDatabaseSingleton
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -102,5 +102,10 @@ class LoginViewModel : ViewModel() {
                     Log.w("TAG", "signInWithEmail:failure", task.exception)
                 }
             }
+    }
+
+    fun removeListeners(){
+        ref.getReference("/restaurants/").removeEventListener(listenerRestaurant)
+        ref.getReference("/waiters/").removeEventListener(listenerWaiters)
     }
 }

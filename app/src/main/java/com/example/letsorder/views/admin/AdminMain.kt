@@ -1,6 +1,7 @@
 package com.example.letsorder.views.admin
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -14,6 +15,7 @@ class AdminMain : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("TAG", "HERE 1")
         setContentView(R.layout.activity_admin_main)
 
         val navHostFragment = supportFragmentManager

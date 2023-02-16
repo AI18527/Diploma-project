@@ -3,8 +3,8 @@ package com.example.letsorder.viewmodel
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.letsorder.data.FirebaseDatabaseSingleton
-import com.example.letsorder.data.RestaurantInfo
+import com.example.letsorder.util.FirebaseDatabaseSingleton
+import com.example.letsorder.util.RestaurantInfo
 import com.example.letsorder.model.Dish
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage

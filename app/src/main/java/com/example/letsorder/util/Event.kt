@@ -1,4 +1,4 @@
-package com.example.letsorder.data
+package com.example.letsorder.util
 
 import java.util.concurrent.atomic.AtomicBoolean
 

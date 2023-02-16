@@ -1,4 +1,4 @@
-package com.example.letsorder.data
+package com.example.letsorder.util
 
 class RestaurantInfo {
     companion object {

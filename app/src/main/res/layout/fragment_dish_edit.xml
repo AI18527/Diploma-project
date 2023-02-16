@@ -21,8 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add Image"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/textFieldEditPrice"
             app:layout_constraintTop_toBottomOf="@+id/textFieldEditPrice" />
 
         <com.google.android.material.textfield.TextInputLayout

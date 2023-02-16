@@ -2,18 +2,16 @@ package com.example.letsorder.viewmodel
 
 import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.letsorder.data.FirebaseDatabaseSingleton
+import com.example.letsorder.util.FirebaseDatabaseSingleton
 import com.example.letsorder.model.Order
 import com.example.letsorder.model.OrderDetails
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import java.time.LocalDateTime
-import java.time.LocalTime
 
 class OrderViewModel : ViewModel() {
 

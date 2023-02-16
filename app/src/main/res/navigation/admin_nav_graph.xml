@@ -54,7 +54,7 @@
     <fragment
         android:id="@+id/galleryFragment"
         android:name="com.example.letsorder.views.admin.GalleryFragment"
-        android:label="fragment_gallery"
+        android:label="Add image and preview"
         tools:layout="@layout/fragment_gallery">
         <argument
             android:name="dishTitle"

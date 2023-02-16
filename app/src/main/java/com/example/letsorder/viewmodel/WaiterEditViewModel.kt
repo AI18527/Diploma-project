@@ -4,17 +4,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.letsorder.data.FirebaseDatabaseSingleton
-import com.example.letsorder.model.Dish
+import com.example.letsorder.util.FirebaseDatabaseSingleton
 import com.example.letsorder.model.Waiter
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
 
-class WaiterRegisterViewModel : ViewModel() {
+class WaiterEditViewModel : ViewModel() {
 
     private val ref = FirebaseDatabaseSingleton.getInstance().getReference("/waiters/")
 

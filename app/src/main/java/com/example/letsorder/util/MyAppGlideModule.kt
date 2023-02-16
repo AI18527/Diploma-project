@@ -1,4 +1,4 @@
-package com.example.letsorder.data
+package com.example.letsorder.util
 
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Registry

@@ -1,7 +1,7 @@
 package com.example.letsorder.views.client
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,17 +9,14 @@ import android.widget.Toast.LENGTH_SHORT
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.example.letsorder.R
-import com.example.letsorder.data.GlideApp
-import com.example.letsorder.data.LocalOrder
+import com.example.letsorder.util.LocalOrder
 import com.example.letsorder.databinding.FragmentDishBinding
 import com.example.letsorder.viewmodel.DishViewModel
 import com.example.letsorder.viewmodel.TableStatusViewModel
-import com.example.letsorder.views.admin.GalleryFragment.Companion.DISH_TITLE
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import java.text.NumberFormat
 import kotlin.properties.Delegates
 
@@ -50,8 +47,14 @@ class DishFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val drawable = CircularProgressDrawable(requireContext())
+        drawable.centerRadius = 50f
+        drawable.strokeWidth = 8f
+        drawable.start()
 
         viewModel.dish.observe(viewLifecycleOwner){
             dish ->
@@ -59,9 +62,13 @@ class DishFragment : Fragment() {
             binding.price.text = NumberFormat.getCurrencyInstance().format(dish.price).toString()
 
             if (dish.image != null) {
-                GlideApp.with(this)
+                Glide.with(this)
                     .load("https://storage.googleapis.com/diploma-project-lets-order.appspot.com/${dish.image}")
+                    .placeholder(drawable)
                     .into(binding.imageView)
+            }
+            else{
+                binding.imageView.background = resources.getDrawable(R.drawable.ic_baseline_image_24, resources.newTheme())
             }
 
             if (!sharedViewModel.freeTable) {

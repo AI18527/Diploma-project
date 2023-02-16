@@ -2,16 +2,16 @@ package com.example.letsorder.views
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.example.letsorder.R
-import com.example.letsorder.data.Event
+import com.example.letsorder.util.Event
 import com.example.letsorder.databinding.FragmentLoginBinding
 import com.example.letsorder.viewmodel.LoginViewModel
 import com.example.letsorder.views.admin.AdminMain
@@ -46,57 +46,60 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         _binding?.apply {
             buttonLogin.setOnClickListener {
-                viewModel.isAdmin(
-                    inputEmail.text.toString(),
-                    inputPassword.text.toString()
-                )
-                viewModel.isAdmin.observe(viewLifecycleOwner) { data: Event<Boolean> ->
-                    val d = data.handle()
-                    d?.let {
-                        if (d) {
-                            navigateToAdmin()
-                        } else {
-                            viewModel.isWaiter(
-                                inputEmail.text.toString(),
-                                inputPassword.text.toString()
-                            )
-                            viewModel.isWaiter.observe(viewLifecycleOwner) { data: Event<Boolean> ->
-                                val d = data.handle()
-                                d?.let {
-                                    if (d) {
-                                        navigateToWaiter()
-                                    } else {
-                                        Snackbar.make(
-                                            view.findViewById(R.id.loginFragment),
-                                            "You have not been added by the admin.",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+                if (inputEmail.text.toString() != "" || inputPassword.text.toString() != "") {
+                    viewModel.isAdmin(
+                        inputEmail.text.toString(),
+                        inputPassword.text.toString()
+                    )
+                    viewModel.isAdmin.observe(viewLifecycleOwner) { data: Event<Boolean> ->
+                        val d = data.handle()
+                        d?.let {
+                            if (d) {
+                                navigateToAdmin()
+                            } else {
+                                viewModel.isWaiter(
+                                    inputEmail.text.toString(),
+                                    inputPassword.text.toString()
+                                )
+                                viewModel.isWaiter.observe(viewLifecycleOwner) { data: Event<Boolean> ->
+                                    val d = data.handle()
+                                    d?.let {
+                                        if (d) {
+                                            navigateToWaiter()
+                                        } else {
+                                            Snackbar.make(
+                                                view.findViewById(R.id.loginFragment),
+                                                "You have not been added by the admin.",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
-                viewModel.rightLogin.observe(viewLifecycleOwner) { data: Event<Boolean> ->
-                    val d = data.handle()
-                    d?.let {
-                        if (!d) {
-                            Snackbar.make(
-                                view.findViewById(R.id.loginFragment),
-                                "Wrong password. Try again",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                    viewModel.rightLogin.observe(viewLifecycleOwner) { rightLogin: Event<Boolean> ->
+                        val valid = rightLogin.handle()
+                        valid?.let {
+                            if (!valid) {
+                                Snackbar.make(
+                                    view.findViewById(R.id.loginFragment),
+                                    "Wrong password. Try again",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         }
                     }
+                } else {
+                    Snackbar.make(
+                        view,
+                        "You should enter email and password.",
+                        Snackbar.LENGTH_SHORT,
+                    ).show()
                 }
             }
         }
     }
-
-//    override fun onPause() {
-//        super.onPause()
-//        viewModel.removeListener()
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -105,6 +108,7 @@ class LoginFragment : Fragment() {
 
     private fun navigateToAdmin() {
         startActivity(Intent(activity, AdminMain::class.java))
+        Log.d("TAG", "HERE")
         Navigation.findNavController(requireView()).popBackStack(
             R.id.loginFragment, true
         )

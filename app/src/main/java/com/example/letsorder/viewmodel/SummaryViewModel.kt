@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.letsorder.data.FirebaseDatabaseSingleton
-import com.example.letsorder.data.LocalOrder
+import com.example.letsorder.util.FirebaseDatabaseSingleton
+import com.example.letsorder.util.LocalOrder
 import com.example.letsorder.model.Dish
 import com.example.letsorder.model.Flag
 import com.example.letsorder.model.Order
