@@ -12,7 +12,7 @@ import com.example.letsorder.viewmodel.SummaryViewModel
 import com.example.letsorder.views.client.SummaryEditListener
 import java.text.NumberFormat
 
-class SummaryOrderAdapter(viewModel: SummaryViewModel, dataset: Map<Dish, Int>, val summaryListener: SummaryEditListener) :
+class SummaryOrderAdapter(viewModel: SummaryViewModel, dataset: Map<Dish, Int>, private val summaryListener: SummaryEditListener) :
     RecyclerView.Adapter<SummaryOrderAdapter.SummaryOrderViewHolder>() {
 
     private var allDishes: MutableMap<Dish, Int> = dataset as MutableMap<Dish, Int>
@@ -28,11 +28,11 @@ class SummaryOrderAdapter(viewModel: SummaryViewModel, dataset: Map<Dish, Int>, 
     }
 
     class SummaryOrderViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val title = view.findViewById<TextView>(R.id.title)
-        val price = view.findViewById<TextView>(R.id.price)
-        val quantity = view.findViewById<TextView>(R.id.quantity)
-        val buttonAdd = view.findViewById<Button>(R.id.buttonAdd)
-        val buttonSub = view.findViewById<Button>(R.id.buttonSubtract)
+        val title = view.findViewById<TextView>(R.id.title)!!
+        val price = view.findViewById<TextView>(R.id.price)!!
+        val quantity = view.findViewById<TextView>(R.id.quantity)!!
+        val buttonAdd = view.findViewById<Button>(R.id.buttonAdd)!!
+        val buttonSub = view.findViewById<Button>(R.id.buttonSubtract)!!
     }
 
     override fun getItemCount(): Int = dishes.size

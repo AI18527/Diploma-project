@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -78,12 +79,6 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
 
             binding.buttonCall.setOnClickListener {
                 viewModel.callWaiter(Flag.CALL)
-                buttonCall.setBackgroundColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.dark_orange
-                    )
-                )
             }
             binding.buttonPay.setOnClickListener {
                 viewModel.callWaiter(Flag.BILL)
@@ -97,9 +92,14 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
         }
     }
 
-    override fun onDestroy(){
-        super.onDestroy()
+    override fun onPause() {
+        super.onPause()
         viewModel.removeListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.addListener()
     }
 
     override fun onDestroyView() {

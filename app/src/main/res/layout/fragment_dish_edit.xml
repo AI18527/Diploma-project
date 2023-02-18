@@ -18,10 +18,12 @@
 
         <Button
             android:id="@+id/buttonAddImage"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="@string/add_image"
-            app:layout_constraintEnd_toEndOf="@id/textFieldEditPrice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textFieldEditPrice" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -101,6 +103,7 @@
             android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_margin="5dp"
             app:layout_constraintBottom_toTopOf="@id/buttonAdd"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,11 +1,13 @@
 package com.example.letsorder.views
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -19,7 +21,7 @@ import com.google.android.material.snackbar.Snackbar
 
 
 class QRFragment : Fragment() {
-    private val sharedViewModel: TableStatusViewModel by viewModels()
+    private val viewModel: TableStatusViewModel by viewModels()
 
     //private lateinit var cameraExecutor: ExecutorService
 
@@ -75,18 +77,19 @@ class QRFragment : Fragment() {
             if (binding.restaurantId.text.toString() != "" &&
                 binding.tableNumber.text.toString() != ""
             ) {
-                sharedViewModel.getTable(
+                viewModel.getTable(
                     binding.restaurantId.text.toString().toInt(),
                     binding.tableNumber.text.toString().toInt()
                 )
-                sharedViewModel.tableExists.observe(viewLifecycleOwner) { tableExists ->
+                viewModel.tableExists.observe(viewLifecycleOwner) { tableExists ->
                     val exists = tableExists.handle()
                     exists?.let {
                         if (exists) {
-                            sharedViewModel.isTableFree()
-                            sharedViewModel.isFree.observe(viewLifecycleOwner) { isFree: Event<Boolean> ->
+                            viewModel.isTableFree()
+                            viewModel.isFree.observe(viewLifecycleOwner) { isFree: Event<Boolean> ->
                                 val free = isFree.handle()
                                 free?.let {
+                                    TableStatusViewModel.FREE_TABLE = free
                                     navigate()
                                 }
                             }
@@ -130,7 +133,7 @@ class QRFragment : Fragment() {
 
     private fun navigate() {
         startActivity(Intent(activity, ClientMain::class.java))
-        sharedViewModel.removeListeners()
+        viewModel.removeListeners()
     }
 }
 

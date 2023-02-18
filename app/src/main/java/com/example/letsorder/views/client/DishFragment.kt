@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.letsorder.R
 import com.example.letsorder.util.LocalOrder
 import com.example.letsorder.databinding.FragmentDishBinding
+import com.example.letsorder.util.Event
 import com.example.letsorder.viewmodel.DishViewModel
 import com.example.letsorder.viewmodel.TableStatusViewModel
 import com.google.android.material.snackbar.Snackbar

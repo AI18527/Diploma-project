@@ -43,7 +43,7 @@ class LoginViewModel : ViewModel() {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val admin = dataSnapshot.child("/admin/").value
                     if (email == admin.toString()) {
-                        singIn(email, password, "Admin")
+                        singInAdmin(email, password)
                     } else {
                         onStateChangedAdmin(false)
                     }
@@ -68,7 +68,7 @@ class LoginViewModel : ViewModel() {
                         if (it.child("restaurantId").value.toString() != RestaurantInfo.restaurantId.toString()) {
                             onStateChangedWaiter(false)
                         } else {
-                            singIn(email, password, "Waiter")
+                            singInWaiter(email, password)
                         }
                     }
                 }
@@ -84,31 +84,28 @@ class LoginViewModel : ViewModel() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("TAG", "createUserWithEmail:success")
                     onStateChangedWaiter(true)
                 } else {
                     onStateChangedLogin(false)
-                    Log.w("TAG", "createUserWithEmail:failure", task.exception)
                 }
             }
     }
 
-    private fun singIn(email: String, password: String, role: String) {
+    private fun singInAdmin(email: String, password: String) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) onStateChangedAdmin(true)
+                else onStateChangedLogin(false)
+            }
+    }
+
+    private fun singInWaiter(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("TAG", "signInWithEmail:success")
-                    if (role == "Waiter")
-                        onStateChangedWaiter(true)
-                    else if (role == "Admin")
-                        onStateChangedAdmin(true)
+                    onStateChangedAdmin(true)
                 } else {
-                    if (role == "Waiter") {
-                        register(email, password)
-                    } else if (role == "Admin") {
-                        onStateChangedLogin(false)
-                    }
-                    Log.w("TAG", "signInWithEmail:failure", task.exception)
+                    register(email, password)
                 }
             }
     }

@@ -57,7 +57,7 @@ class SummaryViewModel : ViewModel() {
             Order(
                 bill = it,
                 dishes = dishes,
-                flagForWaiter = Flag.UNSEEN,
+                flagForWaiter = Flag.ACCEPT,
                 restaurantId = RestaurantInfo.restaurantId,
                 tableNum = TableStatusViewModel().tableNum
             )
@@ -72,7 +72,7 @@ class SummaryViewModel : ViewModel() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
                     if (snapshot.child("restaurantId").value.toString() == RestaurantInfo.restaurantId.toString()) {
-                        dataSnapshot.children.iterator().next().child("/flagForWaiter/").ref.setValue(flag)
+                        snapshot.child("/flagForWaiter/").ref.setValue(flag)
                         query.removeEventListener(this)
                     }
                 }
@@ -82,6 +82,10 @@ class SummaryViewModel : ViewModel() {
                 Log.w("TAG", "load:onCancelled", error.toException())
             }
         })
+    }
+
+    fun addListener(){
+        ref.addValueEventListener(listener)
     }
 
     fun removeListener(){

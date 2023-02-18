@@ -47,13 +47,13 @@ class TablesAdapter(viewModel: TablesViewModel, val context: Context) :
     }
 
     override fun onBindViewHolder(holder: TablesViewHolder, position: Int) {
-        var tables = tables.toList().sortedBy { it.second }.reversed()
+        var tables = tables.toList().sortedBy { it.second }
         var table = tables[position]
 
         when (table.second) {
             Flag.ACCEPT -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.green))
-            Flag.OK -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.mango_orange))
-            Flag.CALL -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.mustard_yellow))
+            Flag.OK -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.mustard_yellow))
+            Flag.CALL -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.light_yellow))
             Flag.BILL -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.dark_orange))
         }
 

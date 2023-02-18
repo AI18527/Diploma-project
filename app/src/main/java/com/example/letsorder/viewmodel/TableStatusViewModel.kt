@@ -18,16 +18,16 @@ class TableStatusViewModel : ViewModel() {
     val tableOrder: LiveData<Order>
         get() = _tableOrder
 
-    val freeTable: Boolean
-        get() = FREETABLE
-
     val tableNum: Int
         get() = TABLENUM
+
+    val freeTable: Boolean
+        get() = FREE_TABLE
 
     val tableExists = MutableLiveData<Event<Boolean>>()
     val isFree = MutableLiveData<Event<Boolean>>()
 
-    fun onStateChanged(newState: Boolean) {
+    fun onStateChangedFree(newState: Boolean) {
         isFree.postValue(Event(newState))
     }
 
@@ -68,15 +68,15 @@ class TableStatusViewModel : ViewModel() {
         val query = ref.getReference("publicOrders").orderByChild("restaurantId").equalTo(RestaurantInfo.restaurantId.toDouble())
         listener = query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var freeTable = true
                 for (snapshot in dataSnapshot.children) {
                     if (snapshot.child("tableNum").value.toString() == tableNum.toString()) {
-                        FREETABLE = false
-                        onStateChanged(false)
+                        freeTable = false
+                        onStateChangedFree(false)
                     }
-                    else FREETABLE = true
                 }
-                if (FREETABLE){
-                    onStateChanged(true)
+                if (freeTable){
+                    onStateChangedFree(true)
                 }
             }
 
@@ -89,13 +89,14 @@ class TableStatusViewModel : ViewModel() {
     fun getOrder() {
         val query =
             ref.getReference("/publicOrders/").orderByChild("tableNum").equalTo(tableNum.toDouble())
-                .limitToFirst(1)
         listenerPublicOrders = query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                dataSnapshot.children.map {
-                    it.getValue(Order::class.java)
-                }.firstOrNull()?.let {
-                    _tableOrder.postValue(it)
+                for (snapshot in dataSnapshot.children) {
+                    val value = snapshot.getValue(Order::class.java)
+                    value?.let {
+                        if (value.restaurantId == RestaurantInfo.restaurantId)
+                            _tableOrder.postValue(it)
+                    }
                 }
             }
 
@@ -106,7 +107,7 @@ class TableStatusViewModel : ViewModel() {
     }
 
     fun takeTable() {
-        FREETABLE = false
+        FREE_TABLE = false
     }
 
     fun removeListeners() {
@@ -116,6 +117,6 @@ class TableStatusViewModel : ViewModel() {
 
     companion object {
         private var TABLENUM: Int = 0
-        var FREETABLE: Boolean = true
+        var FREE_TABLE: Boolean = true
     }
 }

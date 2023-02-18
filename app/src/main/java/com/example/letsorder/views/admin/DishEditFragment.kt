@@ -32,7 +32,7 @@ class DishEditFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDishEditBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -40,8 +40,8 @@ class DishEditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.apply {
-            binding.buttonAddImage.setOnClickListener {
+        binding.apply {
+            buttonAddImage.setOnClickListener {
                 getContent.launch("image/*")
             }
             buttonAdd.setOnClickListener {

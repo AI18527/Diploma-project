@@ -42,35 +42,10 @@
         <action
             android:id="@+id/action_dishEditFragment_to_menuEditFragment"
             app:destination="@id/menuEditFragment" />
-        <action
-            android:id="@+id/action_dishEditFragment_to_galleryFragment"
-            app:destination="@id/galleryFragment" />
     </fragment>
     <fragment
         android:id="@+id/tablesEditFragment"
         android:name="com.example.letsorder.views.admin.TablesEditFragment"
         android:label="Tables"
         tools:layout="@layout/fragment_tables_edit" />
-    <fragment
-        android:id="@+id/galleryFragment"
-        android:name="com.example.letsorder.views.admin.GalleryFragment"
-        android:label="Add image and preview"
-        tools:layout="@layout/fragment_gallery">
-        <argument
-            android:name="dishTitle"
-            app:argType="string" />
-        <argument
-            android:name="dishCategory"
-            app:argType="string" />
-        <argument
-            android:name="dishDescription"
-            app:argType="string" />
-        <argument
-            android:name="dishPrice"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_galleryFragment_to_menuEditFragment"
-            app:destination="@id/menuEditFragment" />
-    </fragment>
-
 </navigation>
