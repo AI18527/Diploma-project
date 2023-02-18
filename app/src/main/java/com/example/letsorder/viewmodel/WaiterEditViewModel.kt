@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.letsorder.util.FirebaseDatabaseSingleton
 import com.example.letsorder.model.Waiter
+import com.example.letsorder.util.RestaurantInfo
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -24,6 +25,7 @@ class WaiterEditViewModel : ViewModel() {
             for (snapshot in dataSnapshot.children) {
                 val value = snapshot.getValue(Waiter::class.java)
                 value?.let{
+                    if (it.restaurantId == RestaurantInfo.restaurantId)
                     waiters.add(it)
                 }
             }
@@ -46,10 +48,12 @@ class WaiterEditViewModel : ViewModel() {
 
     fun deleteWaiter(waiter: Waiter) {
         val query = ref.orderByChild("email").equalTo(waiter.email)
-                .limitToFirst(1)
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                dataSnapshot.children.iterator().next().ref.removeValue()
+                for (snapshot in dataSnapshot.children) {
+                    if (snapshot.child("restaurantId").value.toString() == RestaurantInfo.restaurantId.toString())
+                    snapshot.ref.removeValue()
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

@@ -41,10 +41,12 @@ class MenuViewModel : ViewModel() {
 
     fun deleteDish(dish: String) {
         val query = ref.orderByChild("title").equalTo(dish)
-            .limitToFirst(1)
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                dataSnapshot.children.iterator().next().ref.removeValue()
+                for (snapshot in dataSnapshot.children){
+                    if (snapshot.child("restaurantId").value.toString() == RestaurantInfo.restaurantId.toString())
+                    snapshot.ref.removeValue()
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

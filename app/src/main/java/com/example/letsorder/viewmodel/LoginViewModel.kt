@@ -3,8 +3,10 @@ package com.example.letsorder.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.letsorder.model.Waiter
 import com.example.letsorder.util.Event
 import com.example.letsorder.util.FirebaseDatabaseSingleton
+import com.example.letsorder.util.RestaurantInfo
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -58,10 +60,17 @@ class LoginViewModel : ViewModel() {
             .equalTo(email).limitToFirst(1)
         listenerWaiters = query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.value == null) {
+                if (dataSnapshot.value == null){
                     onStateChangedWaiter(false)
-                } else {
-                    singIn(email, password, "Waiter")
+                }
+                else {
+                    dataSnapshot.children.map {
+                        if (it.child("restaurantId").value.toString() != RestaurantInfo.restaurantId.toString()) {
+                            onStateChangedWaiter(false)
+                        } else {
+                            singIn(email, password, "Waiter")
+                        }
+                    }
                 }
             }
 

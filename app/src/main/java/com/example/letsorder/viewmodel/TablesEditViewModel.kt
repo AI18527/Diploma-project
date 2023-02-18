@@ -13,10 +13,6 @@ import com.google.firebase.database.ValueEventListener
 
 class TablesEditViewModel : ViewModel() {
 
-    private var _existingTable = MutableLiveData<Boolean>()
-    val existingTable : LiveData<Boolean>
-    get() = _existingTable
-
     private var _tables = MutableLiveData<List<Table>>()
     val tables: LiveData<List<Table>>
         get() = _tables
@@ -30,6 +26,7 @@ class TablesEditViewModel : ViewModel() {
             for (snapshot in dataSnapshot.children) {
                 val value = snapshot.getValue(Table::class.java)
                 value?.let{
+                    if (it.restaurantId == RestaurantInfo.restaurantId)
                     tables.add(it)
                 }
             }
@@ -41,24 +38,6 @@ class TablesEditViewModel : ViewModel() {
         }
     })
 
-    fun doesTableExist(tableNum : Int){
-        listener = ref.addValueEventListener(object: ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (snapshot in dataSnapshot.children) {
-                    val value = snapshot.getValue(Table::class.java)
-                    value?.let {
-                        if (it.tableNum == tableNum) {
-                            _existingTable.postValue(true)
-                        }
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.w("Error", "load:onCancelled", error.toException())
-            }
-        })
-    }
     fun addTable(tableNum:Int, capacity: Int) {
         val table = Table(tableNum = tableNum, capacity = capacity, restaurantId = RestaurantInfo.restaurantId)
         ref.push().setValue(table)
@@ -66,10 +45,12 @@ class TablesEditViewModel : ViewModel() {
 
     fun deleteTable(table: Int) {
         val query = ref.orderByChild("tableNum").equalTo(table.toDouble())
-            .limitToFirst(1)
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                dataSnapshot.children.iterator().next().ref.removeValue()
+                for (snapshot in dataSnapshot.children) {
+                    if (snapshot.child("restaurantId").value.toString() == RestaurantInfo.restaurantId.toString())
+                        snapshot.ref.removeValue()
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

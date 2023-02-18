@@ -8,6 +8,7 @@ import com.example.letsorder.util.Event
 import com.example.letsorder.util.FirebaseDatabaseSingleton
 import com.example.letsorder.model.Order
 import com.example.letsorder.model.Table
+import com.example.letsorder.util.RestaurantInfo
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -23,10 +24,15 @@ class TableStatusViewModel : ViewModel() {
     val tableNum: Int
         get() = TABLENUM
 
+    val tableExists = MutableLiveData<Event<Boolean>>()
     val isFree = MutableLiveData<Event<Boolean>>()
 
     fun onStateChanged(newState: Boolean) {
         isFree.postValue(Event(newState))
+    }
+
+    fun onStateChangedTable(newState: Boolean){
+        tableExists.postValue(Event(newState))
     }
 
     private val ref = FirebaseDatabaseSingleton.getInstance()
@@ -42,10 +48,14 @@ class TableStatusViewModel : ViewModel() {
                         val value = snapshot.getValue(Table::class.java)
                         value?.let {
                             if (it.tableNum == tableNum && it.restaurantId == restaurantId) {
-                                isTableFree(tableNum)
+                                RestaurantInfo.restaurantId = restaurantId
+                                TABLENUM = tableNum
+                                onStateChangedTable(true)
                             }
-                            // event for existing
                         }
+                    }
+                    if (RestaurantInfo.restaurantId == 0 && TABLENUM == 0){
+                        onStateChangedTable(false)
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {
@@ -54,19 +64,19 @@ class TableStatusViewModel : ViewModel() {
             })
     }
 
-    fun isTableFree(tableNum: Int) {
-        TABLENUM = tableNum
-        val query = ref.getReference("/publicOrders/").orderByChild("/tableNum/")
-            .equalTo(tableNum.toDouble()).limitToFirst(1)
-
+    fun isTableFree() {
+        val query = ref.getReference("publicOrders").orderByChild("restaurantId").equalTo(RestaurantInfo.restaurantId.toDouble())
         listener = query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.value == null) {
+                for (snapshot in dataSnapshot.children) {
+                    if (snapshot.child("tableNum").value.toString() == tableNum.toString()) {
+                        FREETABLE = false
+                        onStateChanged(false)
+                    }
+                    else FREETABLE = true
+                }
+                if (FREETABLE){
                     onStateChanged(true)
-                    FREETABLE = true
-                } else {
-                    FREETABLE = false
-                    onStateChanged(false)
                 }
             }
 

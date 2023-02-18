@@ -10,6 +10,7 @@ import com.example.letsorder.model.Dish
 import com.example.letsorder.model.Flag
 import com.example.letsorder.model.Order
 import com.example.letsorder.model.OrderDetails
+import com.example.letsorder.util.RestaurantInfo
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -57,7 +58,7 @@ class SummaryViewModel : ViewModel() {
                 bill = it,
                 dishes = dishes,
                 flagForWaiter = Flag.UNSEEN,
-                restaurantId = 1,
+                restaurantId = RestaurantInfo.restaurantId,
                 tableNum = TableStatusViewModel().tableNum
             )
         }
@@ -66,13 +67,15 @@ class SummaryViewModel : ViewModel() {
     }
 
     fun callWaiter(flag: Flag) {
-        val query =
-            ref.orderByChild("tableNum").equalTo(TableStatusViewModel().tableNum.toDouble())
-                .limitToFirst(1)
+        val query = ref.orderByChild("tableNum").equalTo(TableStatusViewModel().tableNum.toDouble())
         listener = query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                dataSnapshot.children.iterator().next().child("/flagForWaiter/").ref.setValue(flag)
-                query.removeEventListener(this)
+                for (snapshot in dataSnapshot.children) {
+                    if (snapshot.child("restaurantId").value.toString() == RestaurantInfo.restaurantId.toString()) {
+                        dataSnapshot.children.iterator().next().child("/flagForWaiter/").ref.setValue(flag)
+                        query.removeEventListener(this)
+                    }
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -82,6 +85,8 @@ class SummaryViewModel : ViewModel() {
     }
 
     fun removeListener(){
-        ref.removeEventListener(listener)
+        if (this::listener.isInitialized) {
+            ref.removeEventListener(listener)
+        }
     }
 }
