@@ -45,7 +45,7 @@ class MenuViewModel : ViewModel() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children){
                     if (snapshot.child("restaurantId").value.toString() == RestaurantInfo.restaurantId.toString())
-                    snapshot.ref.removeValue()
+                        snapshot.ref.removeValue()
                 }
             }
 

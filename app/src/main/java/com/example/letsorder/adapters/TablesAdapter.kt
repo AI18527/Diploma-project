@@ -51,13 +51,13 @@ class TablesAdapter(viewModel: TablesViewModel, val context: Context) :
         var table = tables[position]
 
         when (table.second) {
-            Flag.UNSEEN -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.green))
-            Flag.SEEN -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.mango_orange))
+            Flag.ACCEPT -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.green))
+            Flag.OK -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.mango_orange))
             Flag.CALL -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.mustard_yellow))
             Flag.BILL -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.dark_orange))
         }
 
-        holder.buttonTable.text = "Table ${table.first}"
+        holder.buttonTable.text = context.getString(R.string.table_num, table.first)
 
         holder.buttonTable.setOnClickListener {
             holder.view.findNavController().navigate(TablesFragmentDirections.actionTablesFragmentToOrderFragment(tableNum = table.first))

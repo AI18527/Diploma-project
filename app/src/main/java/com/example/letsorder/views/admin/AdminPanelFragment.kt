@@ -2,13 +2,13 @@ package com.example.letsorder.views.admin
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
+import com.example.letsorder.R
 import com.example.letsorder.util.RestaurantInfo
 import com.example.letsorder.databinding.FragmentAdminPanelBinding
 import com.example.letsorder.viewmodel.AdminViewModel
@@ -23,7 +23,6 @@ class AdminPanelFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("TAG", "HERE 2")
         viewModel.getOrders(RestaurantInfo.restaurantId)
     }
 
@@ -42,7 +41,7 @@ class AdminPanelFragment : Fragment() {
         _binding?.apply {
             viewModel.ordersNum.observe(viewLifecycleOwner){
                     ordersNum ->
-                ordersStat.text = "Orders for ${LocalDateTime.now().month}: $ordersNum"
+                ordersStat.text = getString(R.string.orders_stats, LocalDateTime.now().month, ordersNum)
             }
         }
     }

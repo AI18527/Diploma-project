@@ -29,17 +29,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
+            android:text="@string/bill_s"
             app:layout_constraintBottom_toTopOf="@+id/buttonDone"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
             android:id="@+id/buttonDone"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Close table"
+            android:text="@string/close_table"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/buttonDelete"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewOrder" />
+
+        <Button
+            android:id="@+id/buttonDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/dark_orange"
+            android:text="@string/delete_order"
+            android:layout_marginStart="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/buttonDone"
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewOrder" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

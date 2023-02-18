@@ -6,10 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.letsorder.R
 import com.example.letsorder.adapters.MenuAdapter
 import com.example.letsorder.databinding.FragmentMenuBinding
 import com.example.letsorder.viewmodel.MenuViewModel
@@ -37,8 +35,8 @@ class MenuFragment : Fragment() {
         recyclerView.adapter = MenuAdapter(viewModel)
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onDestroy() {
+        super.onDestroy()
         viewModel.removeListener()
     }
 

@@ -39,7 +39,6 @@ class TablesEditFragment : Fragment(), TableEditListener{
 
         _binding?.apply {
             buttonAddTable.setOnClickListener {
-                viewModel.doesTableExist(binding.inputNum.text.toString().toInt())
                 viewModel.addTable(binding.inputNum.text.toString().toInt(), binding.inputCapacity.text.toString().toInt())
             }
         }

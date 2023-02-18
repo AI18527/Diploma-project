@@ -44,8 +44,6 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
         recyclerView = binding.recyclerViewMenu
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        //TODO: better logic
-
         if (sharedViewModel.freeTable) {
             summaryRecyclerAdapter =
                 SummaryOrderAdapter(viewModel, LocalOrder().loadLocalOrder(), this)
@@ -73,7 +71,7 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
     }
 
     private fun showButtons() {
-        binding?.apply {
+        binding.apply {
             buttonOrder.visibility = View.INVISIBLE
             buttonCall.visibility = View.VISIBLE
             buttonPay.visibility = View.VISIBLE
@@ -99,10 +97,10 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
         }
     }
 
-    /*override fun onPause() {
-        super.onPause()
+    override fun onDestroy(){
+        super.onDestroy()
         viewModel.removeListener()
-    }*/
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

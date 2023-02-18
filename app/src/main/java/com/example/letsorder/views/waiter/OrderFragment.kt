@@ -57,16 +57,18 @@ class OrderFragment : Fragment() {
             recyclerView.adapter = OrderAdapter(orderList)
         }
         viewModel.bill.observe(viewLifecycleOwner) { bill ->
-            binding.orderBill.text = "Bill: ${NumberFormat.getCurrencyInstance().format(bill)}"
+            binding.orderBill.text = getString(R.string.bill_s, NumberFormat.getCurrencyInstance().format(bill).toString())
         }
 
         _binding?.apply {
             buttonDone.setOnClickListener {
-                viewModel.removeOrder(tableNum)
+                viewModel.removeOrder(tableNum, false)
                 findNavController().navigate(R.id.action_orderFragment_to_tablesFragment)
-                Navigation.findNavController(requireView()).popBackStack(
-                    R.id.orderFragment, true
-                )
+            }
+
+            buttonDelete.setOnClickListener {
+                viewModel.removeOrder(tableNum, true)
+                findNavController().navigate(R.id.action_orderFragment_to_tablesFragment)
             }
         }
     }

@@ -29,7 +29,7 @@
             android:id="@+id/buttonOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Order"
+            android:text="@string/order"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
             android:id="@+id/buttonCall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Call"
+            android:text="@string/call"
             android:visibility="invisible"
             app:cornerRadius="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -51,7 +51,7 @@
             android:id="@+id/buttonPay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bill"
+            android:text="@string/bill"
             android:visibility="invisible"
             app:cornerRadius="50dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -68,22 +68,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewMenu"/>
 
-        <!--<Button
-            android:id="@+id/buttonAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add order"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/buttonPay"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerViewMenu" />-->
-
         <TextView
             android:id="@+id/textBill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total: "
+            android:text="@string/total"
             android:textSize="24sp"
             android:textColor="@color/black"
             android:layout_marginStart="5dp"
@@ -94,7 +83,7 @@
             android:id="@+id/bill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24dp"
+            android:textSize="24sp"
             android:textColor="@color/mustard_yellow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider" />

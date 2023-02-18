@@ -55,7 +55,7 @@ class OrderViewModel : ViewModel() {
         })
     }
 
-    fun removeOrder(tableNum: Int) {
+    fun removeOrder(tableNum: Int, delete: Boolean) {
         val query =
             ref.getReference("/publicOrders/").orderByChild("tableNum").equalTo(tableNum.toDouble())
 
@@ -66,21 +66,17 @@ class OrderViewModel : ViewModel() {
                     val order = snapshot.getValue(Order::class.java)
                     order?.let {
                         if (it.restaurantId == RestaurantInfo.restaurantId) {
-                            moveOrder(order)
+                            if (!delete) moveOrder(order)
+                            snapshot.ref.removeValue()
                         }
                     }
                 }
-                dataSnapshot.children.iterator().next().ref.removeValue()
             }
 
             override fun onCancelled(error: DatabaseError) {
                 Log.w("TAG", "load:onCancelled", error.toException())
             }
         })
-    }
-
-    fun deleteOrder() {
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

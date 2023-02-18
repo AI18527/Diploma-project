@@ -2,6 +2,7 @@ package com.example.letsorder.views
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -74,18 +75,28 @@ class QRFragment : Fragment() {
             if (binding.restaurantId.text.toString() != "" &&
                 binding.tableNumber.text.toString() != ""
             ) {
-                RestaurantInfo.restaurantId = binding.restaurantId.text.toString().toInt()
                 sharedViewModel.getTable(
                     binding.restaurantId.text.toString().toInt(),
                     binding.tableNumber.text.toString().toInt()
                 )
-                sharedViewModel.isFree.observe(viewLifecycleOwner) { isFree: Event<Boolean> ->
-                    val free = isFree.handle()
-                    free?.let {
-                        if (free) {
-                            navigate()
+                sharedViewModel.tableExists.observe(viewLifecycleOwner) { tableExists ->
+                    val exists = tableExists.handle()
+                    exists?.let {
+                        if (exists) {
+                            sharedViewModel.isTableFree()
+                            sharedViewModel.isFree.observe(viewLifecycleOwner) { isFree: Event<Boolean> ->
+                                val free = isFree.handle()
+                                free?.let {
+                                    navigate()
+                                }
+                            }
+                        } else {
+                            Snackbar.make(
+                                view,
+                                "Wrong input. Check and enter again",
+                                Snackbar.LENGTH_SHORT
+                            ).show()
                         }
-                        navigate()
                     }
                 }
             } else {
@@ -96,6 +107,7 @@ class QRFragment : Fragment() {
                 ).show()
             }
         }
+
         binding.buttonLogin.setOnClickListener {
             if (binding.restaurantId.text.toString() != "") {
                 RestaurantInfo.restaurantId = binding.restaurantId.text.toString().toInt()

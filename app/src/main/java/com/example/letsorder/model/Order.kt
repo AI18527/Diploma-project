@@ -5,8 +5,8 @@ data class Order(
     val tableNum: Int = 0,
     var bill : Double = 0.0,
     var dishes: List<OrderDetails> = arrayListOf(),
-    var flagForWaiter: Flag = Flag.UNSEEN
+    var flagForWaiter: Flag = Flag.ACCEPT
 )
 enum class Flag {
-    SEEN, UNSEEN, CALL, BILL
+    OK, ACCEPT, CALL, BILL
 }

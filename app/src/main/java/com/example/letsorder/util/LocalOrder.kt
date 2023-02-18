@@ -5,30 +5,29 @@ import com.example.letsorder.model.Dish
 
 class LocalOrder {
     fun addDishToLocalOrder(dish: Dish): Map<Dish, Int> {
-        if (localOrder.containsKey(dish)) {
-            localOrder[dish] = localOrder.getValue(dish) + 1
+        if (LOCAL_ORDER.containsKey(dish)) {
+            LOCAL_ORDER[dish] = LOCAL_ORDER.getValue(dish) + 1
         } else {
-            localOrder[dish] = 1
+            LOCAL_ORDER[dish] = 1
         }
-        return localOrder
+        return LOCAL_ORDER
     }
 
     fun removeDishFromLocalOrder(dish: Dish): Map<Dish, Int> {
-        if (localOrder.getValue(dish) == 1) {
-            localOrder.remove(dish)
+        if (LOCAL_ORDER.getValue(dish) == 1) {
+            LOCAL_ORDER.remove(dish)
         } else {
-            localOrder[dish] = localOrder.getValue(dish) - 1
+            LOCAL_ORDER[dish] = LOCAL_ORDER.getValue(dish) - 1
         }
-
-        return localOrder
+        return LOCAL_ORDER
     }
 
     fun loadLocalOrder(): Map<Dish, Int> {
-        return localOrder
+        return LOCAL_ORDER
     }
 
     companion object {
-        private var localOrder = mutableMapOf<Dish, Int>()
+        private var LOCAL_ORDER = mutableMapOf<Dish, Int>()
 
     }
 }

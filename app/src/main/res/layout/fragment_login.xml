@@ -30,7 +30,7 @@
                 android:id="@+id/input_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter email"
+                android:hint="@string/enter_email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1" />
 
@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Enter password"
+                android:hint="@string/enter_password"
                 android:inputType="textPassword"
                 android:maxLines="1" />
 
@@ -62,7 +62,7 @@
             android:id="@+id/button_login"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="Log in"
+            android:text="@string/log_in"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
