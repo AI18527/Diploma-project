@@ -16,25 +16,25 @@ class NewDishViewModel : ViewModel() {
 
     private val ref = FirebaseDatabaseSingleton.getInstance().getReference("dishes")
 
-    fun addDishToMenu(category: String, title: String, description: String, price: Double) {
-        val newDish = Dish(category, title, description, price, RestaurantInfo.restaurantId)
-        ref.push().setValue(newDish)
-    }
+    fun addDishWithPick(title: String,category: String, description: String, price: Double, image: Uri?){
 
-    fun addDishWithPick(title: String,category: String, description: String, price: Double, image: Uri){
+        var newDish : Dish
+        if (image != null) {
+            val path = "images/" + UUID.randomUUID().toString()
+            val newImagesRef = storageRef.child(path)
+            val result = newImagesRef.putFile(image)
 
-        val path = "images/" + UUID.randomUUID().toString()
-        val newImagesRef = storageRef.child(path)
-        val result = newImagesRef.putFile(image)
+            result.addOnFailureListener {
+                Log.d("Error", "Could not upload the image")
+            }.addOnSuccessListener {
+                Log.d("TAG", "Success")
+            }
 
-        result.addOnFailureListener {
-            Log.d("Error", "Could not upload the image")
-        }.addOnSuccessListener {
-            Log.d("TAG", "Success")
+            newDish = Dish(category, title, description, price, RestaurantInfo.restaurantId, path)
         }
-
-
-        val newDish = Dish(category, title, description, price, RestaurantInfo.restaurantId,path)
+        else {
+            newDish = Dish(category, title, description, price, RestaurantInfo.restaurantId)
+        }
         ref.push().setValue(newDish)
     }
 }

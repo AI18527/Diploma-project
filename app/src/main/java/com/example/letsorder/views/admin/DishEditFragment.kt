@@ -1,9 +1,12 @@
 package com.example.letsorder.views.admin
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -19,6 +22,13 @@ class DishEditFragment : Fragment() {
     private var _binding: FragmentDishEditBinding? = null
     private val binding get() = _binding!!
 
+    private var image : Uri? = null
+
+    private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        image = uri
+        binding.imageView.setImageURI(uri)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,29 +41,17 @@ class DishEditFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.apply {
-            buttonAddImage.setOnClickListener {
-                if (checkInput()) {
-                    findNavController().navigate(
-                        DishEditFragmentDirections.actionDishEditFragmentToGalleryFragment(
-                            dishTitle = binding.editTitle.text.toString(),
-                            dishCategory = binding.editCategory.text.toString(),
-                            dishDescription = binding.editDescription.text.toString(),
-                            dishPrice = binding.editPrice.text.toString()
-                        )
-                    )
-                }
-                else {
-                    Snackbar.make(view, "Please fill all fields", Snackbar.LENGTH_LONG).show()
-                }
+            binding.buttonAddImage.setOnClickListener {
+                getContent.launch("image/*")
             }
-
             buttonAdd.setOnClickListener {
                 if (checkInput()) {
-                    viewModel.addDishToMenu(
-                        binding.editCategory.text.toString(),
+                    viewModel.addDishWithPick(
                         binding.editTitle.text.toString(),
+                        binding.editCategory.text.toString(),
                         binding.editDescription.text.toString(),
-                        binding.editPrice.text.toString().toDouble()
+                        binding.editPrice.text.toString().toDouble(),
+                        image
                     )
                     findNavController().navigate(R.id.action_dishEditFragment_to_menuEditFragment)
                 }
@@ -64,7 +62,7 @@ class DishEditFragment : Fragment() {
         }
     }
 
-    fun checkInput(): Boolean {
+    private fun checkInput(): Boolean {
         if (binding.editTitle.text.toString() == "" || binding.editPrice.text.toString() == "" || binding.editCategory.text.toString() == "" || binding.editDescription.text.toString() == ""){
             return false
         }
