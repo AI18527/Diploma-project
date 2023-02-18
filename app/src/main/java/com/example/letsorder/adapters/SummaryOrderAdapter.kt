@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
 import com.example.letsorder.model.Dish
@@ -41,7 +40,7 @@ class SummaryOrderAdapter(viewModel: SummaryViewModel, dataset: Map<Dish, Int>, 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SummaryOrderViewHolder {
         val view =
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_view_summary, parent, false)
+                .inflate(R.layout.item_summary_view, parent, false)
         return SummaryOrderViewHolder(view)
     }
 

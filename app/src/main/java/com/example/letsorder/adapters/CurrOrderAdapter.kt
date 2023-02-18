@@ -1,6 +1,5 @@
 package com.example.letsorder.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +27,7 @@ class CurrOrderAdapter(dataset: List<OrderDetails>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrOrderViewHolder {
         val view =
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_view_summary, parent, false)
+                .inflate(R.layout.item_summary_view, parent, false)
         return CurrOrderViewHolder(view)
     }
 

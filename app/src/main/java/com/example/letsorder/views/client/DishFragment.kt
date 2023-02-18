@@ -56,8 +56,7 @@ class DishFragment : Fragment() {
         drawable.strokeWidth = 8f
         drawable.start()
 
-        viewModel.dish.observe(viewLifecycleOwner){
-            dish ->
+        viewModel.dish.observe(viewLifecycleOwner) { dish ->
             binding.description.text = dish.description
             binding.price.text = NumberFormat.getCurrencyInstance().format(dish.price).toString()
 
@@ -66,20 +65,21 @@ class DishFragment : Fragment() {
                     .load("https://storage.googleapis.com/diploma-project-lets-order.appspot.com/${dish.image}")
                     .placeholder(drawable)
                     .into(binding.imageView)
-            }
-            else{
-                binding.imageView.background = resources.getDrawable(R.drawable.ic_baseline_image_24, resources.newTheme())
+            } else {
+                binding.imageView.background =
+                    resources.getDrawable(R.drawable.ic_baseline_image_24, resources.newTheme())
             }
 
-            if (!sharedViewModel.freeTable) {
-                binding.buttonAdd.visibility = View.INVISIBLE
+            if (sharedViewModel.freeTable) {
+                binding.buttonAdd.visibility = View.VISIBLE
             }
+
             binding.buttonAdd.setOnClickListener {
                 LocalOrder().addDishToLocalOrder(dish)
                 Snackbar.make(
                     view.findViewById(R.id.dishFragment),
                     "${dish.title} has been added to your order!",
-                    LENGTH_SHORT
+                    1000
                 ).show()
 
                 findNavController().navigate(R.id.action_dishFragment_to_menuFragment)
