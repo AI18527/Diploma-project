@@ -26,8 +26,9 @@ class TablesEditViewModel : ViewModel() {
             for (snapshot in dataSnapshot.children) {
                 val value = snapshot.getValue(Table::class.java)
                 value?.let{
-                    if (it.restaurantId == RestaurantInfo.restaurantId)
-                    tables.add(it)
+                    if (it.restaurantId == RestaurantInfo.restaurantId) {
+                        tables.add(it)
+                    }
                 }
             }
             _tables.postValue(tables.sortedBy { it.tableNum })

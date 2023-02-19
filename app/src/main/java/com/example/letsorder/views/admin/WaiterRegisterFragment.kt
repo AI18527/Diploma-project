@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.adapters.WaiterListAdapter
 import com.example.letsorder.databinding.FragmentWaiterRegisterBinding
 import com.example.letsorder.model.Waiter
+import com.example.letsorder.util.InputChecker
 import com.example.letsorder.viewmodel.WaiterEditViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class WaiterEditFragment : WaiterEditListener, Fragment() {
     val viewModel : WaiterEditViewModel by viewModels()
@@ -38,12 +40,25 @@ class WaiterEditFragment : WaiterEditListener, Fragment() {
 
         _binding?.apply {
             buttonRegister.setOnClickListener {
-                //Toast
-                viewModel.addWaiter(binding.inputName.text.toString(), binding.inputEmail.text.toString())
-                inputName.setText("")
-                inputEmail.setText("")
+                if (checkInput()) {
+                    viewModel.addWaiter(
+                        binding.inputName.text.toString(),
+                        binding.inputEmail.text.toString()
+                    )
+                    inputName.setText("")
+                    inputEmail.setText("")
+                }
+                else {
+                    Snackbar.make(view, "Please fill all fields", Snackbar.LENGTH_LONG).show()
+                }
             }
         }
+    }
+
+    private fun checkInput(): Boolean {
+        return InputChecker().checkInput(
+            arrayListOf(binding.inputName.text.toString(),
+                binding.inputEmail.text.toString()))
     }
 
     override fun onDestroyView() {

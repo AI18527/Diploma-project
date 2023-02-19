@@ -15,6 +15,7 @@ import com.example.letsorder.R
 import com.example.letsorder.util.LocalOrder
 import com.example.letsorder.databinding.FragmentDishBinding
 import com.example.letsorder.util.Event
+import com.example.letsorder.util.GlideApp
 import com.example.letsorder.viewmodel.DishViewModel
 import com.example.letsorder.viewmodel.TableStatusViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -62,7 +63,7 @@ class DishFragment : Fragment() {
             binding.price.text = NumberFormat.getCurrencyInstance().format(dish.price).toString()
 
             if (dish.image != null) {
-                Glide.with(this)
+                GlideApp.with(this)
                     .load("https://storage.googleapis.com/diploma-project-lets-order.appspot.com/${dish.image}")
                     .placeholder(drawable)
                     .into(binding.imageView)

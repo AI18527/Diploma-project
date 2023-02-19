@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.letsorder.R
 import com.example.letsorder.databinding.FragmentDishEditBinding
+import com.example.letsorder.util.InputChecker
 import com.example.letsorder.viewmodel.NewDishViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -63,9 +64,10 @@ class DishEditFragment : Fragment() {
     }
 
     private fun checkInput(): Boolean {
-        if (binding.editTitle.text.toString() == "" || binding.editPrice.text.toString() == "" || binding.editCategory.text.toString() == "" || binding.editDescription.text.toString() == ""){
-            return false
-        }
-        return true
+        return InputChecker().checkInput(
+            arrayListOf(binding.editTitle.text.toString(),
+                binding.editCategory.text.toString(),
+                binding.editDescription.text.toString(),
+                binding.editPrice.text.toString()))
     }
 }
