@@ -111,7 +111,7 @@ class QRFragment : Fragment() {
             }
         }
 
-        binding.buttonLogin.setOnClickListener {
+        binding.login.setOnClickListener {
             if (binding.restaurantId.text.toString() != "") {
                 RestaurantInfo.restaurantId = binding.restaurantId.text.toString().toInt()
                 findNavController().navigate(R.id.action_QRFragment_to_loginFragment)

@@ -44,7 +44,7 @@ class OrderViewModel : ViewModel() {
                             order = it
                         }
                         dataSnapshot.children.iterator().next()
-                            .child("/flagForWaiter/").ref.setValue("SEEN")
+                            .child("/flagForWaiter/").ref.setValue("OK")
                     }
                 }
             }

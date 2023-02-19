@@ -23,14 +23,15 @@
     <string name="restaurant_number">Restaurant number</string>
     <string name="capacity">Capacity</string>
     <string name="add_table">Add table</string>
-    <string name="add_new_waiter">Add new waiter:</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="register">Register</string>
-    <string name="your_waiters">Your waiters:</string>
     <string name="delete">Delete</string>
     <string name="sub">-</string>
     <string name="plus">+</string>
     <string name="table_num">Table %d</string>
     <string name="bill_s">Bill: %s</string>
+    <string name="waiters">Waiters</string>
+    <string name="tables">Tables</string>
+    <string name="register_new_waiter">Register new waiter</string>
 </resources>

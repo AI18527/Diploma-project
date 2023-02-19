@@ -22,9 +22,36 @@
             android:textSize="24sp"
             android:text="@string/orders_stats"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.535"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/buttonWaiters"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="108dp"
+            android:text="@string/waiters"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ordersStat" />
+
+        <Button
+            android:id="@+id/buttonMenu"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonWaiters" />
+
+        <Button
+            android:id="@+id/buttonTables"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tables"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonMenu" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

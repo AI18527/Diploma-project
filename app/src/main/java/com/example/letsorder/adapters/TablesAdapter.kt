@@ -1,16 +1,11 @@
 package com.example.letsorder.adapters
 
 import android.content.Context
-import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.getColor
-import androidx.core.content.ContextCompat.getDrawable
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.letsorder.R
@@ -47,13 +42,14 @@ class TablesAdapter(viewModel: TablesViewModel, val context: Context) :
     }
 
     override fun onBindViewHolder(holder: TablesViewHolder, position: Int) {
-        var tables = tables.toList().sortedBy { it.second }
+        var tables = tables.toList().sortedBy { it.second.ordinal }
         var table = tables[position]
 
         when (table.second) {
-            Flag.ACCEPT -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.green))
+            Flag.NEW -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.green))
             Flag.OK -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.mustard_yellow))
-            Flag.CALL -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.light_yellow))
+            Flag.CALL -> {holder.buttonTable.setBackgroundColor(getColor(context, R.color.light_yellow))
+                holder.buttonTable.setTextColor(getColor(context,R.color.dark_grey)) }
             Flag.BILL -> holder.buttonTable.setBackgroundColor(getColor(context, R.color.dark_orange))
         }
 

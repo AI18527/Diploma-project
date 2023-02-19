@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.letsorder.R
 import com.example.letsorder.util.RestaurantInfo
 import com.example.letsorder.databinding.FragmentAdminPanelBinding
@@ -39,6 +41,10 @@ class AdminPanelFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         _binding?.apply {
+            buttonWaiters.setOnClickListener {  findNavController().navigate(R.id.action_adminPanelFragment_to_waiterEditFragment)}
+            buttonMenu.setOnClickListener {  findNavController().navigate(R.id.action_adminPanelFragment_to_menuEditFragment)}
+            buttonTables.setOnClickListener { findNavController().navigate(R.id.action_adminPanelFragment_to_tablesEditFragment)}
+
             viewModel.ordersNum.observe(viewLifecycleOwner){
                     ordersNum ->
                 ordersStat.text = getString(R.string.orders_stats, LocalDateTime.now().month, ordersNum)

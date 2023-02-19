@@ -57,7 +57,7 @@ class SummaryViewModel : ViewModel() {
             Order(
                 bill = it,
                 dishes = dishes,
-                flagForWaiter = Flag.ACCEPT,
+                flagForWaiter = Flag.NEW,
                 restaurantId = RestaurantInfo.restaurantId,
                 tableNum = TableStatusViewModel().tableNum
             )
@@ -82,15 +82,5 @@ class SummaryViewModel : ViewModel() {
                 Log.w("TAG", "load:onCancelled", error.toException())
             }
         })
-    }
-
-    fun addListener(){
-        ref.addValueEventListener(listener)
-    }
-
-    fun removeListener(){
-        if (this::listener.isInitialized) {
-            ref.removeEventListener(listener)
-        }
     }
 }

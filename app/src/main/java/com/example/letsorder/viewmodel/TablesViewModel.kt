@@ -26,8 +26,9 @@ class TablesViewModel : ViewModel() {
             for (snapshot in dataSnapshot.children) {
                 val value = snapshot.getValue(Order::class.java)
                 value?.let {
-                    if (it.restaurantId == RestaurantInfo.restaurantId)
-                    tables[value.tableNum] = value.flagForWaiter
+                    if (it.restaurantId == RestaurantInfo.restaurantId) {
+                        tables[value.tableNum] = value.flagForWaiter
+                    }
                 }
             }
             _tables.postValue(tables)
