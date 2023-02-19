@@ -94,8 +94,11 @@ class LoginViewModel : ViewModel() {
     private fun singInAdmin(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-                if (task.isSuccessful) onStateChangedAdmin(true)
-                else onStateChangedLogin(false)
+                if (task.isSuccessful) {
+                    onStateChangedAdmin(true)
+                } else {
+                    onStateChangedLogin(false)
+                }
             }
     }
 
@@ -103,7 +106,7 @@ class LoginViewModel : ViewModel() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    onStateChangedAdmin(true)
+                    onStateChangedWaiter(true)
                 } else {
                     register(email, password)
                 }
