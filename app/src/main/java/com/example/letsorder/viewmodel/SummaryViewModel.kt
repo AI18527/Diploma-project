@@ -83,4 +83,10 @@ class SummaryViewModel : ViewModel() {
             }
         })
     }
+
+    fun removeListener(){
+        if(this::listener.isInitialized){
+            ref.removeEventListener(listener)
+        }
+    }
 }

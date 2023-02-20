@@ -62,6 +62,11 @@ class DishEditFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun checkInput(): Boolean {
         return InputChecker().checkInput(
             arrayListOf(binding.editTitle.text.toString(),

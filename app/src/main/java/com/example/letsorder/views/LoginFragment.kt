@@ -100,6 +100,11 @@ class LoginFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.removeListeners()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

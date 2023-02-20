@@ -62,6 +62,11 @@ class TablesEditFragment : Fragment(), TableEditListener {
                 binding.inputCapacity.text.toString()))
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.removeListeners()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

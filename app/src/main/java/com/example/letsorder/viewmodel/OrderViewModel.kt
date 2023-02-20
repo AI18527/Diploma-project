@@ -92,6 +92,8 @@ class OrderViewModel : ViewModel() {
     }
 
     fun removeListener() {
-        ref.getReference("/publicOrders/").removeEventListener(listener)
+        if (this::listener.isInitialized) {
+            ref.getReference("/publicOrders/").removeEventListener(listener)
+        }
     }
 }

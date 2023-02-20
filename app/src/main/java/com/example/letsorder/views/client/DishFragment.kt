@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.example.letsorder.R
@@ -82,6 +83,9 @@ class DishFragment : Fragment() {
                 ).show()
 
                 findNavController().navigate(R.id.action_dishFragment_to_menuFragment)
+                Navigation.findNavController(requireView()).popBackStack(
+                    R.id.dishFragment, true
+                )
             }
         }
     }

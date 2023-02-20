@@ -9,6 +9,7 @@ import com.example.letsorder.util.FirebaseDatabaseSingleton
 import com.example.letsorder.model.Order
 import com.example.letsorder.model.Table
 import com.example.letsorder.util.RestaurantInfo
+import com.example.letsorder.views.waiter.OrderFragment.Companion.TABLE_NUM
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -31,7 +32,7 @@ class TableStatusViewModel : ViewModel() {
         isFree.postValue(Event(newState))
     }
 
-    fun onStateChangedTable(newState: Boolean){
+    fun onStateChangedTable(newState: Boolean) {
         tableExists.postValue(Event(newState))
     }
 
@@ -54,10 +55,11 @@ class TableStatusViewModel : ViewModel() {
                             }
                         }
                     }
-                    if (RestaurantInfo.restaurantId == 0 && TABLE_NUM == 0){
+                    if (RestaurantInfo.restaurantId == 0 && TABLE_NUM == 0) {
                         onStateChangedTable(false)
                     }
                 }
+
                 override fun onCancelled(error: DatabaseError) {
                     Log.w("Error", "load:onCancelled", error.toException())
                 }
@@ -65,7 +67,8 @@ class TableStatusViewModel : ViewModel() {
     }
 
     fun isTableFree() {
-        val query = ref.getReference("publicOrders").orderByChild("restaurantId").equalTo(RestaurantInfo.restaurantId.toDouble())
+        val query = ref.getReference("publicOrders").orderByChild("restaurantId")
+            .equalTo(RestaurantInfo.restaurantId.toDouble())
         listener = query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var freeTable = true
@@ -75,7 +78,7 @@ class TableStatusViewModel : ViewModel() {
                         onStateChangedFree(false)
                     }
                 }
-                if (freeTable){
+                if (freeTable) {
                     onStateChangedFree(true)
                 }
             }
@@ -111,8 +114,16 @@ class TableStatusViewModel : ViewModel() {
     }
 
     fun removeListeners() {
-        ref.getReference("/tables/").removeEventListener(listenerTables)
-        ref.getReference("/publicOrders/").removeEventListener(listener)
+        if (this::listener.isInitialized) {
+            ref.getReference("/publicOrders/").removeEventListener(listener)
+        }
+        if (this::listenerTables.isInitialized) {
+            ref.getReference("/tables/").removeEventListener(listenerTables)
+        }
+        if (this::listenerPublicOrders.isInitialized) {
+            ref.getReference("/publicOrders/").removeEventListener(listenerPublicOrders)
+        }
+
     }
 
     companion object {

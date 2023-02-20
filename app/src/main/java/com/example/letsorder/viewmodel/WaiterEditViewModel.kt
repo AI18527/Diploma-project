@@ -52,8 +52,9 @@ class WaiterEditViewModel : ViewModel() {
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (snapshot in dataSnapshot.children) {
-                    if (snapshot.child("restaurantId").value.toString() == RestaurantInfo.restaurantId.toString())
-                    snapshot.ref.removeValue()
+                    if (snapshot.child("restaurantId").value.toString() == RestaurantInfo.restaurantId.toString()) {
+                        snapshot.ref.removeValue()
+                    }
                 }
             }
 

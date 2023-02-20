@@ -113,7 +113,11 @@ class LoginViewModel : ViewModel() {
     }
 
     fun removeListeners(){
-        ref.getReference("/restaurants/").removeEventListener(listenerRestaurant)
-        ref.getReference("/waiters/").removeEventListener(listenerWaiters)
+        if (this::listenerRestaurant.isInitialized) {
+            ref.getReference("/restaurants/").removeEventListener(listenerRestaurant)
+        }
+        if (this::listenerWaiters.isInitialized){
+            ref.getReference("/waiters/").removeEventListener(listenerWaiters)
+        }
     }
 }

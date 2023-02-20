@@ -43,6 +43,8 @@ class AdminViewModel : ViewModel(){
     }
 
     fun removeListener(){
-        ref.getReference("/orders/").removeEventListener(listenerOrders)
+        if (this::listenerOrders.isInitialized) {
+            ref.getReference("/orders/").removeEventListener(listenerOrders)
+        }
     }
 }

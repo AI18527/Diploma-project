@@ -22,6 +22,14 @@
             app:layout_constraintTop_toBottomOf="@id/textFieldRNum"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/buttonScan"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Scan QR"
+            app:layout_constraintTop_toBottomOf="@id/buttonMenu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/login"

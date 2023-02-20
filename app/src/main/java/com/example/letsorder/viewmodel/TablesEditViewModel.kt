@@ -60,8 +60,10 @@ class TablesEditViewModel : ViewModel() {
         })
     }
 
-    fun removeListener(){
-        ref.removeEventListener(listener)
+    fun removeListeners(){
+        if (this::listener.isInitialized) {
+            ref.removeEventListener(listener)
+        }
         ref.removeEventListener(listenerTables)
     }
 }

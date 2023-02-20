@@ -35,8 +35,8 @@ class MenuFragment : Fragment() {
         recyclerView.adapter = MenuAdapter(viewModel)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onPause() {
+        super.onPause()
         viewModel.removeListener()
     }
 

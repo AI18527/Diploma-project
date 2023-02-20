@@ -91,7 +91,10 @@ class QRFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getPick.launch()
+
+        binding.buttonScan.setOnClickListener {
+            getPick.launch()
+        }
 
         binding.buttonMenu.setOnClickListener {
             if (binding.restaurantId.text.toString() != "" &&
@@ -147,6 +150,11 @@ class QRFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.removeListeners()
     }
 
     override fun onDestroyView() {
