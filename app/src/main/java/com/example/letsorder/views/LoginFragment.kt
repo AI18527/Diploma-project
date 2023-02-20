@@ -107,15 +107,9 @@ class LoginFragment : Fragment() {
 
     private fun navigateToAdmin() {
         startActivity(Intent(activity, AdminMain::class.java))
-        Navigation.findNavController(requireView()).popBackStack(
-            R.id.loginFragment, true
-        )
     }
 
     private fun navigateToWaiter() {
         startActivity(Intent(activity, WaiterMain::class.java))
-        Navigation.findNavController(requireView()).popBackStack(
-            R.id.loginFragment, true
-        )
     }
 }
