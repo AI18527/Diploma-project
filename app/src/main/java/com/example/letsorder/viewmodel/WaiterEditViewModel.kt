@@ -21,12 +21,13 @@ class WaiterEditViewModel : ViewModel() {
 
     private var listener : ValueEventListener = ref.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
-            var waiters = arrayListOf<Waiter>()
+            val waiters = arrayListOf<Waiter>()
             for (snapshot in dataSnapshot.children) {
                 val value = snapshot.getValue(Waiter::class.java)
                 value?.let{
-                    if (it.restaurantId == RestaurantInfo.restaurantId)
-                    waiters.add(it)
+                    if (it.restaurantId == RestaurantInfo.restaurantId) {
+                        waiters.add(it)
+                    }
                 }
             }
             _waiters.postValue(waiters)
@@ -60,5 +61,8 @@ class WaiterEditViewModel : ViewModel() {
                 Log.w("TAG", "load:onCancelled", error.toException())
             }
         })
+    }
+    fun removeListener() {
+        ref.removeEventListener(listener)
     }
 }

@@ -2,7 +2,6 @@ package com.example.letsorder.views
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -51,20 +50,20 @@ class LoginFragment : Fragment() {
                         inputEmail.text.toString(),
                         inputPassword.text.toString()
                     )
-                    viewModel.isAdmin.observe(viewLifecycleOwner) { data: Event<Boolean> ->
-                        val d = data.handle()
-                        d?.let {
-                            if (d) {
+                    viewModel.isAdmin.observe(viewLifecycleOwner) { isAdmin: Event<Boolean> ->
+                        val admin = isAdmin.handle()
+                        admin?.let {
+                            if (admin) {
                                 navigateToAdmin()
                             } else {
                                 viewModel.isWaiter(
                                     inputEmail.text.toString(),
                                     inputPassword.text.toString()
                                 )
-                                viewModel.isWaiter.observe(viewLifecycleOwner) { data: Event<Boolean> ->
-                                    val d = data.handle()
-                                    d?.let {
-                                        if (d) {
+                                viewModel.isWaiter.observe(viewLifecycleOwner) { isWaiter: Event<Boolean> ->
+                                    val waiter = isWaiter.handle()
+                                    waiter?.let {
+                                        if (waiter) {
                                             navigateToWaiter()
                                         } else {
                                             Snackbar.make(
@@ -108,7 +107,6 @@ class LoginFragment : Fragment() {
 
     private fun navigateToAdmin() {
         startActivity(Intent(activity, AdminMain::class.java))
-        Log.d("TAG", "HERE")
         Navigation.findNavController(requireView()).popBackStack(
             R.id.loginFragment, true
         )

@@ -22,7 +22,7 @@ class TablesEditViewModel : ViewModel() {
 
     private var listenerTables : ValueEventListener = ref.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
-            var tables = arrayListOf<Table>()
+            val tables = arrayListOf<Table>()
             for (snapshot in dataSnapshot.children) {
                 val value = snapshot.getValue(Table::class.java)
                 value?.let{

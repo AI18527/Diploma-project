@@ -3,7 +3,6 @@ package com.example.letsorder.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.letsorder.model.Waiter
 import com.example.letsorder.util.Event
 import com.example.letsorder.util.FirebaseDatabaseSingleton
 import com.example.letsorder.util.RestaurantInfo

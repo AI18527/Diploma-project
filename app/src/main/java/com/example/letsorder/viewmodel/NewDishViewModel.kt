@@ -11,29 +11,24 @@ import com.google.firebase.storage.ktx.storage
 import java.util.*
 
 class NewDishViewModel : ViewModel() {
-    val storage = Firebase.storage
+    private val storage = Firebase.storage
     var storageRef = storage.reference
 
     private val ref = FirebaseDatabaseSingleton.getInstance().getReference("dishes")
 
-    fun addDishWithPick(title: String,category: String, description: String, price: Double, image: Uri?){
+    fun addDishToMenu(title: String, category: String, description: String, price: Double, image: Uri?){
 
-        var newDish : Dish
-        if (image != null) {
+        var newDish : Dish = if (image != null) {
             val path = "images/" + UUID.randomUUID().toString()
             val newImagesRef = storageRef.child(path)
             val result = newImagesRef.putFile(image)
 
             result.addOnFailureListener {
                 Log.d("Error", "Could not upload the image")
-            }.addOnSuccessListener {
-                Log.d("TAG", "Success")
             }
-
-            newDish = Dish(category, title, description, price, RestaurantInfo.restaurantId, path)
-        }
-        else {
-            newDish = Dish(category, title, description, price, RestaurantInfo.restaurantId)
+            Dish(category, title, description, price, RestaurantInfo.restaurantId, path)
+        } else {
+            Dish(category, title, description, price, RestaurantInfo.restaurantId)
         }
         ref.push().setValue(newDish)
     }

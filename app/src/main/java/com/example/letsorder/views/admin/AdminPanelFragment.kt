@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.letsorder.R
 import com.example.letsorder.util.RestaurantInfo

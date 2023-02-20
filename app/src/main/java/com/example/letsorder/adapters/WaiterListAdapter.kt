@@ -11,7 +11,7 @@ import com.example.letsorder.model.Waiter
 import com.example.letsorder.viewmodel.WaiterEditViewModel
 import com.example.letsorder.views.admin.WaiterEditListener
 
-class WaiterListAdapter(viewModel: WaiterEditViewModel, val waiterEditListener: WaiterEditListener) :
+class WaiterListAdapter(viewModel: WaiterEditViewModel, private val waiterEditListener: WaiterEditListener) :
     RecyclerView.Adapter<WaiterListAdapter.WaiterListViewHolder>() {
 
     private val waiters = ArrayList<Waiter>()

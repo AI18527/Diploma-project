@@ -64,6 +64,9 @@ class OrderFragment : Fragment() {
             buttonDone.setOnClickListener {
                 viewModel.removeOrder(tableNum, false)
                 findNavController().navigate(R.id.action_orderFragment_to_tablesFragment)
+                Navigation.findNavController(requireView()).popBackStack(
+                    R.id.orderFragment, true
+                )
             }
 
             buttonDelete.setOnClickListener {

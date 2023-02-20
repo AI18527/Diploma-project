@@ -11,7 +11,7 @@ import com.example.letsorder.model.Dish
 import com.example.letsorder.viewmodel.MenuViewModel
 import com.example.letsorder.views.admin.DishEditListener
 
-class MenuAdminAdapter(viewModel: MenuViewModel, val dishEditListener: DishEditListener) :
+class MenuAdminAdapter(viewModel: MenuViewModel, private val dishEditListener: DishEditListener) :
     RecyclerView.Adapter<MenuAdminAdapter.MenuEditViewHolder>() {
 
     private val menu = ArrayList<Dish>()

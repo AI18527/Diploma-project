@@ -19,7 +19,7 @@ class TableStatusViewModel : ViewModel() {
         get() = _tableOrder
 
     val tableNum: Int
-        get() = TABLENUM
+        get() = TABLE_NUM
 
     val freeTable: Boolean
         get() = FREE_TABLE
@@ -49,12 +49,12 @@ class TableStatusViewModel : ViewModel() {
                         value?.let {
                             if (it.tableNum == tableNum && it.restaurantId == restaurantId) {
                                 RestaurantInfo.restaurantId = restaurantId
-                                TABLENUM = tableNum
+                                TABLE_NUM = tableNum
                                 onStateChangedTable(true)
                             }
                         }
                     }
-                    if (RestaurantInfo.restaurantId == 0 && TABLENUM == 0){
+                    if (RestaurantInfo.restaurantId == 0 && TABLE_NUM == 0){
                         onStateChangedTable(false)
                     }
                 }
@@ -116,7 +116,7 @@ class TableStatusViewModel : ViewModel() {
     }
 
     companion object {
-        private var TABLENUM: Int = 0
+        private var TABLE_NUM: Int = 0
         var FREE_TABLE: Boolean = true
     }
 }

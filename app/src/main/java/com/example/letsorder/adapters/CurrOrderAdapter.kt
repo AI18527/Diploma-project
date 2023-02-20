@@ -15,10 +15,10 @@ class CurrOrderAdapter(dataset: List<OrderDetails>) :
     private var allDishes: List<OrderDetails> = dataset
 
     class CurrOrderViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val title = view.findViewById<TextView>(R.id.title)
-        val quantity = view.findViewById<TextView>(R.id.quantity)
-        val buttonAdd = view.findViewById<Button>(R.id.buttonAdd)
-        val buttonSub = view.findViewById<Button>(R.id.buttonSubtract)
+        val title = view.findViewById<TextView>(R.id.title)!!
+        val quantity = view.findViewById<TextView>(R.id.quantity)!!
+        val buttonAdd = view.findViewById<Button>(R.id.buttonAdd)!!
+        val buttonSub = view.findViewById<Button>(R.id.buttonSubtract)!!
     }
 
     override fun getItemCount(): Int = allDishes.size

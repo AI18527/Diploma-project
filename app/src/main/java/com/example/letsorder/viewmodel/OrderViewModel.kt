@@ -56,9 +56,7 @@ class OrderViewModel : ViewModel() {
     }
 
     fun removeOrder(tableNum: Int, delete: Boolean) {
-        val query =
-            ref.getReference("/publicOrders/").orderByChild("tableNum").equalTo(tableNum.toDouble())
-
+        val query = ref.getReference("/publicOrders/").orderByChild("tableNum").equalTo(tableNum.toDouble())
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onDataChange(dataSnapshot: DataSnapshot) {
