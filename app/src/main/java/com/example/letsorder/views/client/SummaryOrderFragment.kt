@@ -61,12 +61,14 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
                 sharedViewModel.isFree.observe(viewLifecycleOwner) { isFree: Event<Boolean> ->
                     val free = isFree.handle()
                     free?.let {
-                        if (free){
+                        if (free && !SENDED){
                             viewModel.sendOrder()
                             sharedViewModel.takeTable()
                             showButtons()
+                            SENDED = true
                         }
                         else {
+                            SENDED = true
                             sharedViewModel.getOrder()
                             sharedViewModel.tableOrder.observe(viewLifecycleOwner) { order ->
                                 recyclerView.adapter = CurrOrderAdapter(order.dishes)
@@ -130,6 +132,10 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
         val updatedSummary = LocalOrder().removeDishFromLocalOrder(dish)
         summaryRecyclerAdapter.updateData(updatedSummary)
         viewModel.updateData(updatedSummary)
+    }
+
+    companion object{
+        var SENDED = false
     }
 }
 
