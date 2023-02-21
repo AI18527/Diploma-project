@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.Glide
 import com.example.letsorder.R
 import com.example.letsorder.util.LocalOrder
 import com.example.letsorder.databinding.FragmentDishBinding
@@ -61,7 +62,7 @@ class DishFragment : Fragment() {
             binding.price.text = NumberFormat.getCurrencyInstance().format(dish.price).toString()
 
             if (dish.image != null) {
-                GlideApp.with(this)
+                Glide.with(this)
                     .load("https://storage.googleapis.com/diploma-project-lets-order.appspot.com/${dish.image}")
                     .placeholder(drawable)
                     .into(binding.imageView)
