@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -17,6 +18,7 @@ import com.example.letsorder.adapters.SummaryOrderAdapter
 import com.example.letsorder.databinding.FragmentSummaryOrderBinding
 import com.example.letsorder.model.Dish
 import com.example.letsorder.model.Flag
+import com.example.letsorder.util.Event
 import com.example.letsorder.viewmodel.SummaryViewModel
 import com.example.letsorder.viewmodel.TableStatusViewModel
 import java.text.NumberFormat
@@ -55,9 +57,26 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
                     NumberFormat.getCurrencyInstance().format(bill).toString()
             }
             binding.buttonOrder.setOnClickListener {
-                viewModel.sendOrder()
-                sharedViewModel.takeTable()
-                showButtons()
+                sharedViewModel.isTableFree()
+                sharedViewModel.isFree.observe(viewLifecycleOwner) { isFree: Event<Boolean> ->
+                    val free = isFree.handle()
+                    free?.let {
+                        if (free){
+                            viewModel.sendOrder()
+                            sharedViewModel.takeTable()
+                            showButtons()
+                        }
+                        else {
+                            sharedViewModel.getOrder()
+                            sharedViewModel.tableOrder.observe(viewLifecycleOwner) { order ->
+                                recyclerView.adapter = CurrOrderAdapter(order.dishes)
+                                binding.bill.text =
+                                    NumberFormat.getCurrencyInstance().format(order.bill).toString()
+                            }
+                            showButtons()
+                        }
+                    }
+                }
             }
         } else {
             sharedViewModel.getOrder()
