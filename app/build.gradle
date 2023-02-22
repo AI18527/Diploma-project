@@ -58,6 +58,10 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-storage:7.2.0'
 
     implementation 'com.github.bumptech.glide:glide:4.14.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
     kapt 'com.github.bumptech.glide:compiler:4.14.2'
 
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
@@ -70,6 +74,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
 
     implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
     implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
