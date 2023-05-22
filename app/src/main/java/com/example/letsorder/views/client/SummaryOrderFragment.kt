@@ -77,6 +77,8 @@ class SummaryOrderFragment : SummaryEditListener, Fragment() {
                             }
                             showButtons()
                         }
+                        // Todo: add flag to know when all people are ready + table to have variable for this table menu openings
+                        // Todo: check this flag in the waiter
                     }
                 }
             }

@@ -19,17 +19,19 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="@string/menu"
-            app:layout_constraintTop_toBottomOf="@id/textFieldRNum"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textFieldRNum" />
+
         <Button
             android:id="@+id/buttonScan"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="Scan QR"
-            app:layout_constraintTop_toBottomOf="@id/buttonMenu"
+            android:text="Scan QR      "
+            app:icon="@drawable/ic_baseline_qr_code_scanner_24"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonMenu" />
 
         <TextView
             android:id="@+id/login"

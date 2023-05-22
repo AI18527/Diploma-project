@@ -1,15 +1,22 @@
 package com.example.letsorder.adapters
 
+import android.nfc.cardemulation.CardEmulation
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.letsorder.R
 import com.example.letsorder.model.Dish
 import com.example.letsorder.viewmodel.MenuViewModel
+import com.example.letsorder.views.admin.DishEditListener
 import com.example.letsorder.views.client.MenuFragmentDirections
+import com.example.letsorder.views.client.SummaryEditListener
+import java.text.NumberFormat
 
 import kotlin.collections.ArrayList
 
@@ -27,7 +34,10 @@ class MenuAdapter(viewModel: MenuViewModel) :
     }
 
     class MenuViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val buttonDish = view.findViewById<Button>(R.id.button_dish)!!
+        val cardDish = view.findViewById<CardView>(R.id.card)!!
+        val title = view.findViewById<TextView>(R.id.title)!!
+        val category = view.findViewById<TextView>(R.id.category)!!
+        val price = view.findViewById<TextView>(R.id.price)!!
     }
 
     override fun getItemCount(): Int = menu.size
@@ -41,8 +51,11 @@ class MenuAdapter(viewModel: MenuViewModel) :
     override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {
         val dish = menu[position]
 
-        holder.buttonDish.text = dish.title
-        holder.buttonDish.setOnClickListener {
+        holder.title.text = dish.title
+        holder.category.text = dish.category
+        holder.price.text = NumberFormat.getCurrencyInstance().format(dish.price).toString()
+
+        holder.cardDish.setOnClickListener {
             holder.view.findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToDishFragment(dishTitle = dish.title))
         }
     }

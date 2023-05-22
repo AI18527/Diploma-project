@@ -10,6 +10,7 @@ import com.example.letsorder.R
 import com.example.letsorder.model.Dish
 import com.example.letsorder.viewmodel.MenuViewModel
 import com.example.letsorder.views.admin.DishEditListener
+import java.text.NumberFormat
 
 class MenuAdminAdapter(viewModel: MenuViewModel, private val dishEditListener: DishEditListener) :
     RecyclerView.Adapter<MenuAdminAdapter.MenuEditViewHolder>() {
@@ -44,7 +45,7 @@ class MenuAdminAdapter(viewModel: MenuViewModel, private val dishEditListener: D
 
         holder.title.text = dish.title
         holder.category.text = dish.category
-        holder.price.text = dish.price.toString()
+        holder.price.text = NumberFormat.getCurrencyInstance().format(dish.price).toString()
 
         holder.buttonDelete.setOnClickListener {
             dishEditListener.dishDeleted(dish.title)

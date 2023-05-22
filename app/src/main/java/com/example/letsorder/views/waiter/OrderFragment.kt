@@ -72,6 +72,9 @@ class OrderFragment : Fragment() {
             buttonDelete.setOnClickListener {
                 viewModel.removeOrder(tableNum, true)
                 findNavController().navigate(R.id.action_orderFragment_to_tablesFragment)
+                Navigation.findNavController(requireView()).popBackStack(
+                    R.id.orderFragment, true
+                )
             }
         }
     }

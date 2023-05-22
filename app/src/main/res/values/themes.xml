@@ -6,12 +6,13 @@
         <item name="colorPrimaryVariant">@color/mango_orange</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#000000</item>
-        <item name="colorSecondaryVariant">#757575</item>
+        <item name="colorSecondary">#757575</item>
+        <item name="colorSecondaryVariant">#000000</item>
         <item name="colorOnSecondary">#E3E3E3</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">

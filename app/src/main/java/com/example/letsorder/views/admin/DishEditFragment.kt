@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.letsorder.R
 import com.example.letsorder.databinding.FragmentDishEditBinding
@@ -54,6 +55,9 @@ class DishEditFragment : Fragment() {
                         image
                     )
                     findNavController().navigate(R.id.action_dishEditFragment_to_menuEditFragment)
+                    Navigation.findNavController(requireView()).popBackStack(
+                        R.id.dishEditFragment, true
+                    )
                 }
                 else {
                     Snackbar.make(view, "Please fill all fields", Snackbar.LENGTH_LONG).show()

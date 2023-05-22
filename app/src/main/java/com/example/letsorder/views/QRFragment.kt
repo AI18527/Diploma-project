@@ -22,6 +22,7 @@ import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
+import org.json.JSONException
 import org.json.JSONObject
 
 
@@ -60,21 +61,43 @@ class QRFragment : Fragment() {
                     for (barcode in barcodes) {
                         when (barcode.valueType) {
                             Barcode.TYPE_TEXT -> {
-                                json = JSONObject(barcode.rawValue.toString())
-                                when (json!!.getString("user")) {
-                                    "client" -> {
-                                        viewModel.getTable(
-                                            json!!.getInt("restaurantId"),
-                                            json!!.getInt("tableNum")
-                                        )
-                                        view?.let { client(it) }
-                                    }
-                                    "worker" -> {
-                                        RestaurantInfo.restaurantId = json!!.getInt("restaurantId")
-                                        findNavController().navigate(R.id.action_QRFragment_to_loginFragment)
+                                try{
+                                    json = JSONObject(barcode.rawValue.toString())
+                                }catch (e: JSONException){
+                                    json = null
+                                    view?.let {
+                                        Snackbar.make(
+                                            it,
+                                            "Cannot use the QR here. Please enter the information here instead.",
+                                            Snackbar.LENGTH_SHORT
+                                        ).show()
                                     }
                                 }
-
+                                if (qrJsonCheck(json!!)) {
+                                    when (json!!.getString("user")) {
+                                        "client" -> {
+                                            viewModel.getTable(
+                                                json!!.getInt("restaurantId"),
+                                                json!!.getInt("tableNum")
+                                            )
+                                            view?.let { client(it) }
+                                        }
+                                        "worker" -> {
+                                            RestaurantInfo.restaurantId =
+                                                json!!.getInt("restaurantId")
+                                            findNavController().navigate(R.id.action_QRFragment_to_loginFragment)
+                                        }
+                                    }
+                                }
+                                else {
+                                    view?.let {
+                                        Snackbar.make(
+                                            it,
+                                            "The QR code is invalid. Please enter the information here instead.",
+                                            Snackbar.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                }
                             }
                         }
                     }
@@ -165,5 +188,37 @@ class QRFragment : Fragment() {
     private fun navigate() {
         startActivity(Intent(activity, ClientMain::class.java))
         viewModel.removeListeners()
+    }
+
+    private fun qrJsonCheck(json : JSONObject): Boolean{
+        if (json.has("user")) {
+            if (json.get("user") == "client"){
+                if (json.has("tableNum") && json.has("restaurantId")) {
+                    if (json.get("restaurantId") !is Int || json.get("tableNum") !is Int){
+                        return false
+                    }
+                }
+                else{
+                    return false
+                }
+            }
+            else if (json.get("user") == "worker"){
+                if (json.has("restaurantId")) {
+                    if (json.get("restaurantId") !is Int){
+                        return false
+                    }
+                }
+                else{
+                    return false
+                }
+            }
+            else{
+                return false
+            }
+            return true
+        }
+        else{
+            return false
+        }
     }
 }

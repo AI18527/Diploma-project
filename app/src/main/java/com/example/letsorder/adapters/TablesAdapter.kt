@@ -12,6 +12,7 @@ import com.example.letsorder.R
 import com.example.letsorder.model.Flag
 import com.example.letsorder.viewmodel.TablesViewModel
 import com.example.letsorder.views.waiter.TablesFragmentDirections
+import kotlinx.coroutines.NonDisposableHandle.parent
 
 class TablesAdapter(viewModel: TablesViewModel, val context: Context) :
     RecyclerView.Adapter<TablesAdapter.TablesViewHolder>() {

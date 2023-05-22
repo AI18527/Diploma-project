@@ -63,7 +63,7 @@ class SummaryViewModel : ViewModel() {
             )
         }
         ref.push().setValue(newOrder)
-        _sent.postValue(true)
+            .addOnSuccessListener { _sent.postValue(true)  }
     }
 
     fun callWaiter(flag: Flag) {
